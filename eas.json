@@ -15,8 +15,7 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      },
-      "prebuildCommand": "./scripts/eas-build-pre-install.sh"
+      }
     },
     "preview": {
       "distribution": "internal",
@@ -25,8 +24,7 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      },
-      "prebuildCommand": "./scripts/eas-build-pre-install.sh"
+      }
     },
     "production": {
       "android": {
@@ -37,8 +35,7 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      },
-      "prebuildCommand": "./scripts/eas-build-pre-install.sh"
+      }
     }
   },
   "submit": {
