@@ -1,3 +1,4 @@
+cat > eas-build-pre-install.sh << 'EOF'
 #!/bin/bash
 echo "🔧 Running pre-install script..."
 
