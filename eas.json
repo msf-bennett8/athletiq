@@ -15,7 +15,8 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      }
+      },
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
@@ -24,7 +25,8 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      }
+      },
+      "channel": "preview"
     },
     "production": {
       "android": {
@@ -35,7 +37,8 @@
       },
       "env": {
         "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
-      }
+      },
+      "channel": "production"
     }
   },
   "submit": {
