@@ -82,13 +82,14 @@ try {
   } else {
     console.log('📱 Initializing React Native Firebase...');
     
-    const app = require('@react-native-firebase/app').default;
-    const app = initializeApp(firebaseConfig);
+    // FIXED: Remove duplicate 'app' declaration
+    const rnFirebaseApp = require('@react-native-firebase/app').default;
+    const firebaseConfig = getFirebaseConfig();
     const authModule = require('@react-native-firebase/auth').default;
     const firestoreModule = require('@react-native-firebase/firestore').default;
     const storageModule = require('@react-native-firebase/storage').default;
 
-    firebaseApp = app();
+    firebaseApp = rnFirebaseApp();
     auth = authModule();
     db = firestoreModule();
     storage = storageModule();
