@@ -29,7 +29,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BlurView } from '../../../components/shared/BlurView';
 import { LinearGradient } from '../../../components/shared/BlurView';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PushNotification from 'react-native-push-notification';
+import * as Notifications from 'expo-notifications';
 
 // Design system imports
 import { COLORS, SPACING, TEXT_STYLES } from '../constants/theme';

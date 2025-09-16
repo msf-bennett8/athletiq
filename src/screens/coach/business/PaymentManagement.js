@@ -52,8 +52,8 @@ try {
     SecureStore = require('expo-secure-store');
     Device = require('expo-device');
     Application = require('expo-application');
-    // Use react-native-push-notification instead of expo-notifications
-    PushNotification = require('react-native-push-notification');
+    // Use expo-notifications for Expo compatibility
+    import * as Notifications from 'expo-notifications';
     
     // Create expo-notifications-like interface
     Notifications = {
