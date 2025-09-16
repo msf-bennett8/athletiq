@@ -64,7 +64,9 @@
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-secure-store"
     ],
     "updates": {
       "enabled": true,
