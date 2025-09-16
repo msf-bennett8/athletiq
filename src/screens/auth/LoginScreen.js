@@ -88,7 +88,7 @@ const cleanupDuplicateUsers = async () => {
   // Configure WebBrowser
   WebBrowser.maybeCompleteAuthSession();
 
-  const LoginScreen = ({ navigation }) => {
+  const LoginScreen = ({ navigation, route }) => {
   const [loginInput, setLoginInput] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
