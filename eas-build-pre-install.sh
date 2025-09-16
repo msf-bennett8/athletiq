@@ -1,5 +1,3 @@
-# Create the hook script in project root (EAS Build looks for this automatically)
-cat > eas-build-pre-install.sh << 'EOF'
 #!/bin/bash
 echo "🔧 Running pre-install script..."
 
@@ -24,9 +22,3 @@ fi
 
 echo "🚀 Pre-install script completed successfully"
 EOF
-
-# Make it executable
-chmod +x eas-build-pre-install.sh
-
-# Remove the scripts directory version (we don't need it anymore)
-rm -rf scripts/
