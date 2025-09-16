@@ -42,7 +42,6 @@ import { BlurView } from '../../../components/shared/BlurView';
 import { LinearGradient } from '../../../components/shared/LinearGradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { LineChart, BarChart, PieChart } from 'react-native-chart-kit';
-import * as Notifications from 'expo-notifications';
 
 // Platform-specific imports with proper error handling
 let LocalAuthentication, SecureStore, Device, Application, Notifications, PushNotification;
