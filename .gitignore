@@ -237,7 +237,6 @@ output.json
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
 
 # Freeline
 freeline.py
@@ -294,4 +293,3 @@ react-native-debugger
 
 # Expo (if using Expo)
 .expo/
-.expo-shared/google-services.json
