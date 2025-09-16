@@ -66,6 +66,9 @@ const ForgotPasswordScreen = ({ navigation, route }) => {
   const [firebaseEmailSent, setFirebaseEmailSent] = useState(false);
   const [availableMethods, setAvailableMethods] = useState([]);
   const [passwordStrength, setPasswordStrength] = useState({ score: 0, feedback: '' });
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [passwordValidationInProgress, setPasswordValidationInProgress] = useState(false);
 
   useEffect(() => {
     checkDeviceAuthAvailability();
@@ -119,51 +122,121 @@ useEffect(() => {
   return unsubscribe;
 }, []);
 
-// Add this useEffect for password strength checking
+// Validate new password in real-time
 useEffect(() => {
-  const checkPasswordStrength = async () => {
+  const validatePassword = async () => {
     if (newPassword.length > 0) {
-      const strength = await calculatePasswordStrength(newPassword);
-      setPasswordStrength(strength);
+      const validation = await validatePasswordWithFeedback(newPassword, confirmPassword);
+      setPasswordStrength(validation);
     } else {
-      setPasswordStrength({ score: 0, feedback: '' });
+      setPasswordStrength({ score: 0, feedback: '', isValid: false });
+      setPasswordError('');
     }
   };
   
-  checkPasswordStrength();
+  // Debounce password validation to avoid too many checks
+  const timeoutId = setTimeout(validatePassword, 300);
+  
+  return () => clearTimeout(timeoutId);
 }, [newPassword, foundUser]);
 
-const calculatePasswordStrength = async (password) => {
+// Validate confirm password
+useEffect(() => {
+  if (confirmPassword.length > 0) {
+    if (newPassword !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
+    }
+  } else {
+    setConfirmPasswordError('');
+  }
+}, [confirmPassword, newPassword]);
+
+const validatePasswordWithFeedback = async (password, confirmPass = '') => {
+  setPasswordValidationInProgress(true);
+  
+  let errors = [];
   let score = 0;
-  let feedback = [];
   
-  if (password.length >= 8) score += 1;
-  else feedback.push('Use at least 8 characters');
+  // Basic strength checks
+  if (password.length === 0) {
+    setPasswordError('');
+    setPasswordValidationInProgress(false);
+    return { score: 0, feedback: '' };
+  }
   
-  if (/[a-z]/.test(password)) score += 1;
-  else feedback.push('Include lowercase letters');
+  if (password.length < 8) {
+    errors.push('Password must be at least 8 characters long');
+  } else {
+    score += 1;
+  }
   
-  if (/[A-Z]/.test(password)) score += 1;
-  else feedback.push('Include uppercase letters');
+  if (!/[a-z]/.test(password)) {
+    errors.push('Include lowercase letters');
+  } else {
+    score += 1;
+  }
   
-  if (/\d/.test(password)) score += 1;
-  else feedback.push('Include numbers');
+  if (!/[A-Z]/.test(password)) {
+    errors.push('Include uppercase letters');
+  } else {
+    score += 1;
+  }
   
-  if (/[^A-Za-z0-9]/.test(password)) score += 1;
-  else feedback.push('Include special characters');
+  if (!/\d/.test(password)) {
+    errors.push('Include numbers');
+  } else {
+    score += 1;
+  }
   
-  // Check against previous passwords
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    errors.push('Include special characters (!@#$%^&*)');
+  } else {
+    score += 1;
+  }
+  
+  // Check against previous passwords if user is found and password is long enough
   if (foundUser && password.length >= 6) {
-    const isPrevious = await checkAgainstPreviousPasswords(foundUser, password);
-    if (isPrevious) {
-      score = 0; // Force failure
-      feedback.unshift('Cannot reuse previous password');
+    try {
+      const isPrevious = await checkAgainstPreviousPasswords(foundUser, password);
+      if (isPrevious) {
+        errors.unshift('This password has been used before. Please choose a different password.');
+        score = 0; // Force failure for reused password
+      }
+    } catch (error) {
+      console.warn('Previous password check failed:', error);
     }
   }
   
+  // Set error message based on validation
+  if (errors.length > 0) {
+    if (score === 0 && errors[0].includes('used before')) {
+      setPasswordError(errors[0]); // Show reuse error prominently
+    } else if (score < 2) {
+      setPasswordError('Weak password: ' + errors.join(', '));
+    } else if (score < 4) {
+      setPasswordError('Password could be stronger: ' + errors.slice(0, 2).join(', '));
+    } else {
+      setPasswordError(''); // Strong enough
+    }
+  } else {
+    setPasswordError(''); // No errors
+  }
+  
+  // Validate confirm password if provided
+  if (confirmPass.length > 0 && password !== confirmPass) {
+    setConfirmPasswordError('Passwords do not match');
+  } else {
+    setConfirmPasswordError('');
+  }
+  
+  setPasswordValidationInProgress(false);
+  
   return {
     score,
-    feedback: feedback.join(', ')
+    feedback: errors.join(', '),
+    isValid: errors.length === 0 && score >= 3
   };
 };
 
@@ -535,22 +608,41 @@ const handlePasswordReset = async () => {
           });
         }
         
-        const syncStatus = isOnline && foundUser.firebaseUid ? 'synced' : 'queued for sync';
-        
-        Alert.alert(
-          'Password Reset Successful',
-          `Your password has been reset successfully and ${syncStatus}. You can now sign in with your new password.`,
-          [
-            {
-              text: 'Sign In',
-              onPress: () => navigation.navigate('Login', { 
-                resetEmail: foundUser.email,
-                resetSuccess: true,
-                newPasswordHash: hashedPassword.hash
-              })
-            }
-          ]
-        );
+        // Replace the success Alert with this enhanced version:
+          const syncStatus = isOnline && foundUser.firebaseUid ? 'synced' : 'queued for sync';
+
+          // Show success message with auto-redirect
+          Alert.alert(
+            'Password Reset Successful!',
+            `Your password has been reset successfully and ${syncStatus}.\n\nRedirecting to login in 3 seconds...`,
+            [
+              {
+                text: 'Sign In Now',
+                onPress: () => {
+                  navigation.navigate('Login', { 
+                    resetEmail: foundUser.email,
+                    resetSuccess: true,
+                    successMessage: 'Password reset successful! Please sign in with your new password.'
+                  });
+                }
+              },
+              {
+                text: 'Wait',
+                style: 'cancel'
+              }
+            ]
+          );
+
+          // Auto-redirect after 3 seconds
+          setTimeout(() => {
+            navigation.navigate('Login', { 
+              resetEmail: foundUser.email,
+              resetSuccess: true,
+              successMessage: 'Password reset successful! Please sign in with your new password.'
+            });
+          }, 3000);
+
+
       }
     }
     
@@ -907,77 +999,150 @@ const renderFirebaseEmailStep = () => (
 );
 
   const renderStepFour = () => (
-    <>
-      <TextInput
-        label="New Password"
-        value={newPassword}
-        onChangeText={setNewPassword}
-        mode="outlined"
-        secureTextEntry={!showNewPassword}
-        autoComplete="new-password"
-        style={styles.input}
-        theme={{
-          colors: {
-            primary: ENHANCED_COLORS.inputBorderFocused,
-            onSurface: ENHANCED_COLORS.inputText,
-            onSurfaceVariant: ENHANCED_COLORS.inputPlaceholder,
-            outline: ENHANCED_COLORS.inputBorder,
-            background: ENHANCED_COLORS.inputBackground,
-          },
-        }}
-        left={<TextInput.Icon icon="lock" />}
-        right={
-          <TextInput.Icon 
-            icon={showNewPassword ? "eye-off" : "eye"} 
-            onPress={() => setShowNewPassword(!showNewPassword)}
-          />
-        }
-      />
+  <>
+    {/* New Password Input */}
+    <TextInput
+      label="New Password"
+      value={newPassword}
+      onChangeText={setNewPassword}
+      mode="outlined"
+      secureTextEntry={!showNewPassword}
+      autoComplete="new-password"
+      style={styles.input}
+      error={passwordError.length > 0}
+      theme={{
+        colors: {
+          primary: passwordError.length > 0 ? ENHANCED_COLORS.error : ENHANCED_COLORS.inputBorderFocused,
+          onSurface: ENHANCED_COLORS.inputText,
+          onSurfaceVariant: ENHANCED_COLORS.inputPlaceholder,
+          outline: passwordError.length > 0 ? ENHANCED_COLORS.error : ENHANCED_COLORS.inputBorder,
+          background: ENHANCED_COLORS.inputBackground,
+        },
+      }}
+      left={<TextInput.Icon icon="lock" />}
+      right={
+        <TextInput.Icon 
+          icon={showNewPassword ? "eye-off" : "eye"} 
+          onPress={() => setShowNewPassword(!showNewPassword)}
+        />
+      }
+    />
 
-      <TextInput
-        label="Confirm New Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        mode="outlined"
-        secureTextEntry={!showConfirmPassword}
-        style={styles.input}
-        error={confirmPassword.length > 0 && newPassword !== confirmPassword}
-        theme={{
-          colors: {
-            primary: ENHANCED_COLORS.inputBorderFocused,
-            onSurface: ENHANCED_COLORS.inputText,
-            onSurfaceVariant: ENHANCED_COLORS.inputPlaceholder,
-            outline: ENHANCED_COLORS.inputBorder,
-            background: ENHANCED_COLORS.inputBackground,
-          },
-        }}
-        left={<TextInput.Icon icon="lock-check" />}
-        right={
-          <TextInput.Icon 
-            icon={showConfirmPassword ? "eye-off" : confirmPassword.length > 0 && newPassword === confirmPassword ? "check-circle" : "eye"} 
-            iconColor={confirmPassword.length > 0 && newPassword === confirmPassword ? ENHANCED_COLORS.success : ENHANCED_COLORS.onSurfaceVariant}
-            onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-          />
-        }
-      />
+    {/* Password Error Message */}
+    {passwordError.length > 0 && (
+      <View style={styles.errorContainer}>
+        <Icon name="error" size={16} color={ENHANCED_COLORS.error} />
+        <Text style={styles.errorText}>{passwordError}</Text>
+      </View>
+    )}
 
-      {confirmPassword.length > 0 && newPassword !== confirmPassword && (
-        <Text style={styles.helperTextError}>
-          Passwords do not match
+    {/* Password Strength Indicator */}
+    {newPassword.length > 0 && passwordError.length === 0 && (
+      <View style={styles.strengthContainer}>
+        <View style={styles.strengthBar}>
+          <View 
+            style={[
+              styles.strengthFill, 
+              { 
+                width: `${(passwordStrength.score / 5) * 100}%`,
+                backgroundColor: 
+                  passwordStrength.score < 2 ? ENHANCED_COLORS.error :
+                  passwordStrength.score < 4 ? ENHANCED_COLORS.warning :
+                  ENHANCED_COLORS.success
+              }
+            ]} 
+          />
+        </View>
+        <Text style={[
+          styles.strengthText,
+          { 
+            color: 
+              passwordStrength.score < 2 ? ENHANCED_COLORS.error :
+              passwordStrength.score < 4 ? ENHANCED_COLORS.warning :
+              ENHANCED_COLORS.success
+          }
+        ]}>
+          {passwordStrength.score < 2 ? 'Weak' :
+           passwordStrength.score < 4 ? 'Good' : 'Strong'}
         </Text>
-      )}
+      </View>
+    )}
 
-      <Button
-        mode="contained"
-        onPress={handlePasswordReset}
-        loading={loading}
-        disabled={loading || newPassword.length < 6 || newPassword !== confirmPassword}
-        style={[styles.continueButton, (loading || newPassword.length < 6 || newPassword !== confirmPassword) && styles.disabledButton]}
-        contentStyle={styles.buttonContent}>
-        {loading ? 'Resetting Password...' : 'Reset Password'}
-      </Button>
-    </>
-  );
+    {/* Confirm Password Input */}
+    <TextInput
+      label="Confirm New Password"
+      value={confirmPassword}
+      onChangeText={setConfirmPassword}
+      mode="outlined"
+      secureTextEntry={!showConfirmPassword}
+      style={[styles.input, { marginTop: SPACING.md }]}
+      error={confirmPasswordError.length > 0}
+      theme={{
+        colors: {
+          primary: confirmPasswordError.length > 0 ? ENHANCED_COLORS.error : ENHANCED_COLORS.inputBorderFocused,
+          onSurface: ENHANCED_COLORS.inputText,
+          onSurfaceVariant: ENHANCED_COLORS.inputPlaceholder,
+          outline: confirmPasswordError.length > 0 ? ENHANCED_COLORS.error : ENHANCED_COLORS.inputBorder,
+          background: ENHANCED_COLORS.inputBackground,
+        },
+      }}
+      left={<TextInput.Icon icon="lock-check" />}
+      right={
+        <TextInput.Icon 
+          icon={
+            showConfirmPassword ? "eye-off" : 
+            confirmPassword.length > 0 && newPassword === confirmPassword ? "check-circle" : 
+            "eye"
+          } 
+          iconColor={
+            confirmPassword.length > 0 && newPassword === confirmPassword ? 
+            ENHANCED_COLORS.success : ENHANCED_COLORS.onSurfaceVariant
+          }
+          onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+        />
+      }
+    />
+
+    {/* Confirm Password Error Message */}
+    {confirmPasswordError.length > 0 && (
+      <View style={styles.errorContainer}>
+        <Icon name="error" size={16} color={ENHANCED_COLORS.error} />
+        <Text style={styles.errorText}>{confirmPasswordError}</Text>
+      </View>
+    )}
+
+    {/* Validation in Progress Indicator */}
+    {passwordValidationInProgress && (
+      <View style={styles.validationContainer}>
+        <Text style={styles.validationText}>Checking password...</Text>
+      </View>
+    )}
+
+    <Button
+      mode="contained"
+      onPress={handlePasswordReset}
+      loading={loading}
+      disabled={
+        loading || 
+        passwordError.length > 0 || 
+        confirmPasswordError.length > 0 ||
+        newPassword.length < 8 || 
+        newPassword !== confirmPassword ||
+        passwordValidationInProgress
+      }
+      style={[
+        styles.continueButton, 
+        (loading || 
+         passwordError.length > 0 || 
+         confirmPasswordError.length > 0 ||
+         newPassword.length < 8 || 
+         newPassword !== confirmPassword) && styles.disabledButton
+      ]}
+      contentStyle={styles.buttonContent}>
+      {loading ? 'Resetting Password...' : 'Reset Password'}
+    </Button>
+  </>
+);
 
   return (
     <KeyboardAvoidingView 
@@ -1321,6 +1486,51 @@ emailSentText: {
   marginLeft: SPACING.sm,
   fontSize: 14,
   fontWeight: '500',
+},
+errorContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: -SPACING.sm,
+  marginBottom: SPACING.md,
+  marginLeft: SPACING.sm,
+},
+errorText: {
+  color: ENHANCED_COLORS.error,
+  fontSize: 12,
+  marginLeft: SPACING.xs,
+  flex: 1,
+  fontWeight: '500',
+},
+strengthContainer: {
+  marginTop: -SPACING.sm,
+  marginBottom: SPACING.md,
+  marginHorizontal: SPACING.sm,
+},
+strengthBar: {
+  height: 4,
+  backgroundColor: ENHANCED_COLORS.border,
+  borderRadius: 2,
+  overflow: 'hidden',
+  marginBottom: SPACING.xs,
+},
+strengthFill: {
+  height: '100%',
+  borderRadius: 2,
+  transition: 'width 0.3s ease',
+},
+strengthText: {
+  fontSize: 12,
+  fontWeight: '500',
+  textAlign: 'right',
+},
+validationContainer: {
+  alignItems: 'center',
+  marginVertical: SPACING.sm,
+},
+validationText: {
+  fontSize: 12,
+  color: ENHANCED_COLORS.onSurfaceVariant,
+  fontStyle: 'italic',
 },
 });
 

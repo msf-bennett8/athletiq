@@ -1,5 +1,9 @@
 // src/config/firebase.config.js
 import { Platform } from 'react-native';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 // Environment-based configuration with proper error handling
 const getFirebaseConfig = () => {
@@ -79,6 +83,7 @@ try {
     console.log('📱 Initializing React Native Firebase...');
     
     const app = require('@react-native-firebase/app').default;
+    const app = initializeApp(firebaseConfig);
     const authModule = require('@react-native-firebase/auth').default;
     const firestoreModule = require('@react-native-firebase/firestore').default;
     const storageModule = require('@react-native-firebase/storage').default;

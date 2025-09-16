@@ -156,6 +156,18 @@ const cleanupDuplicateUsers = async () => {
     }
   }, [user, loading, navigation]);
 
+  // check for the success message parameter from forgot password:
+    useEffect(() => {
+      if (route.params?.successMessage) {
+        Alert.alert('Success', route.params.successMessage);
+        // Clear the params to avoid showing again
+        navigation.setParams({ successMessage: null });
+      }
+      if (route.params?.resetEmail) {
+        setLoginInput(route.params.resetEmail);
+      }
+    }, [route.params]);
+
    // Handle Google auth response
   React.useEffect(() => {
     if (response?.type === 'success') {
