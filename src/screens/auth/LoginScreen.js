@@ -1822,7 +1822,7 @@ const showCredentialChangeDialog = (localUser, fieldType) => {
               <Text style={styles.subtitle}>
                 {matchedUser ? 
                   `Continue your ${matchedUser.sport || 'training'} journey` : 
-                  'Sign in to continue your training journeys'
+                  'Sign in to continue your training journey'
                 }
               </Text>
             </View>
