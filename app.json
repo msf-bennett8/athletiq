@@ -82,13 +82,14 @@
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/026b6ebc-9f96-42ef-8dd9-1ec1ced2f494"
+      "url": "https://u.expo.dev/7804dfc6-03a9-40a2-a440-dca0fcf83801"
     },
     "runtimeVersion": "1.0.0",
     "extra": {
       "eas": {
-        "projectId": "026b6ebc-9f96-42ef-8dd9-1ec1ced2f494"
+        "projectId": "7804dfc6-03a9-40a2-a440-dca0fcf83801"
       }
-    }
+    },
+    "owner": "msf_bennett"
   }
 }

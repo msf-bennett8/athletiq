@@ -89,7 +89,7 @@ try {
     const firestoreModule = require('@react-native-firebase/firestore').default;
     const storageModule = require('@react-native-firebase/storage').default;
 
-    firebaseApp = rnFirebaseApp();
+    firebaseApp = rnFirebaseApp;
     auth = authModule();
     db = firestoreModule();
     storage = storageModule();
