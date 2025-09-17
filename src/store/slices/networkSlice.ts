@@ -1,17 +1,89 @@
-// src/store/slices/networkSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import NetInfo from '@react-native-community/netinfo';
+// src/store/slices/networkSlice.ts
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import NetInfo, { NetInfoState, NetInfoStateType, NetInfoSubscription } from '@react-native-community/netinfo';
 import FirebaseService from '../../services/FirebaseService';
 
-// Async thunks
-export const initializeNetworkMonitoring = createAsyncThunk(
+// Types
+interface NetworkState {
+  isConnected: boolean;
+  isInternetReachable: boolean;
+  type: NetInfoStateType | null;
+  connectionQuality: ConnectionQuality;
+}
+
+interface ConnectionHistoryEntry extends NetworkState {
+  timestamp: string;
+  previousState: NetworkState;
+}
+
+interface NetworkError {
+  type: string;
+  message: string;
+  timestamp: string;
+}
+
+interface NetworkWarning {
+  type: string;
+  message: string;
+  timestamp: string;
+}
+
+interface FirebaseConnectionResult {
+  success: boolean;
+  error?: string;
+}
+
+interface InitializeNetworkResult {
+  initialState: NetworkState;
+  unsubscribe: NetInfoSubscription;
+}
+
+type ConnectionQuality = 'offline' | 'poor' | 'fair' | 'good' | 'excellent' | 'unknown';
+
+interface NetworkSliceState {
+  // Connection status
+  isConnected: boolean;
+  isInternetReachable: boolean;
+  type: NetInfoStateType | null;
+  connectionQuality: ConnectionQuality;
+  
+  // Firebase connectivity
+  firebaseConnected: boolean;
+  firebaseError: string | null;
+  lastFirebaseCheck: string | null;
+  
+  // Monitoring state
+  isInitialized: boolean;
+  isMonitoring: boolean;
+  lastUpdated: string | null;
+  
+  // Connection history
+  connectionHistory: ConnectionHistoryEntry[];
+  maxHistoryLength: number;
+  
+  // Feature availability
+  canUseOnlineFeatures: boolean;
+  canUseAuth: boolean;
+  canSync: boolean;
+  
+  // Error tracking
+  errors: NetworkError[];
+  warnings: NetworkWarning[];
+}
+
+// Async thunks with proper typing
+export const initializeNetworkMonitoring = createAsyncThunk<
+  InitializeNetworkResult,
+  void,
+  { rejectValue: string }
+>(
   'network/initializeMonitoring',
-  async (_, { dispatch }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       // Get initial network state
       const networkState = await NetInfo.fetch();
       
-      const initialState = {
+      const initialState: NetworkState = {
         isConnected: networkState.isConnected || false,
         isInternetReachable: networkState.isInternetReachable || false,
         type: networkState.type,
@@ -19,7 +91,7 @@ export const initializeNetworkMonitoring = createAsyncThunk(
       };
       
       // Set up network listener
-      const unsubscribe = NetInfo.addEventListener((state) => {
+      const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
         dispatch(updateNetworkState({
           isConnected: state.isConnected || false,
           isInternetReachable: state.isInternetReachable || false,
@@ -30,14 +102,19 @@ export const initializeNetworkMonitoring = createAsyncThunk(
       
       return { initialState, unsubscribe };
     } catch (error) {
-      throw error;
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
-export const checkConnectivity = createAsyncThunk(
+export const checkConnectivity = createAsyncThunk<
+  NetworkState,
+  void,
+  { rejectValue: string }
+>(
   'network/checkConnectivity',
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const networkState = await NetInfo.fetch();
       return {
@@ -47,12 +124,16 @@ export const checkConnectivity = createAsyncThunk(
         connectionQuality: getConnectionQuality(networkState)
       };
     } catch (error) {
-      throw error;
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
-export const testFirebaseConnection = createAsyncThunk(
+export const testFirebaseConnection = createAsyncThunk<
+  FirebaseConnectionResult,
+  void
+>(
   'network/testFirebaseConnection',
   async () => {
     try {
@@ -60,13 +141,14 @@ export const testFirebaseConnection = createAsyncThunk(
       const result = await FirebaseService.testConnectionWithTimeout(5000);
       return result;
     } catch (error) {
-      return { success: false, error: error.message };
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      return { success: false, error: errorMessage };
     }
   }
 );
 
 // Helper function to determine connection quality
-function getConnectionQuality(state) {
+function getConnectionQuality(state: NetInfoState): ConnectionQuality {
   if (!state.isConnected || !state.isInternetReachable) {
     return 'offline';
   }
@@ -75,7 +157,7 @@ function getConnectionQuality(state) {
     case 'wifi':
       return 'excellent';
     case 'cellular':
-      if (state.details && state.details.cellularGeneration) {
+      if (state.details && 'cellularGeneration' in state.details) {
         switch (state.details.cellularGeneration) {
           case '5g':
           case '4g':
@@ -99,7 +181,7 @@ function getConnectionQuality(state) {
 }
 
 // Initial state
-const initialState = {
+const initialState: NetworkSliceState = {
   // Connection status
   isConnected: false,
   isInternetReachable: false,
@@ -134,9 +216,9 @@ const networkSlice = createSlice({
   name: 'network',
   initialState,
   reducers: {
-    updateNetworkState: (state, action) => {
+    updateNetworkState: (state, action: PayloadAction<NetworkState>) => {
       const newState = action.payload;
-      const previousState = {
+      const previousState: NetworkState = {
         isConnected: state.isConnected,
         isInternetReachable: state.isInternetReachable,
         type: state.type,
@@ -187,10 +269,10 @@ const networkSlice = createSlice({
       }
     },
     
-    setFirebaseConnectionStatus: (state, action) => {
+    setFirebaseConnectionStatus: (state, action: PayloadAction<{ connected: boolean; error?: string }>) => {
       const { connected, error } = action.payload;
       state.firebaseConnected = connected;
-      state.firebaseError = error;
+      state.firebaseError = error || null;
       state.lastFirebaseCheck = new Date().toISOString();
       
       if (!connected && error) {
@@ -202,16 +284,16 @@ const networkSlice = createSlice({
       }
     },
     
-    setInitialized: (state, action) => {
+    setInitialized: (state, action: PayloadAction<boolean>) => {
       state.isInitialized = action.payload;
     },
     
-    setMonitoring: (state, action) => {
+    setMonitoring: (state, action: PayloadAction<boolean>) => {
       state.isMonitoring = action.payload;
     },
     
-    addError: (state, action) => {
-      const error = {
+    addError: (state, action: PayloadAction<Omit<NetworkError, 'timestamp'>>) => {
+      const error: NetworkError = {
         ...action.payload,
         timestamp: new Date().toISOString()
       };
@@ -223,8 +305,8 @@ const networkSlice = createSlice({
       }
     },
     
-    addWarning: (state, action) => {
-      const warning = {
+    addWarning: (state, action: PayloadAction<Omit<NetworkWarning, 'timestamp'>>) => {
+      const warning: NetworkWarning = {
         ...action.payload,
         timestamp: new Date().toISOString()
       };
@@ -244,30 +326,28 @@ const networkSlice = createSlice({
       state.warnings = [];
     },
     
-    removeError: (state, action) => {
+    removeError: (state, action: PayloadAction<number>) => {
       const errorIndex = action.payload;
       if (errorIndex >= 0 && errorIndex < state.errors.length) {
         state.errors.splice(errorIndex, 1);
       }
     },
     
-    removeWarning: (state, action) => {
+    removeWarning: (state, action: PayloadAction<number>) => {
       const warningIndex = action.payload;
       if (warningIndex >= 0 && warningIndex < state.warnings.length) {
         state.warnings.splice(warningIndex, 1);
       }
     },
     
-    updateFeatureAvailability: (state, action) => {
+    updateFeatureAvailability: (state, action: PayloadAction<{ canUseOnlineFeatures?: boolean; canUseAuth?: boolean; canSync?: boolean }>) => {
       const { canUseOnlineFeatures, canUseAuth, canSync } = action.payload;
-      state.canUseOnlineFeatures = canUseOnlineFeatures;
-      state.canUseAuth = canUseAuth;
-      state.canSync = canSync;
+      if (canUseOnlineFeatures !== undefined) state.canUseOnlineFeatures = canUseOnlineFeatures;
+      if (canUseAuth !== undefined) state.canUseAuth = canUseAuth;
+      if (canSync !== undefined) state.canSync = canSync;
     },
     
-    resetNetworkState: (state) => {
-      return { ...initialState };
-    }
+    resetNetworkState: () => initialState
   },
   
   extraReducers: (builder) => {
@@ -293,7 +373,7 @@ const networkSlice = createSlice({
         state.isInitialized = false;
         state.errors.push({
           type: 'initialization_error',
-          message: action.error.message,
+          message: action.payload || 'Unknown initialization error',
           timestamp: new Date().toISOString()
         });
       })
@@ -313,7 +393,7 @@ const networkSlice = createSlice({
       .addCase(checkConnectivity.rejected, (state, action) => {
         state.errors.push({
           type: 'connectivity_check_error',
-          message: action.error.message,
+          message: action.payload || 'Unknown connectivity error',
           timestamp: new Date().toISOString()
         });
       })
@@ -327,7 +407,7 @@ const networkSlice = createSlice({
         if (!action.payload.success) {
           state.errors.push({
             type: 'firebase_test_failed',
-            message: action.payload.error,
+            message: action.payload.error || 'Firebase connection test failed',
             timestamp: new Date().toISOString()
           });
         }
@@ -351,22 +431,28 @@ export const {
   resetNetworkState
 } = networkSlice.actions;
 
-// Selectors
-export const selectNetwork = (state) => state.network;
-export const selectIsOnline = (state) => state.network.isConnected && state.network.isInternetReachable;
-export const selectCanUseOnlineFeatures = (state) => state.network.canUseOnlineFeatures;
-export const selectCanUseAuth = (state) => state.network.canUseAuth;
-export const selectCanSync = (state) => state.network.canSync;
-export const selectConnectionQuality = (state) => state.network.connectionQuality;
-export const selectNetworkType = (state) => state.network.type;
-export const selectFirebaseConnected = (state) => state.network.firebaseConnected;
-export const selectNetworkErrors = (state) => state.network.errors;
-export const selectNetworkWarnings = (state) => state.network.warnings;
-export const selectConnectionHistory = (state) => state.network.connectionHistory;
-export const selectNetworkInitialized = (state) => state.network.isInitialized;
+// Root state type (you should define this in your store)
+export interface RootState {
+  network: NetworkSliceState;
+  // Add other slices here
+}
+
+// Selectors with proper typing
+export const selectNetwork = (state: RootState) => state.network;
+export const selectIsOnline = (state: RootState) => state.network.isConnected && state.network.isInternetReachable;
+export const selectCanUseOnlineFeatures = (state: RootState) => state.network.canUseOnlineFeatures;
+export const selectCanUseAuth = (state: RootState) => state.network.canUseAuth;
+export const selectCanSync = (state: RootState) => state.network.canSync;
+export const selectConnectionQuality = (state: RootState) => state.network.connectionQuality;
+export const selectNetworkType = (state: RootState) => state.network.type;
+export const selectFirebaseConnected = (state: RootState) => state.network.firebaseConnected;
+export const selectNetworkErrors = (state: RootState) => state.network.errors;
+export const selectNetworkWarnings = (state: RootState) => state.network.warnings;
+export const selectConnectionHistory = (state: RootState) => state.network.connectionHistory;
+export const selectNetworkInitialized = (state: RootState) => state.network.isInitialized;
 
 // Computed selectors
-export const selectConnectionStatus = (state) => {
+export const selectConnectionStatus = (state: RootState) => {
   const { isConnected, isInternetReachable, connectionQuality, isInitialized } = state.network;
   
   if (!isInitialized) {
@@ -384,12 +470,12 @@ export const selectConnectionStatus = (state) => {
   return connectionQuality;
 };
 
-export const selectShouldShowOfflineWarning = (state) => {
+export const selectShouldShowOfflineWarning = (state: RootState) => {
   const { isConnected, isInternetReachable, isInitialized } = state.network;
   return isInitialized && (!isConnected || !isInternetReachable);
 };
 
-export const selectNetworkStatusMessage = (state) => {
+export const selectNetworkStatusMessage = (state: RootState) => {
   const status = selectConnectionStatus(state);
   
   switch (status) {
@@ -413,7 +499,7 @@ export const selectNetworkStatusMessage = (state) => {
   }
 };
 
-export const selectHasRecentConnectionIssues = (state) => {
+export const selectHasRecentConnectionIssues = (state: RootState) => {
   const { connectionHistory } = state.network;
   const recentHistory = connectionHistory.slice(0, 5);
   

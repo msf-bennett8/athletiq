@@ -3,46 +3,63 @@ import { StatusBar, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useDispatch } from 'react-redux';
 import { PaperProvider, MD3LightTheme, ActivityIndicator } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogBox } from 'react-native';
 
-// Use require() for JavaScript files to avoid import issues
-const { store } = require('./src/store/store');
-const AppNavigator = require('./src/navigation/AppNavigator').default || require('./src/navigation/AppNavigator');
-const OfflineSyncManager = require('./src/components/offlinemanager/OfflineSyncManager').default || require('./src/components/offlinemanager/OfflineSyncManager');
-const { initializeNetworkMonitoring } = require('./src/store/slices/networkSlice');
-const { initializeGoogleSignIn } = require('./src/store/actions/registrationActions');
-const FirebaseService = require('./src/services/FirebaseService').default || require('./src/services/FirebaseService');
-const { initializeFirebaseApp, setupAutoSyncRetry } = require('./src/config/firebaseInit');
+// Proper import statements with TypeScript support
+import { store } from './src/store/store';
+import AppNavigator from './src/navigation/AppNavigator';
+import OfflineSyncManager from './src/components/offlinemanager/OfflineSyncManager';
+import { initializeNetworkMonitoring } from './src/store/slices/networkSlice';
+import { initializeGoogleSignIn } from './src/store/actions/registrationActions';
+import FirebaseService from './src/services/FirebaseService';
+import { initializeFirebaseApp, setupAutoSyncRetry } from './src/config/firebaseInit';
+
+// Type for the dispatch function
+import type { AppDispatch } from './src/store/store';
 
 // Ignore specific warnings
 LogBox.ignoreLogs([
   'Setting a timer',
   'AsyncStorage has been extracted',
+  'Require cycle:',
+  'Module TurboModuleRegistry',
 ]);
 
-const AppInitializer = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useDispatch();
+interface AppInitializerProps {
+  children: React.ReactNode;
+}
+
+const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const initializeApp = async () => {
+    const initializeApp = async (): Promise<void> => {
       try {
-        // Initialize network monitoring
+        // Initialize network monitoring with proper typing
         console.log('Initializing network monitoring...');
         const networkResult = await dispatch(initializeNetworkMonitoring());
-        if (networkResult.type.endsWith('/fulfilled')) {
-          console.log('Network monitoring initialized');
+        if (initializeNetworkMonitoring.fulfilled.match(networkResult)) {
+          console.log('Network monitoring initialized successfully');
+        } else if (initializeNetworkMonitoring.rejected.match(networkResult)) {
+          console.warn('Network monitoring initialization failed:', networkResult.payload);
         }
         
         // Initialize Firebase service
         console.log('Initializing Firebase service...');
         await FirebaseService.initialize();
         
-        // Initialize Google Sign-In
-        console.log('Initializing Google Sign-In...');
-        const googleSignInResult = await dispatch(initializeGoogleSignIn());
-        if (googleSignInResult.type.endsWith('/fulfilled')) {
-          console.log('Google Sign-In initialized');
+        // Initialize Google Sign-In with error handling
+        try {
+          console.log('Initializing Google Sign-In...');
+          const googleSignInResult = await dispatch(initializeGoogleSignIn());
+          if (typeof googleSignInResult.type === 'string' && googleSignInResult.type.endsWith('/fulfilled')) {
+            console.log('Google Sign-In initialized successfully');
+          } else {
+            console.warn('Google Sign-In initialization had issues:', googleSignInResult);
+          }
+        } catch (googleError) {
+          console.warn('Google Sign-In initialization failed:', googleError);
+          // Continue app initialization even if Google Sign-In fails
         }
         
         console.log('App initialization complete');
@@ -77,6 +94,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Initializing..
   </View>
 );
 
+interface FirebaseInitResult {
+  success: boolean;
+  mode: string;
+  error?: string;
+}
+
 export default function App(): React.ReactElement {
   const [isFirebaseReady, setIsFirebaseReady] = useState<boolean>(false);
   const [firebaseMode, setFirebaseMode] = useState<string>('offline');
@@ -89,9 +112,9 @@ export default function App(): React.ReactElement {
       console.log('Starting app initialization...');
       
       try {
-        // Initialize Firebase with error handling
+        // Initialize Firebase with error handling and proper typing
         console.log('Initializing Firebase app...');
-        const firebaseResult = await initializeFirebaseApp();
+        const firebaseResult: FirebaseInitResult = await initializeFirebaseApp();
         
         if (firebaseResult && firebaseResult.success) {
           setFirebaseMode(firebaseResult.mode);
@@ -104,7 +127,7 @@ export default function App(): React.ReactElement {
         } else {
           console.warn('Firebase initialization failed, continuing in offline mode');
           setFirebaseMode('offline');
-          setInitializationError(firebaseResult?.error || 'Unknown error');
+          setInitializationError(firebaseResult?.error || 'Unknown Firebase initialization error');
         }
         
         // Always set as ready - app works offline
@@ -112,7 +135,8 @@ export default function App(): React.ReactElement {
         
       } catch (error) {
         console.error('App initialization error:', error);
-        setInitializationError(error instanceof Error ? error.message : 'Unknown error');
+        const errorMessage = error instanceof Error ? error.message : 'Unknown initialization error';
+        setInitializationError(errorMessage);
         setFirebaseMode('offline');
         setIsFirebaseReady(true); // Still allow app to work offline
       }
@@ -121,7 +145,7 @@ export default function App(): React.ReactElement {
     // Add delay to ensure all modules are loaded
     const timer = setTimeout(initializeApp, 100);
 
-    // Cleanup
+    // Cleanup function
     return () => {
       clearTimeout(timer);
       if (retryInterval) {
@@ -140,7 +164,7 @@ export default function App(): React.ReactElement {
     );
   }
 
-  // Wrap everything in error boundary-like logic
+  // Main app render with error boundary-like logic
   try {
     return (
       <Provider store={store}>
@@ -155,7 +179,7 @@ export default function App(): React.ReactElement {
               {/* Main App Navigator */}
               <AppNavigator />
               
-              {/* Show connection status indicator if needed */}
+              {/* Show connection status indicator in development mode */}
               {firebaseMode === 'offline' && __DEV__ && (
                 <View style={styles.offlineIndicator}>
                   <Text style={styles.offlineText}>
@@ -171,11 +195,17 @@ export default function App(): React.ReactElement {
     );
   } catch (error) {
     // Fallback UI if main app fails
+    console.error('Critical app error:', error);
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorTitle}>Athletr</Text>
         <Text style={styles.errorText}>Starting up...</Text>
         <Text style={styles.errorSubtext}>Please wait a moment</Text>
+        {__DEV__ && (
+          <Text style={styles.errorDebug}>
+            {error instanceof Error ? error.message : 'Unknown error'}
+          </Text>
+        )}
       </View>
     );
   }
@@ -214,6 +244,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+    padding: 20,
   },
   errorTitle: {
     fontSize: 28,
@@ -225,9 +256,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#333333',
     marginBottom: 8,
+    textAlign: 'center',
   },
   errorSubtext: {
     fontSize: 14,
     color: '#666666',
+    textAlign: 'center',
+  },
+  errorDebug: {
+    fontSize: 12,
+    color: '#999999',
+    marginTop: 20,
+    textAlign: 'center',
+    fontFamily: 'monospace',
   },
 });
