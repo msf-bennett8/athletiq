@@ -63,18 +63,20 @@ const AuthMethodSelection = ({
   // SOLUTION 3: Enhanced Google Auth Request with better configuration
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: 'YOUR_EXPO_CLIENT_ID', // Optional: Get this from Expo dashboard
-    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-    androidClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
+    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com', // Your iOS client if you have one
+    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // YOUR ANDROID CLIENT ID
+    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Keep this for web
     scopes: ['profile', 'email'],
-    redirectUri: redirectUri,
-    // SOLUTION 4: Additional configuration for web
+    redirectUri: AuthSession.makeRedirectUri({
+      scheme: 'com.athletr.athletr',
+      useProxy: Platform.OS === 'web' ? true : false,
+      path: 'auth',
+    }),
     additionalParameters: Platform.OS === 'web' ? {
       access_type: 'offline',
       prompt: 'consent',
     } : {},
-    // SOLUTION 5: Use default browser behavior on web
-    usePKCE: Platform.OS !== 'web', // Disable PKCE on web to avoid popup issues
+    usePKCE: Platform.OS !== 'web',
   });
 
   // Authentication method configurations

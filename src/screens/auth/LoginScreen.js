@@ -123,10 +123,10 @@ const cleanupDuplicateUsers = async () => {
 
     // Add Google Auth hook here - THIS IS THE MISSING PIECE
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: 'YOUR_EXPO_CLIENT_ID',
-    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-    androidClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
+    expoClientId: 'YOUR_EXPO_CLIENT_ID', // Optional: Get this from Expo dashboard
+    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com', // Your iOS client if you have one
+    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // YOUR ANDROID CLIENT ID
+    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Keep this for web
     scopes: ['profile', 'email'],
     redirectUri: AuthSession.makeRedirectUri({
       scheme: 'com.athletr.athletr',
