@@ -79,6 +79,8 @@ const ClientManagement = ({ navigation }) => {
   const [showClientModal, setShowClientModal] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
   const [sortBy, setSortBy] = useState('name');
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [viewMode, setViewMode] = useState('list'); 
 
   // Animation refs
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -270,131 +272,184 @@ const ClientManagement = ({ navigation }) => {
     );
   };
 
-  const renderClientCard = ({ item, index }) => (
-    <Animated.View
-      style={[
-        styles.clientCard,
-        {
-          opacity: fadeAnim,
-          transform: [{ translateY: slideAnim }],
-        },
-      ]}
+
+
+const renderClientCard = ({ item, index }) => (
+  <Animated.View
+    style={[
+      styles.clientCard,
+      {
+        opacity: fadeAnim,
+        transform: [{ translateY: slideAnim }],
+      },
+    ]}
+  >
+    <TouchableOpacity
+      onPress={() => handleClientPress(item)}
+      activeOpacity={0.7}
     >
-      <TouchableOpacity
-        onPress={() => handleClientPress(item)}
-        activeOpacity={0.7}
-      >
-        <Card style={styles.card} elevation={2}>
-          <Card.Content style={styles.cardContent}>
-            {/* Header */}
-            <View style={styles.clientHeader}>
-              <View style={styles.clientInfo}>
-                <Avatar.Image
-                  size={50}
-                  source={{ uri: item.avatar }}
-                  style={styles.avatar}
-                />
-                <View style={styles.clientDetails}>
-                  <Text style={TEXT_STYLES.heading3}>{item.name}</Text>
-                  <Text style={TEXT_STYLES.caption}>
-                    {item.sport} • Age {item.age} • {item.level}
-                  </Text>
-                  <View style={styles.statusRow}>
-                    <Chip
-                      mode="outlined"
-                      compact
-                      style={[styles.statusChip, { borderColor: getStatusColor(item.status) }]}
-                      textStyle={[styles.statusText, { color: getStatusColor(item.status) }]}
-                    >
-                      {item.status.toUpperCase()}
-                    </Chip>
-                    <Chip
-                      mode="outlined"
-                      compact
-                      style={[styles.paymentChip, { borderColor: getPaymentStatusColor(item.paymentStatus) }]}
-                      textStyle={[styles.paymentText, { color: getPaymentStatusColor(item.paymentStatus) }]}
-                    >
-                      {item.paymentStatus.toUpperCase()}
-                    </Chip>
-                  </View>
+      <Card style={styles.card} elevation={3}>
+        <Card.Content style={styles.cardContent}>
+          {/* Header */}
+          <View style={styles.clientHeader}>
+            <View style={styles.clientInfo}>
+              <Avatar.Image
+                size={55}
+                source={{ uri: item.avatar }}
+                style={styles.avatar}
+              />
+              <View style={styles.clientDetails}>
+                <Text style={styles.clientName}>{item.name}</Text>
+                <Text style={styles.clientMeta}>
+                  {item.sport} • Age {item.age} • {item.level}
+                </Text>
+                <View style={styles.statusRow}>
+                  <Chip
+                    mode="flat"
+                    compact
+                    style={[styles.statusChip, { backgroundColor: getStatusColor(item.status) + '20' }]}
+                    textStyle={[styles.statusText, { color: getStatusColor(item.status) }]}
+                  >
+                    {item.status.toUpperCase()}
+                  </Chip>
+                  <Chip
+                    mode="flat"
+                    compact
+                    style={[styles.paymentChip, { backgroundColor: getPaymentStatusColor(item.paymentStatus) + '20' }]}
+                    textStyle={[styles.paymentText, { color: getPaymentStatusColor(item.paymentStatus) }]}
+                  >
+                    {item.paymentStatus.toUpperCase()}
+                  </Chip>
                 </View>
               </View>
-              <IconButton
-                icon="phone"
-                size={24}
-                iconColor={COLORS.primary}
-                onPress={() => handleContactParent(item.parentContact)}
-              />
             </View>
+            <IconButton
+              icon="phone"
+              size={22}
+              iconColor={COLORS.primary}
+              style={styles.phoneButton}
+              onPress={() => handleContactParent(item.parentContact)}
+            />
+          </View>
 
-            {/* Progress Section */}
-            <View style={styles.progressSection}>
-              <View style={styles.progressHeader}>
-                <Text style={TEXT_STYLES.body}>Training Progress</Text>
-                <Text style={[TEXT_STYLES.caption, { color: COLORS.primary }]}>
-                  {item.progress}%
-                </Text>
-              </View>
-              <ProgressBar
-                progress={item.progress / 100}
-                color={COLORS.primary}
-                style={styles.progressBar}
-              />
-              <Text style={TEXT_STYLES.small}>
-                {item.sessionsCompleted} of {item.totalSessions} sessions completed
+          {/* Progress Section */}
+          <View style={styles.progressSection}>
+            <View style={styles.progressHeader}>
+              <Text style={styles.progressTitle}>Training Progress</Text>
+              <Text style={styles.progressPercentage}>
+                {item.progress}%
               </Text>
             </View>
+            <ProgressBar
+              progress={item.progress / 100}
+              color={COLORS.primary}
+              style={styles.progressBar}
+            />
+            <Text style={styles.progressSubtext}>
+              {item.sessionsCompleted} of {item.totalSessions} sessions completed
+            </Text>
+          </View>
 
-            {/* Stats Grid - Simplified without icons */}
-            <View style={styles.statsGrid}>
-              <Surface style={styles.statCard}>
-                <Text style={[TEXT_STYLES.caption, { fontWeight: 'bold' }]}>{item.achievements}</Text>
-                <Text style={TEXT_STYLES.small}>Badges</Text>
-              </Surface>
-              <Surface style={styles.statCard}>
-                <Text style={[TEXT_STYLES.caption, { fontWeight: 'bold' }]}>${item.monthlyRevenue}</Text>
-                <Text style={TEXT_STYLES.small}>Monthly</Text>
-              </Surface>
-              <Surface style={styles.statCard}>
-                <Text style={[TEXT_STYLES.caption, { fontWeight: 'bold' }]}>
-                  {new Date(item.lastSession).toLocaleDateString()}
-                </Text>
-                <Text style={TEXT_STYLES.small}>Last Session</Text>
-              </Surface>
+          {/* Stats Grid */}
+          <View style={styles.statsGrid}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{item.achievements}</Text>
+              <Text style={styles.statLabel}>Badges</Text>
             </View>
+            <View style={styles.statDivider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>${item.monthlyRevenue}</Text>
+              <Text style={styles.statLabel}>Monthly</Text>
+            </View>
+            <View style={styles.statDivider} />
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>
+                {new Date(item.lastSession).getDate()}/{new Date(item.lastSession).getMonth() + 1}
+              </Text>
+              <Text style={styles.statLabel}>Last Session</Text>
+            </View>
+          </View>
 
-            {/* Quick Actions */}
-            <View style={styles.quickActions}>
-              <Button
-                mode="outlined"
-                compact
-                onPress={() => Alert.alert('Schedule Session', 'Feature coming soon!')}
-                style={styles.actionButton}
-              >
-                Schedule
-              </Button>
-              <Button
-                mode="outlined"
-                compact
-                onPress={() => Alert.alert('Message', 'Feature coming soon!')}
-                style={styles.actionButton}
-              >
-                Message
-              </Button>
-              <Button
-                mode="outlined"
-                compact
-                onPress={() => Alert.alert('View Reports', 'Feature coming soon!')}
-                style={styles.actionButton}
-              >
-                Reports
-              </Button>
-            </View>
-          </Card.Content>
-        </Card>
-      </TouchableOpacity>
-    </Animated.View>
-  );
+          {/* Quick Actions */}
+          <View style={styles.quickActions}>
+            <Button
+              mode="outlined"
+              compact
+              onPress={() => Alert.alert('Schedule Session', 'Feature coming soon!')}
+              style={styles.actionButton}
+              labelStyle={styles.actionButtonText}
+            >
+              Schedule
+            </Button>
+            <Button
+              mode="outlined"
+              compact
+              onPress={() => Alert.alert('Message', 'Feature coming soon!')}
+              style={styles.actionButton}
+              labelStyle={styles.actionButtonText}
+            >
+              Message
+            </Button>
+            <Button
+              mode="outlined"
+              compact
+              onPress={() => Alert.alert('View Reports', 'Feature coming soon!')}
+              style={styles.actionButton}
+              labelStyle={styles.actionButtonText}
+            >
+              Reports
+            </Button>
+          </View>
+        </Card.Content>
+      </Card>
+    </TouchableOpacity>
+  </Animated.View>
+);
+
+  const renderSettingsModal = () => (
+  <Portal>
+    <Modal
+      visible={showSettingsModal}
+      onDismiss={() => setShowSettingsModal(false)}
+      contentContainerStyle={styles.modalContainer}
+    >
+      <View style={styles.modalBackground}>
+        <Surface style={styles.modalContent}>
+          <Text style={TEXT_STYLES.heading2}>Client Management Settings</Text>
+          <Divider style={styles.divider} />
+          
+          <TouchableOpacity style={styles.settingsOption}>
+            <Text style={TEXT_STYLES.body}>Export Client Data</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.settingsOption}>
+            <Text style={TEXT_STYLES.body}>Import Clients</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.settingsOption}>
+            <Text style={TEXT_STYLES.body}>Client Templates</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.settingsOption}>
+            <Text style={TEXT_STYLES.body}>Payment Settings</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.settingsOption}>
+            <Text style={TEXT_STYLES.body}>Notification Preferences</Text>
+          </TouchableOpacity>
+
+          <Button
+            mode="outlined"
+            onPress={() => setShowSettingsModal(false)}
+            style={styles.closeButton}
+          >
+            Close
+          </Button>
+        </Surface>
+      </View>
+    </Modal>
+  </Portal>
+);
 
   const renderFilterModal = () => (
     <Portal>
@@ -556,50 +611,90 @@ const ClientManagement = ({ navigation }) => {
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       
       {/* Header - Using View with gradient colors instead of LinearGradient */}
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <View style={styles.headerTop}>
-            <Text style={styles.headerTitle}>Client Management</Text>
-            <IconButton
-              icon="filter-list"
-              size={24}
-              iconColor="white"
-              onPress={() => setShowFilterModal(true)}
-            />
-          </View>
-          
-          {/* Stats Overview */}
-          <View style={styles.statsOverview}>
-            <View style={styles.overviewCard}>
-              <Text style={styles.overviewNumber}>{clientsData.length}</Text>
-              <Text style={styles.overviewLabel}>Total Clients</Text>
-            </View>
-            <View style={styles.overviewCard}>
-              <Text style={styles.overviewNumber}>
-                {clientsData.filter(c => c.status === 'active').length}
-              </Text>
-              <Text style={styles.overviewLabel}>Active</Text>
-            </View>
-            <View style={styles.overviewCard}>
-              <Text style={styles.overviewNumber}>
-                ${clientsData.reduce((sum, c) => sum + c.monthlyRevenue, 0)}
-              </Text>
-              <Text style={styles.overviewLabel}>Monthly Revenue</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+       
+          <View style={styles.header}>
+            <View style={styles.headerContent}>
+              <View style={styles.headerTop}>
+                <Text style={styles.headerTitle}>Client Management</Text>
+                <View style={styles.headerIcons}>
+                  <IconButton
+                    icon="analytics"
+                    size={24}
+                    iconColor="white"
+                    onPress={() => Alert.alert('Analytics', 'Feature coming soon!')}
+                  />
+                  <IconButton
+                    icon="notifications"
+                    size={24}
+                    iconColor="white"
+                    onPress={() => Alert.alert('Notifications', 'Feature coming soon!')}
+                  />
+                  <IconButton
+                    icon="more-vert"
+                    size={24}
+                    iconColor="white"
+                    onPress={() => setShowSettingsModal(true)}
+                  />
+                </View>
+              </View>
+              
+              {/* Search Bar in Header */}
+              <View style={styles.headerSearchContainer}>
+                <Searchbar
+                  placeholder="Search clients..."
+                  onChangeText={setSearchQuery}
+                  value={searchQuery}
+                  style={styles.headerSearchBar}
+                  iconColor={COLORS.primary}
+                  inputStyle={{ color: COLORS.text }}
+                />
+              </View>
 
-      {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <Searchbar
-          placeholder="Search clients..."
-          onChangeText={setSearchQuery}
-          value={searchQuery}
-          style={styles.searchBar}
-          iconColor={COLORS.primary}
-        />
-      </View>
+              {/* Filter Row */}
+              <View style={styles.filterRow}>
+                <View style={styles.filterLeftSection}>
+                  <IconButton
+                    icon="filter-list"
+                    size={20}
+                    iconColor="white"
+                    onPress={() => setShowFilterModal(true)}
+                    style={styles.filterIcon}
+                  />
+                  <TouchableOpacity onPress={() => setShowFilterModal(true)} style={styles.filterButton}>
+                    <Text style={styles.filterText}>Sort by</Text>
+                  </TouchableOpacity>
+                  <IconButton
+                    icon={viewMode === 'grid' ? 'view-list' : 'view-grid'}
+                    size={20}
+                    iconColor="white"
+                    onPress={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
+                    style={styles.filterIcon}
+                  />
+                  <TouchableOpacity style={styles.filterButton}>
+                    <Text style={styles.filterText}>Recents</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.statsOverview}>
+                  <View style={styles.overviewCard}>
+                    <Text style={styles.overviewNumber}>{clientsData.length}</Text>
+                    <Text style={styles.overviewLabel}>Total</Text>
+                  </View>
+                  <View style={styles.overviewCard}>
+                    <Text style={styles.overviewNumber}>
+                      {clientsData.filter(c => c.status === 'active').length}
+                    </Text>
+                    <Text style={styles.overviewLabel}>Active</Text>
+                  </View>
+                  <View style={styles.overviewCard}>
+                    <Text style={styles.overviewNumber}>
+                      ${clientsData.reduce((sum, c) => sum + c.monthlyRevenue, 0)}
+                    </Text>
+                    <Text style={styles.overviewLabel}>Sessions</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
 
       {/* Clients List */}
       <FlatList
@@ -639,6 +734,7 @@ const ClientManagement = ({ navigation }) => {
       {/* Modals */}
       {renderFilterModal()}
       {renderClientDetailModal()}
+      {renderSettingsModal()}
     </View>
   );
 };
@@ -649,11 +745,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   header: {
-    backgroundColor: COLORS.primary, // Using solid color instead of gradient
-    paddingTop: 50,
-    paddingBottom: SPACING.lg,
-    paddingHorizontal: SPACING.md,
-  },
+  backgroundColor: COLORS.primary,
+  paddingTop: 50,
+  paddingBottom: SPACING.sm,
+  paddingHorizontal: SPACING.md,
+},
   headerContent: {
     marginTop: SPACING.sm,
   },
@@ -663,21 +759,56 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    ...TEXT_STYLES.heading1,
-    color: 'white',
-    fontSize: 28,
-  },
-  statsOverview: {
+  ...TEXT_STYLES.heading1,
+  color: 'white',
+  fontSize: 22,
+},
+  headerIcons: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: SPACING.lg,
+    alignItems: 'center',
   },
-  overviewCard: {
+  headerSearchContainer: {
+  marginTop: SPACING.sm,
+  marginBottom: SPACING.xs,
+},
+  headerSearchBar: {
+    elevation: 2,
+    backgroundColor: COLORS.surface,
+    borderRadius: 8,
+  },
+  filterRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: SPACING.xs,
+},
+  filterLeftSection: {
+    flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
+  filterIcon: {
+    margin: 0,
+    marginRight: SPACING.xs,
+  },
+  filterButton: {
+    marginRight: SPACING.md,
+  },
+  filterText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  statsOverview: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  overviewCard: {
+    alignItems: 'center',
+    marginLeft: SPACING.md,
+  },
   overviewNumber: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
   },
@@ -686,28 +817,22 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.8)',
     marginTop: SPACING.xs,
   },
-  searchContainer: {
-    paddingHorizontal: SPACING.md,
-    paddingVertical: SPACING.sm,
-  },
-  searchBar: {
-    elevation: 2,
-    backgroundColor: COLORS.surface,
-  },
   listContainer: {
     paddingHorizontal: SPACING.md,
     paddingBottom: 100,
+    paddingTop: SPACING.sm,
   },
   clientCard: {
     marginBottom: SPACING.md,
   },
   card: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-  },
-  cardContent: {
-    padding: SPACING.md,
-  },
+  backgroundColor: COLORS.surface,
+  borderRadius: 16,
+  marginHorizontal: 2,
+},
+cardContent: {
+  padding: SPACING.md,
+},
   clientHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -728,21 +853,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: SPACING.sm,
   },
-  statusChip: {
-    marginRight: SPACING.sm,
-    height: 24,
-  },
-  statusText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-  },
-  paymentChip: {
-    height: 24,
-  },
-  paymentText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-  },
+ statusChip: {
+  marginRight: SPACING.sm,
+  height: 26,
+  borderWidth: 0,
+},
+statusText: {
+  fontSize: 10,
+  fontWeight: '600',
+},
+paymentChip: {
+  height: 26,
+  borderWidth: 0,
+},
+paymentText: {
+  fontSize: 10,
+  fontWeight: '600',
+},
   progressSection: {
     marginBottom: SPACING.md,
   },
@@ -752,15 +879,20 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
   progressBar: {
-    height: 8,
-    borderRadius: 4,
-    marginBottom: SPACING.xs,
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: SPACING.md,
-  },
+  height: 6,
+  borderRadius: 3,
+  backgroundColor: COLORS.border,
+},
+statsGrid: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: SPACING.md,
+  marginTop: SPACING.sm,
+  paddingVertical: SPACING.sm,
+  backgroundColor: COLORS.background,
+  borderRadius: 8,
+  paddingHorizontal: SPACING.sm,
+},
   statCard: {
     flex: 1,
     alignItems: 'center',
@@ -821,6 +953,15 @@ const styles = StyleSheet.create({
   applyButton: {
     marginTop: SPACING.lg,
   },
+  settingsOption: {
+    paddingVertical: SPACING.md,
+    paddingHorizontal: SPACING.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  closeButton: {
+    marginTop: SPACING.lg,
+  },
   clientModalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -877,6 +1018,62 @@ const styles = StyleSheet.create({
   modalActionButton: {
     marginBottom: SPACING.sm,
   },
+
+  clientName: {
+  fontSize: 18,
+  fontWeight: 'bold',
+  color: COLORS.text,
+  marginBottom: 2,
+},
+clientMeta: {
+  fontSize: 13,
+  color: COLORS.textSecondary,
+  marginBottom: 6,
+},
+phoneButton: {
+  margin: 0,
+  backgroundColor: COLORS.primary + '10',
+},
+progressTitle: {
+  fontSize: 14,
+  fontWeight: '600',
+  color: COLORS.text,
+},
+progressPercentage: {
+  fontSize: 14,
+  fontWeight: 'bold',
+  color: COLORS.primary,
+},
+progressSubtext: {
+  fontSize: 12,
+  color: COLORS.textSecondary,
+  marginTop: 4,
+},
+statItem: {
+  flex: 1,
+  alignItems: 'center',
+},
+statNumber: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: COLORS.text,
+  marginBottom: 2,
+},
+statLabel: {
+  fontSize: 11,
+  color: COLORS.textSecondary,
+  textAlign: 'center',
+},
+statDivider: {
+  width: 1,
+  height: 30,
+  backgroundColor: COLORS.border,
+  marginHorizontal: 8,
+},
+actionButtonText: {
+  fontSize: 12,
+  fontWeight: '500',
+},
 });
 
 export default ClientManagement;

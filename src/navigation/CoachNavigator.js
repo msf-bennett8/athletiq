@@ -474,7 +474,7 @@ const PlayersStack = () => (
     <Stack.Screen 
       name="PlayerList" 
       component={PlayerList} 
-      options={{ title: 'My Players' }} 
+      options={{ headerShown: false }} 
     />
     <Stack.Screen 
       name="PlayerProgress" 

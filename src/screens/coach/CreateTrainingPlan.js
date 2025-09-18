@@ -2,7 +2,6 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View,
   Text,
-  TextInput,
   ScrollView,
   StyleSheet,
   Alert,
@@ -30,6 +29,9 @@ import {
   Snackbar,
   Menu,
   Divider,
+  TextInput,
+  HelperText,
+  Badge,
 } from 'react-native-paper';
 //import { Searchbar,
 import { LinearGradient } from '../../components/shared/LinearGradient';

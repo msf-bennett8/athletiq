@@ -192,6 +192,7 @@ const PlayerList = () => {
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [selectionMode, setSelectionMode] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -451,10 +452,10 @@ const PlayerList = () => {
                     <View style={styles.playerMeta}>
                       <Chip
                         compact
-                        style={[styles.levelChip, { backgroundColor: getLevelColor(item.level) }]}
-                        textStyle={{ color: '#fff', fontSize: 10 }}
+                        style={styles.levelChip}
+                        textStyle={{ color: COLORS.text, fontSize: 11, fontWeight: '600' }}
                       >
-                        {item.level}
+                        {item.level.toUpperCase()}
                       </Chip>
                       <Text style={[
                         styles.ageText,
@@ -465,21 +466,16 @@ const PlayerList = () => {
                     </View>
                   </View>
                   
-                  <View style={styles.playerStats}>
-                    <View style={styles.statItem}>
+                  <View style={styles.performanceIndicator}>
+                    <Text style={[
+                      styles.performanceLabel,
+                      isSelected && { color: '#fff' }
+                    ]}>
+                      Performance
+                    </Text>
+                    <View style={styles.performanceCircle}>
                       <Text style={[
-                        styles.statLabel,
-                        isSelected && { color: '#fff' }
-                      ]}>
-                        Performance
-                      </Text>
-                      <ProgressBar
-                        progress={item.performance / 100}
-                        color={isSelected ? '#fff' : COLORS.primary}
-                        style={styles.progressBar}
-                      />
-                      <Text style={[
-                        styles.statValue,
+                        styles.performanceValue,
                         isSelected && { color: '#fff' }
                       ]}>
                         {item.performance}%
@@ -487,6 +483,7 @@ const PlayerList = () => {
                     </View>
                   </View>
                 </View>
+                
 
                 <View style={styles.playerFooter}>
                   <View style={styles.achievementContainer}>
@@ -496,7 +493,8 @@ const PlayerList = () => {
                         compact
                         icon="emoji-events"
                         style={styles.achievementChip}
-                        textStyle={{ fontSize: 10 }}
+                        textStyle={{ fontSize: 10, color: COLORS.text, fontWeight: '500' }}
+                        iconColor={COLORS.primary}
                       >
                         {achievement}
                       </Chip>
@@ -512,22 +510,60 @@ const PlayerList = () => {
                   </View>
                   
                   <View style={styles.actionButtons}>
-                    <IconButton
-                      icon="message"
-                      size={20}
-                      iconColor={isSelected ? '#fff' : COLORS.primary}
+                    <TouchableOpacity
+                      style={[styles.actionButton, styles.messageButton]}
                       onPress={() => {
-                        Alert.alert('Message', `Send message to ${item.name}`);
+                        navigation.navigate('Chat', { chatName: item.name, playerId: item.id });
                       }}
-                    />
-                    <IconButton
-                      icon="phone"
-                      size={20}
-                      iconColor={isSelected ? '#fff' : COLORS.primary}
+                    >
+                      <MaterialIcons name="message" size={18} color="#fff" />
+                      <Text style={styles.actionButtonText}>Message</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={[styles.actionButton, styles.callButton]}
                       onPress={() => {
-                        Alert.alert('Call', `Call ${item.name}`);
+                        Alert.alert('Call', `Call ${item.phoneNumber}`, [
+                          { text: 'Cancel', style: 'cancel' },
+                          { text: 'Call', onPress: () => console.log('Calling...') }
+                        ]);
                       }}
-                    />
+                    >
+                      <MaterialIcons name="phone" size={18} color="#fff" />
+                      <Text style={styles.actionButtonText}>Call</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.playerMetrics}>
+                  <View style={styles.metricItem}>
+                    <Text style={[styles.metricLabel, isSelected && { color: '#fff' }]}>
+                      Attendance
+                    </Text>
+                    <Text style={[styles.metricValue, isSelected && { color: '#fff' }]}>
+                      {item.attendanceRate}%
+                    </Text>
+                  </View>
+                  
+                  <View style={styles.metricItem}>
+                    <Text style={[styles.metricLabel, isSelected && { color: '#fff' }]}>
+                      Sessions
+                    </Text>
+                    <Text style={[styles.metricValue, isSelected && { color: '#fff' }]}>
+                      {item.sessionsCompleted}
+                    </Text>
+                  </View>
+                  
+                  <View style={styles.metricItem}>
+                    <Text style={[styles.metricLabel, isSelected && { color: '#fff' }]}>
+                      Last Active
+                    </Text>
+                    <Text style={[styles.metricValue, isSelected && { color: '#fff' }]}>
+                      {new Date(item.lastSession).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </Text>
                   </View>
                 </View>
               </Card.Content>
@@ -651,103 +687,137 @@ const PlayerList = () => {
     </Portal>
   );
 
-  const renderHeader = () => (
-    <Surface style={styles.headerContainer}>
-      <View style={[styles.headerGradient, { backgroundColor: '#667eea' }]}>
-        <View style={styles.headerContent}>
-          <View style={styles.headerTop}>
-            <Text style={styles.headerTitle}>
-              Players {isOffline && '(Offline)'}
-            </Text>
-            <View style={styles.headerStats}>
-              <Text style={styles.statText}>{sortedPlayers.length} total</Text>
-              <Text style={styles.statText}>
-                {sortedPlayers.filter(p => p.status === 'active').length} active
-              </Text>
-            </View>
+const renderHeader = () => (
+  <Surface style={styles.headerContainer}>
+    <View style={[styles.headerGradient, { backgroundColor: '#667eea' }]}>
+      <View style={styles.headerContent}>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitle}>
+            My Players {isOffline && '(Offline)'}
+          </Text>
+          <View style={styles.headerIcons}>
+            <IconButton
+              icon="chart-line"
+              onPress={() => navigation.navigate('Analytics')}
+              style={styles.headerIconButton}
+              iconColor="#fff"
+              size={20}
+            />
+            <IconButton
+              icon="bell"
+              onPress={() => navigation.navigate('Notifications')}
+              style={styles.headerIconButton}
+              iconColor="#fff"
+              size={20}
+            />
+            <IconButton
+              icon="dots-vertical"
+              onPress={() => setShowSettingsMenu(true)}
+              style={styles.headerIconButton}
+              iconColor="#fff"
+              size={20}
+            />
+          </View>
+        </View>
+        
+        <Searchbar
+          placeholder="Search players..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          style={styles.searchBar}
+          iconColor={COLORS.primary}
+          inputStyle={{ color: COLORS.text }}
+        />
+        
+        <View style={styles.controlsAndStatsRow}>
+          <View style={styles.filterControls}>
+            <IconButton
+              icon="tune"
+              selected={showFilters}
+              onPress={() => setShowFilters(true)}
+              style={styles.controlButton}
+              iconColor="#fff"
+            />
+            
+            <Menu
+              visible={showSortMenu}
+              onDismiss={() => setShowSortMenu(false)}
+              anchor={
+                <IconButton
+                  icon="sort"
+                  onPress={() => setShowSortMenu(true)}
+                  style={styles.controlButton}
+                  iconColor="#fff"
+                />
+              }
+            >
+              <Menu.Item
+                leadingIcon="sort-alphabetical-ascending"
+                onPress={() => {
+                  setSortBy('name');
+                  setSortOrder('asc');
+                  setShowSortMenu(false);
+                }}
+                title="Name A-Z"
+              />
+              <Menu.Item
+                leadingIcon="trending-up"
+                onPress={() => {
+                  setSortBy('performance');
+                  setSortOrder('desc');
+                  setShowSortMenu(false);
+                }}
+                title="Performance"
+              />
+              <Menu.Item
+                leadingIcon="calendar-check"
+                onPress={() => {
+                  setSortBy('attendance');
+                  setSortOrder('desc');
+                  setShowSortMenu(false);
+                }}
+                title="Attendance"
+              />
+              <Menu.Item
+                leadingIcon="cake"
+                onPress={() => {
+                  setSortBy('age');
+                  setSortOrder('asc');
+                  setShowSortMenu(false);
+                }}
+                title="Age"
+              />
+            </Menu>
+            
+            <IconButton
+              icon={viewMode === 'list' ? 'view-grid' : 'view-list'}
+              onPress={() => setViewMode(viewMode === 'list' ? 'grid' : 'list')}
+              style={styles.controlButton}
+              iconColor="#fff"
+            />
           </View>
           
-          <Searchbar
-            placeholder="Search players..."
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            style={styles.searchBar}
-            iconColor={COLORS.primary}
-            inputStyle={{ color: COLORS.text }}
-          />
-          
-          <View style={styles.controlsRow}>
-            <View style={styles.viewControls}>
-              <IconButton
-                icon="tune"
-                selected={showFilters}
-                onPress={() => setShowFilters(true)}
-                style={styles.controlButton}
-                iconColor="#fff"
-              />
-              
-              <Menu
-                visible={showSortMenu}
-                onDismiss={() => setShowSortMenu(false)}
-                anchor={
-                  <IconButton
-                    icon="sort"
-                    onPress={() => setShowSortMenu(true)}
-                    style={styles.controlButton}
-                    iconColor="#fff"
-                  />
-                }
-              >
-                <Menu.Item
-                  leadingIcon="sort-alphabetical-ascending"
-                  onPress={() => {
-                    setSortBy('name');
-                    setSortOrder('asc');
-                    setShowSortMenu(false);
-                  }}
-                  title="Name A-Z"
-                />
-                <Menu.Item
-                  leadingIcon="trending-up"
-                  onPress={() => {
-                    setSortBy('performance');
-                    setSortOrder('desc');
-                    setShowSortMenu(false);
-                  }}
-                  title="Performance"
-                />
-                <Menu.Item
-                  leadingIcon="calendar-check"
-                  onPress={() => {
-                    setSortBy('attendance');
-                    setSortOrder('desc');
-                    setShowSortMenu(false);
-                  }}
-                  title="Attendance"
-                />
-                <Menu.Item
-                  leadingIcon="cake"
-                  onPress={() => {
-                    setSortBy('age');
-                    setSortOrder('asc');
-                    setShowSortMenu(false);
-                  }}
-                  title="Age"
-                />
-              </Menu>
-              
-              <IconButton
-                icon={viewMode === 'list' ? 'view-grid' : 'view-list'}
-                onPress={() => setViewMode(viewMode === 'list' ? 'grid' : 'list')}
-                style={styles.controlButton}
-                iconColor="#fff"
-              />
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>{sortedPlayers.length}</Text>
+              <Text style={styles.statLabel}>Total</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>
+                {sortedPlayers.filter(p => p.status === 'active').length}
+              </Text>
+              <Text style={styles.statLabel}>Active</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statNumber}>7</Text>
+              <Text style={styles.statLabel}>Sessions</Text>
             </View>
           </View>
         </View>
       </View>
-    </Surface>
-  );
+    </View>
+  </Surface>
+);
 
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
@@ -861,42 +931,21 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
   },
   headerGradient: {
-    paddingTop: 40,
-    paddingBottom: SPACING.lg,
-  },
+  paddingTop: 45,
+  paddingBottom: SPACING.sd,
+},
   headerContent: {
     paddingHorizontal: SPACING.lg,
-  },
-  headerTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: SPACING.md,
+    paddingVertical: SPACING.sm,
   },
   headerTitle: {
     ...TEXT_STYLES.h2,
     color: '#fff',
   },
-  headerStats: {
-    alignItems: 'flex-end',
-  },
-  statText: {
-    ...TEXT_STYLES.caption,
-    color: '#fff',
-    opacity: 0.8,
-  },
   searchBar: {
     marginBottom: SPACING.md,
     backgroundColor: '#fff',
     elevation: 2,
-  },
-  controlsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  viewControls: {
-    flexDirection: 'row',
   },
   controlButton: {
     backgroundColor: 'rgba(255,255,255,0.2)',
@@ -956,12 +1005,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   playerCard: {
-    marginBottom: SPACING.md,
-    elevation: 4,
-    backgroundColor: COLORS.surface,
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
+  marginBottom: SPACING.md,
+  elevation: 3,
+  backgroundColor: COLORS.surface,
+  borderRadius: 12,
+  overflow: 'hidden',
+},
   selectedCard: {
     borderWidth: 2,
     borderColor: COLORS.primary,
@@ -971,8 +1020,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContent: {
-    padding: SPACING.lg,
-  },
+  padding: SPACING.md,
+},
   playerHeader: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -1007,33 +1056,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   levelChip: {
-    marginRight: SPACING.sm,
-  },
+  marginRight: SPACING.sm,
+  backgroundColor: 'rgba(255,255,255,0.9)',
+  height: 28,
+  paddingHorizontal: 8,
+},
   ageText: {
     ...TEXT_STYLES.caption,
     color: COLORS.textSecondary,
-  },
-  playerStats: {
-    minWidth: 80,
-  },
-  statItem: {
-    alignItems: 'flex-end',
-  },
-  statLabel: {
-    ...TEXT_STYLES.caption,
-    color: COLORS.textSecondary,
-    marginBottom: 2,
-  },
-  progressBar: {
-    width: 60,
-    height: 6,
-    borderRadius: 3,
-    marginBottom: 2,
-  },
-  statValue: {
-    ...TEXT_STYLES.caption,
-    color: COLORS.text,
-    fontWeight: 'bold',
   },
   playerFooter: {
     flexDirection: 'row',
@@ -1047,17 +1077,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   achievementChip: {
-    marginRight: SPACING.sm,
-    marginBottom: SPACING.sm,
-    backgroundColor: COLORS.primary,
-  },
+  marginRight: SPACING.sm,
+  marginBottom: SPACING.sm,
+  backgroundColor: 'rgba(255,255,255,0.9)',
+  height: 26,
+  paddingHorizontal: 6,
+},
   moreAchievements: {
     ...TEXT_STYLES.caption,
     color: COLORS.textSecondary,
     fontStyle: 'italic',
-  },
-  actionButtons: {
-    flexDirection: 'row',
   },
   selectionOverlay: {
     position: 'absolute',
@@ -1127,11 +1156,146 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   fab: {
-    position: 'absolute',
-    right: SPACING.lg,
-    bottom: SPACING.xl,
-    backgroundColor: COLORS.primary,
-  },
+  position: 'absolute',
+  right: SPACING.lg,
+  bottom: SPACING.xl,
+  backgroundColor: COLORS.primary,
+  borderRadius: 8,
+},
+
+  headerTitleContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: SPACING.md,
+},
+headerIcons: {
+  flexDirection: 'row',
+},
+headerIconButton: {
+  backgroundColor: 'rgba(255,255,255,0.2)',
+  marginLeft: 4,
+},
+statsContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  marginBottom: SPACING.md,
+  paddingHorizontal: SPACING.md,
+},
+statItem: {
+  alignItems: 'center',
+},
+statNumber: {
+  ...TEXT_STYLES.h3,
+  color: '#fff',
+  fontWeight: 'bold',
+},
+statLabel: {
+  ...TEXT_STYLES.caption,
+  color: '#fff',
+  opacity: 0.8,
+  marginTop: 2,
+},
+filterControls: {
+  flexDirection: 'row',
+},
+controlsAndStatsRow: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+filterControls: {
+  flexDirection: 'row',
+},
+statsContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+statItem: {
+  alignItems: 'center',
+  marginLeft: SPACING.md,
+},
+statNumber: {
+  ...TEXT_STYLES.body1,
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: 16,
+},
+statLabel: {
+  ...TEXT_STYLES.caption,
+  color: '#fff',
+  opacity: 0.8,
+  fontSize: 11,
+},
+actionButton: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingHorizontal: 16,
+  paddingVertical: 10,
+  borderRadius: 8,
+  marginLeft: 8,
+  minWidth: 80,
+  justifyContent: 'center',
+},
+messageButton: {
+  backgroundColor: '#4CAF50',
+},
+callButton: {
+  backgroundColor: '#2196F3',
+},
+actionButtonText: {
+  color: '#fff',
+  fontSize: 13,
+  fontWeight: '600',
+  marginLeft: 6,
+},
+playerMetrics: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  paddingTop: SPACING.md,
+  marginTop: SPACING.md,
+  borderTopWidth: 1,
+  borderTopColor: 'rgba(0,0,0,0.1)',
+},
+metricItem: {
+  alignItems: 'center',
+  flex: 1,
+},
+metricLabel: {
+  ...TEXT_STYLES.caption,
+  color: COLORS.textSecondary,
+  fontSize: 10,
+  marginBottom: 2,
+},
+metricValue: {
+  ...TEXT_STYLES.body2,
+  color: COLORS.text,
+  fontWeight: 'bold',
+  fontSize: 12,
+},
+performanceIndicator: {
+  alignItems: 'center',
+},
+performanceLabel: {
+  ...TEXT_STYLES.caption,
+  color: COLORS.textSecondary,
+  fontSize: 10,
+  marginBottom: 4,
+},
+performanceCircle: {
+  width: 45,
+  height: 45,
+  borderRadius: 22.5,
+  backgroundColor: COLORS.primary,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+performanceValue: {
+  ...TEXT_STYLES.caption,
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: 11,
+},
 });
 
 export default PlayerList;
