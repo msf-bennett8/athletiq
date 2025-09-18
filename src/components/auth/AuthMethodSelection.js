@@ -52,6 +52,7 @@ const AuthMethodSelection = ({
     scheme: 'com.athletr.athletr',
     useProxy: Platform.OS === 'web' ? true : false, // Use proxy only on web
     path: 'auth', // Add specific path for better routing
+    useProxy: false,
   });
 
   // Debug: Log the redirect URI being used
@@ -71,6 +72,7 @@ const AuthMethodSelection = ({
       scheme: 'com.athletr.athletr',
       useProxy: Platform.OS === 'web' ? true : false,
       path: 'auth',
+      useProxy: false,
     }),
     additionalParameters: Platform.OS === 'web' ? {
       access_type: 'offline',
@@ -251,17 +253,29 @@ const handleGoogleAuthSuccess = async (authentication) => {
     setGoogleLoading(false);
     
     // Call parent callback with Google data - THIS IS THE KEY FIX
+    // Call parent callback with Google data
     if (onMethodSelect) {
-      onMethodSelect({
+      const result = onMethodSelect({
         id: 'google',
         userData: googleUserData
       });
+      
+      // Check if parent handled auto-advance
+      if (result && result.autoAdvance) {
+        // Parent will handle navigation, don't call onNext here
+        Alert.alert(
+          'Google Sign-In Successful',
+          `Welcome ${userInfo.name || userInfo.email}! Your information has been pre-filled.`,
+          [{ text: 'Continue' }]
+        );
+        return;
+      }
     }
-    
-    // Auto-advance to next step with the pre-filled data
+
+    // Fallback: manual advance
     Alert.alert(
       'Google Sign-In Successful',
-      `Welcome ${userInfo.name || userInfo.email}! Your information has been pre-filled.`,
+      `Welcome ${userInfo.name || userInfo.email}! Your information has been pre-filled. Please continue to complete your profile.`,
       [{ 
         text: 'Continue', 
         onPress: () => {

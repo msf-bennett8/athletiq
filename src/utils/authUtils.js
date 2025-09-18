@@ -1,7 +1,21 @@
 // src/utils/authUtils.js
 import { Platform, Alert } from 'react-native';
-import * as GoogleSignIn from '@react-native-google-signin/google-signin';
 import { auth } from '../config/firebase.config';
+
+// Platform-specific imports
+let GoogleSignIn;
+let GoogleAuthProvider, signInWithPopup, signInWithCredential;
+
+if (Platform.OS === 'web') {
+  // Web imports - Firebase Auth
+  const firebaseAuth = require('firebase/auth');
+  GoogleAuthProvider = firebaseAuth.GoogleAuthProvider;
+  signInWithPopup = firebaseAuth.signInWithPopup;
+  signInWithCredential = firebaseAuth.signInWithCredential;
+} else {
+  // React Native imports
+  GoogleSignIn = require('@react-native-google-signin/google-signin').default;
+}
 
 /**
  * Authentication utility functions
@@ -10,12 +24,17 @@ import { auth } from '../config/firebase.config';
 
 // Google Sign-In Configuration
 export const configureGoogleSignIn = () => {
+  if (Platform.OS === 'web') {
+    // Web doesn't need configuration - handled by Firebase
+    return;
+  }
+  
   GoogleSignIn.configure({
     iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // Your Android OAuth2 ID
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Your Web OAuth2 ID
+    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com',
+    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
     offlineAccess: true,
-    hostedDomain: '', // Optional
+    hostedDomain: '',
     forceCodeForRefreshToken: true,
   });
 };
@@ -23,6 +42,11 @@ export const configureGoogleSignIn = () => {
 // Google Authentication Functions
 export const initializeGoogleAuth = async () => {
   try {
+    if (Platform.OS === 'web') {
+      // Web initialization is automatic with Firebase
+      return { success: true };
+    }
+    
     configureGoogleSignIn();
     
     // Check if Google Play Services are available (Android only)
@@ -42,28 +66,49 @@ export const initializeGoogleAuth = async () => {
 
 export const signInWithGoogle = async () => {
   try {
-    // Check if user is already signed in
-    const isSignedIn = await GoogleSignIn.isSignedIn();
-    if (isSignedIn) {
-      await GoogleSignIn.signOut();
+    if (Platform.OS === 'web') {
+      // Web Google Sign-In using Firebase Auth
+      const provider = new GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      
+      return {
+        success: true,
+        user: {
+          id: result.user.uid,
+          email: result.user.email,
+          name: result.user.displayName,
+          givenName: result.user.displayName?.split(' ')[0] || '',
+          familyName: result.user.displayName?.split(' ').slice(1).join(' ') || '',
+          photo: result.user.photoURL
+        },
+        idToken: credential?.idToken || await result.user.getIdToken(),
+        accessToken: credential?.accessToken
+      };
+    } else {
+      // React Native Google Sign-In
+      const isSignedIn = await GoogleSignIn.isSignedIn();
+      if (isSignedIn) {
+        await GoogleSignIn.signOut();
+      }
+      
+      const userInfo = await GoogleSignIn.signIn();
+      const { idToken } = userInfo;
+      
+      if (!idToken) {
+        throw new Error('No ID token received from Google');
+      }
+      
+      return {
+        success: true,
+        user: userInfo.user,
+        idToken,
+        accessToken: userInfo.accessToken
+      };
     }
-    
-    // Perform sign-in
-    const userInfo = await GoogleSignIn.signIn();
-    
-    // Get ID token for Firebase
-    const { idToken } = userInfo;
-    
-    if (!idToken) {
-      throw new Error('No ID token received from Google');
-    }
-    
-    return {
-      success: true,
-      user: userInfo.user,
-      idToken,
-      accessToken: userInfo.accessToken
-    };
   } catch (error) {
     console.error('Google sign-in error:', error);
     return { 
@@ -75,7 +120,11 @@ export const signInWithGoogle = async () => {
 
 export const signOutGoogle = async () => {
   try {
-    await GoogleSignIn.signOut();
+    if (Platform.OS === 'web') {
+      await auth.signOut();
+    } else {
+      await GoogleSignIn.signOut();
+    }
     return { success: true };
   } catch (error) {
     console.error('Google sign-out error:', error);
@@ -85,8 +134,12 @@ export const signOutGoogle = async () => {
 
 export const getCurrentGoogleUser = async () => {
   try {
-    const userInfo = await GoogleSignIn.getCurrentUser();
-    return userInfo;
+    if (Platform.OS === 'web') {
+      return auth.currentUser;
+    } else {
+      const userInfo = await GoogleSignIn.getCurrentUser();
+      return userInfo;
+    }
   } catch (error) {
     console.error('Get current Google user error:', error);
     return null;
@@ -96,19 +149,23 @@ export const getCurrentGoogleUser = async () => {
 // Phone Authentication Functions
 export const sendPhoneVerification = async (phoneNumber) => {
   try {
-    // Validate phone number format
-    const cleanPhoneNumber = cleanPhoneNumber(phoneNumber);
-    if (!isValidPhoneNumber(cleanPhoneNumber)) {
+    const cleanPhone = cleanPhoneNumber(phoneNumber);
+    if (!isValidPhoneNumber(cleanPhone)) {
       throw new Error('Invalid phone number format');
     }
     
-    // Firebase phone verification
     let verificationId;
     
     if (Platform.OS === 'web') {
       const { RecaptchaVerifier, signInWithPhoneNumber } = require('firebase/auth');
       
-      // Create recaptcha verifier
+      // Create recaptcha container if it doesn't exist
+      if (!document.getElementById('recaptcha-container')) {
+        const recaptchaDiv = document.createElement('div');
+        recaptchaDiv.id = 'recaptcha-container';
+        document.body.appendChild(recaptchaDiv);
+      }
+      
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
         size: 'invisible',
         callback: () => {
@@ -117,18 +174,21 @@ export const sendPhoneVerification = async (phoneNumber) => {
       }, auth);
       
       const appVerifier = window.recaptchaVerifier;
-      const confirmationResult = await signInWithPhoneNumber(auth, cleanPhoneNumber, appVerifier);
+      const confirmationResult = await signInWithPhoneNumber(auth, cleanPhone, appVerifier);
       verificationId = confirmationResult.verificationId;
+      
+      // Store confirmation result for later use
+      window.phoneConfirmationResult = confirmationResult;
     } else {
       // React Native Firebase
-      const confirmation = await auth().signInWithPhoneNumber(cleanPhoneNumber);
+      const confirmation = await auth().signInWithPhoneNumber(cleanPhone);
       verificationId = confirmation.verificationId;
     }
     
     return {
       success: true,
       verificationId,
-      phoneNumber: cleanPhoneNumber
+      phoneNumber: cleanPhone
     };
   } catch (error) {
     console.error('Phone verification error:', error);
@@ -149,12 +209,13 @@ export const verifyPhoneCode = async (verificationId, code) => {
       throw new Error('Invalid verification code');
     }
     
-    let credential;
-    
     if (Platform.OS === 'web') {
-      const { PhoneAuthProvider, signInWithCredential } = require('firebase/auth');
-      credential = PhoneAuthProvider.credential(verificationId, code);
-      const result = await signInWithCredential(auth, credential);
+      // Use stored confirmation result
+      if (!window.phoneConfirmationResult) {
+        throw new Error('No phone confirmation result found');
+      }
+      
+      const result = await window.phoneConfirmationResult.confirm(code);
       
       return {
         success: true,
@@ -164,7 +225,7 @@ export const verifyPhoneCode = async (verificationId, code) => {
     } else {
       // React Native Firebase
       const confirmation = auth().confirmationResult;
-      credential = auth.PhoneAuthProvider.credential(verificationId, code);
+      const credential = auth.PhoneAuthProvider.credential(verificationId, code);
       const result = await auth().signInWithCredential(credential);
       
       return {
@@ -182,7 +243,7 @@ export const verifyPhoneCode = async (verificationId, code) => {
   }
 };
 
-// Validation Functions
+// Validation Functions (keeping existing validation functions as they are)
 export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -248,7 +309,6 @@ export const validateUsername = (username) => {
     return { isValid: false, error: 'Username can only contain letters, numbers, and underscores' };
   }
   
-  // Reserved usernames
   const reserved = ['admin', 'root', 'user', 'test', 'guest', 'null', 'undefined'];
   if (reserved.includes(cleanUsername)) {
     return { isValid: false, error: 'This username is reserved' };
@@ -267,7 +327,6 @@ export const validatePhoneNumber = (phoneNumber) => {
   return { isValid: true, phoneNumber: cleanPhone };
 };
 
-// Personal Information Validation
 export const validatePersonalInfo = (data) => {
   const errors = [];
   
@@ -317,15 +376,13 @@ export const validatePersonalInfo = (data) => {
 export const cleanPhoneNumber = (phoneNumber) => {
   if (!phoneNumber) return '';
   
-  // Remove all non-digit characters
   const digits = phoneNumber.replace(/\D/g, '');
   
-  // Add country code if not present
   if (digits.length === 10) {
-    return `+1${digits}`; // US/Canada
+    return `+1${digits}`;
   } else if (digits.length === 11 && digits.startsWith('1')) {
     return `+${digits}`;
-  } else if (digits.startsWith('+')) {
+  } else if (phoneNumber.startsWith('+')) {
     return phoneNumber;
   }
   
@@ -365,17 +422,32 @@ export const formatPhoneNumber = (phoneNumber) => {
 
 // Error Handling
 export const getGoogleAuthError = (error) => {
-  switch (error.code) {
-    case 'SIGN_IN_CANCELLED':
-      return 'Sign-in was cancelled';
-    case 'IN_PROGRESS':
-      return 'Sign-in already in progress';
-    case 'PLAY_SERVICES_NOT_AVAILABLE':
-      return 'Google Play Services not available';
-    case 'SIGN_IN_REQUIRED':
-      return 'Sign-in required';
-    default:
-      return error.message || 'Google sign-in failed';
+  if (Platform.OS === 'web') {
+    switch (error.code) {
+      case 'auth/popup-closed-by-user':
+        return 'Sign-in was cancelled';
+      case 'auth/popup-blocked':
+        return 'Sign-in popup was blocked. Please allow popups for this site.';
+      case 'auth/cancelled-popup-request':
+        return 'Sign-in was cancelled';
+      case 'auth/network-request-failed':
+        return 'Network error. Please check your connection.';
+      default:
+        return error.message || 'Google sign-in failed';
+    }
+  } else {
+    switch (error.code) {
+      case 'SIGN_IN_CANCELLED':
+        return 'Sign-in was cancelled';
+      case 'IN_PROGRESS':
+        return 'Sign-in already in progress';
+      case 'PLAY_SERVICES_NOT_AVAILABLE':
+        return 'Google Play Services not available';
+      case 'SIGN_IN_REQUIRED':
+        return 'Sign-in required';
+      default:
+        return error.message || 'Google sign-in failed';
+    }
   }
 };
 
@@ -413,7 +485,6 @@ export const getFirebaseAuthError = (error) => {
   }
 };
 
-// Registration Data Preparation
 export const prepareRegistrationData = (userData, authMethod) => {
   const baseData = {
     firstName: userData.firstName?.trim() || '',
@@ -428,7 +499,6 @@ export const prepareRegistrationData = (userData, authMethod) => {
     profileImage: userData.profileImage || null
   };
 
-  // Add auth-method specific data
   switch (authMethod) {
     case 'google':
       return {

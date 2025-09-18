@@ -68,8 +68,13 @@ const { width } = Dimensions.get('window');
 const ClientManagement = ({ navigation }) => {
   // Redux state
   const dispatch = useDispatch();
-  const { clients, loading, error } = useSelector(state => state.clients || {});
-  const { user } = useSelector(state => state.auth || {});
+  const clientsState = useSelector(state => state.clients);
+  const authState = useSelector(state => state.auth);
+
+  const clients = clientsState?.clients;
+  const loading = clientsState?.loading || false;
+  const error = clientsState?.error;
+  const user = authState?.user;
 
   // Local state
   const [refreshing, setRefreshing] = useState(false);

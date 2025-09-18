@@ -1,7 +1,8 @@
 // src/store/actions/registrationActions.js
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Platform } from 'react-native';
 import FirebaseService from '../../services/FirebaseService';
-import * as GoogleSignIn from '@react-native-google-signin/google-signin';
+import authUtils from '../../utils/authUtils';
 import { 
   setGoogleAuthLoading, 
   setGoogleAuthData, 
@@ -10,7 +11,8 @@ import {
   setPhoneVerificationId,
   setPhoneAuthError,
   updateUserData,
-  setRegistrationError
+  setRegistrationError,
+  clearGoogleAuthData
 } from '../slices/registrationSlice';
 
 // Google Authentication Actions
@@ -18,15 +20,15 @@ export const initializeGoogleSignIn = createAsyncThunk(
   'registration/initializeGoogleSignIn',
   async (_, { rejectWithValue }) => {
     try {
-      await GoogleSignIn.configure({
-        iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-        androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // Your Android OAuth2 ID
-        webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Your Web OAuth2 ID
-        offlineAccess: true,
-      });
+      const result = await authUtils.initializeGoogleAuth();
       
-      return { initialized: true };
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      
+      return { initialized: true, platform: Platform.OS };
     } catch (error) {
+      console.error('Google Sign-In initialization error:', error);
       return rejectWithValue(error.message);
     }
   }
@@ -38,34 +40,34 @@ export const signInWithGoogle = createAsyncThunk(
     try {
       dispatch(setGoogleAuthLoading(true));
       
-      // Check if Google Play Services are available
-      await GoogleSignIn.hasPlayServices();
+      const result = await authUtils.signInWithGoogle();
       
-      // Sign in with Google
-      const userInfo = await GoogleSignIn.signIn();
+      if (!result.success) {
+        throw new Error(result.error);
+      }
       
-      // Get additional user data
-      const googleUser = {
-        id: userInfo.user.id,
-        email: userInfo.user.email,
-        givenName: userInfo.user.givenName,
-        familyName: userInfo.user.familyName,
-        photo: userInfo.user.photo,
-        name: userInfo.user.name
-      };
+      // Get user data from result
+      const googleUser = result.user;
       
       // Update Redux store with Google auth data
       dispatch(setGoogleAuthData({
-        idToken: userInfo.idToken,
-        accessToken: userInfo.accessToken,
-        user: googleUser
+        idToken: result.idToken,
+        accessToken: result.accessToken,
+        user: {
+          id: googleUser.id,
+          email: googleUser.email,
+          givenName: googleUser.givenName || googleUser.name?.split(' ')[0] || '',
+          familyName: googleUser.familyName || googleUser.name?.split(' ').slice(1).join(' ') || '',
+          photo: googleUser.photo,
+          name: googleUser.name || `${googleUser.givenName} ${googleUser.familyName}`.trim()
+        }
       }));
       
       // Pre-fill user data
       dispatch(updateUserData({
         email: googleUser.email,
-        firstName: googleUser.givenName || '',
-        lastName: googleUser.familyName || '',
+        firstName: googleUser.givenName || googleUser.name?.split(' ')[0] || '',
+        lastName: googleUser.familyName || googleUser.name?.split(' ').slice(1).join(' ') || '',
         profileImage: googleUser.photo || null
       }));
       
@@ -73,9 +75,10 @@ export const signInWithGoogle = createAsyncThunk(
         success: true,
         user: googleUser,
         tokens: {
-          idToken: userInfo.idToken,
-          accessToken: userInfo.accessToken
-        }
+          idToken: result.idToken,
+          accessToken: result.accessToken
+        },
+        platform: Platform.OS
       };
       
     } catch (error) {
@@ -83,15 +86,25 @@ export const signInWithGoogle = createAsyncThunk(
       
       let errorMessage = 'Google sign-in failed';
       
-      if (error.code === 'SIGN_IN_CANCELLED') {
-        errorMessage = 'Sign-in was cancelled';
-      } else if (error.code === 'IN_PROGRESS') {
-        errorMessage = 'Sign-in is already in progress';
-      } else if (error.code === 'PLAY_SERVICES_NOT_AVAILABLE') {
-        errorMessage = 'Google Play Services not available';
+      if (Platform.OS === 'web') {
+        if (error.code === 'auth/popup-closed-by-user') {
+          errorMessage = 'Sign-in was cancelled';
+        } else if (error.code === 'auth/popup-blocked') {
+          errorMessage = 'Sign-in popup was blocked. Please allow popups for this site.';
+        }
+      } else {
+        if (error.code === 'SIGN_IN_CANCELLED') {
+          errorMessage = 'Sign-in was cancelled';
+        } else if (error.code === 'IN_PROGRESS') {
+          errorMessage = 'Sign-in is already in progress';
+        } else if (error.code === 'PLAY_SERVICES_NOT_AVAILABLE') {
+          errorMessage = 'Google Play Services not available';
+        }
       }
       
       return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(setGoogleAuthLoading(false));
     }
   }
 );
@@ -100,14 +113,21 @@ export const signOutGoogle = createAsyncThunk(
   'registration/signOutGoogle',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      await GoogleSignIn.signOut();
+      const result = await authUtils.signOutGoogle();
+      
+      if (!result.success) {
+        throw new Error(result.error);
+      }
       
       // Clear Google auth data from store
       dispatch(clearGoogleAuthData());
       
       return { success: true };
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.warn('Google sign-out error:', error);
+      // Don't fail sign-out, just clear the data
+      dispatch(clearGoogleAuthData());
+      return { success: true };
     }
   }
 );
@@ -124,18 +144,18 @@ export const sendPhoneVerification = createAsyncThunk(
         throw new Error('Please enter a valid phone number');
       }
       
-      // Format phone number with country code if needed
-      const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+1${phoneNumber}`;
+      const result = await authUtils.sendPhoneVerification(phoneNumber);
       
-      // Send verification code via Firebase
-      const confirmation = await FirebaseService.sendPhoneVerification(formattedPhone);
+      if (!result.success) {
+        throw new Error(result.error);
+      }
       
-      dispatch(setPhoneVerificationId(confirmation.verificationId));
+      dispatch(setPhoneVerificationId(result.verificationId));
       
       return {
         success: true,
-        verificationId: confirmation.verificationId,
-        phoneNumber: formattedPhone
+        verificationId: result.verificationId,
+        phoneNumber: result.phoneNumber
       };
       
     } catch (error) {
@@ -152,6 +172,8 @@ export const sendPhoneVerification = createAsyncThunk(
       }
       
       return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(setPhoneAuthLoading(false));
     }
   }
 );
@@ -164,20 +186,23 @@ export const verifyPhoneCode = createAsyncThunk(
         throw new Error('Please enter a valid 6-digit verification code');
       }
       
-      // Verify the code with Firebase
-      const credential = await FirebaseService.verifyPhoneCode(verificationId, verificationCode);
+      const result = await authUtils.verifyPhoneCode(verificationId, verificationCode);
       
-      if (credential.user) {
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      
+      if (result.user) {
         // Update user data with phone information
         dispatch(updateUserData({
-          phoneNumber: credential.user.phoneNumber,
+          phoneNumber: result.phoneNumber,
           phoneVerified: true
         }));
         
         return {
           success: true,
-          user: credential.user,
-          phoneNumber: credential.user.phoneNumber
+          user: result.user,
+          phoneNumber: result.phoneNumber
         };
       }
       
@@ -283,6 +308,7 @@ export const completeRegistration = createAsyncThunk(
       completeUserData.authMethod = authMethod;
       completeUserData.registeredAt = new Date().toISOString();
       completeUserData.isOnlineRegistration = isOnline;
+      completeUserData.platform = Platform.OS;
       
       // Register user
       const result = await FirebaseService.registerUser(completeUserData);
@@ -308,13 +334,10 @@ export const validateEmail = createAsyncThunk(
   'registration/validateEmail',
   async (email, { rejectWithValue }) => {
     try {
-      if (!email) {
-        throw new Error('Email is required');
-      }
+      const validation = authUtils.validateEmail(email);
       
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new Error('Please enter a valid email address');
+      if (!validation.isValid) {
+        throw new Error(validation.error);
       }
       
       // Check if email already exists (if online)
@@ -335,28 +358,10 @@ export const validatePassword = createAsyncThunk(
   'registration/validatePassword',
   async ({ password, confirmPassword }, { rejectWithValue }) => {
     try {
-      if (!password) {
-        throw new Error('Password is required');
-      }
+      const validation = authUtils.validatePassword(password, confirmPassword);
       
-      if (password.length < 8) {
-        throw new Error('Password must be at least 8 characters long');
-      }
-      
-      if (!/(?=.*[a-z])/.test(password)) {
-        throw new Error('Password must contain at least one lowercase letter');
-      }
-      
-      if (!/(?=.*[A-Z])/.test(password)) {
-        throw new Error('Password must contain at least one uppercase letter');
-      }
-      
-      if (!/(?=.*\d)/.test(password)) {
-        throw new Error('Password must contain at least one number');
-      }
-      
-      if (confirmPassword && password !== confirmPassword) {
-        throw new Error('Passwords do not match');
+      if (!validation.isValid) {
+        throw new Error(validation.error);
       }
       
       return { isValid: true };
@@ -371,20 +376,10 @@ export const validateUsername = createAsyncThunk(
   'registration/validateUsername',
   async (username, { rejectWithValue }) => {
     try {
-      if (!username) {
-        throw new Error('Username is required');
-      }
+      const validation = authUtils.validateUsername(username);
       
-      if (username.length < 3) {
-        throw new Error('Username must be at least 3 characters long');
-      }
-      
-      if (username.length > 20) {
-        throw new Error('Username must be less than 20 characters');
-      }
-      
-      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-        throw new Error('Username can only contain letters, numbers, and underscores');
+      if (!validation.isValid) {
+        throw new Error(validation.error);
       }
       
       // Check if username already exists (if online)
@@ -393,7 +388,7 @@ export const validateUsername = createAsyncThunk(
         throw new Error('This username is already taken');
       }
       
-      return { isValid: true, username };
+      return { isValid: true, username: validation.username };
       
     } catch (error) {
       return rejectWithValue(error.message);
@@ -437,9 +432,7 @@ export const clearRegistrationData = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       // Sign out from Google if signed in
-      if (await GoogleSignIn.isSignedIn()) {
-        await GoogleSignIn.signOut();
-      }
+      await authUtils.signOutGoogle();
       
       // Clear any Firebase auth state
       if (FirebaseService.auth.currentUser) {

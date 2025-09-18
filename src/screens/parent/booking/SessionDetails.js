@@ -13,15 +13,6 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { VideoView, useVideoPlayer } from 'expo-video';
 
-// Create video player when selectedVideo changes
-const player = useVideoPlayer(selectedVideo?.url || '', player => {
-  player.loop = false;
-  player.muted = false;
-  if (showVideoModal && selectedVideo) {
-    player.play();
-  }
-});
-
 const SessionDetails = ({ route, navigation }) => {
   const { sessionId } = route.params;
   const [session, setSession] = useState(null);
@@ -30,6 +21,15 @@ const SessionDetails = ({ route, navigation }) => {
   const [rating, setRating] = useState(0);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
+
+  // Create video player when selectedVideo changes
+  const player = useVideoPlayer(selectedVideo?.url || '', player => {
+    player.loop = false;
+    player.muted = false;
+    if (showVideoModal && selectedVideo) {
+      player.play();
+    }
+  });
 
   // Mock session data
   const mockSession = {

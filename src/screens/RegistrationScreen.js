@@ -5,11 +5,12 @@ import {
   Alert,
   StyleSheet,
   Animated,
-  BackHandler
+  BackHandler,
+  Platform
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import GoogleSignIn from '@react-native-google-signin/google-signin';
+//import GoogleSignIn from '@react-native-google-signin/google-signin';
 
 // Components
 import RegistrationContainer from '../components/registration/RegistrationContainer';
@@ -53,12 +54,16 @@ const RegistrationScreenContent = ({ navigation, route }) => {
   const [googleAuthInProgress, setGoogleAuthInProgress] = useState(false);
   const [formAnimation] = useState(new Animated.Value(0));
 
-  // Configure Google Sign-In on mount
+// Configure Google Sign-In on mount
   useEffect(() => {
     const initGoogleAuth = async () => {
       try {
-        await authUtils.initializeGoogleAuth();
-        console.log('Google Auth initialized successfully');
+        const result = await authUtils.initializeGoogleAuth();
+        if (result.success) {
+          console.log(`Google Auth initialized successfully for ${Platform.OS}`);
+        } else {
+          console.warn('Google Auth initialization failed:', result.error);
+        }
       } catch (error) {
         console.warn('Google Auth initialization failed:', error);
       }
@@ -67,7 +72,7 @@ const RegistrationScreenContent = ({ navigation, route }) => {
     initGoogleAuth();
   }, []);
 
-  // Handle Android back button
+// Handle Android back button
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
@@ -97,7 +102,7 @@ const RegistrationScreenContent = ({ navigation, route }) => {
     }, [stepInfo.current, resetRegistrationFlow, navigation])
   );
 
-  // Enhanced Google authentication handler
+ // Enhanced Google authentication handler
   const handleGoogleAuth = useCallback(async () => {
     if (!isOnline) {
       Alert.alert(
@@ -111,29 +116,14 @@ const RegistrationScreenContent = ({ navigation, route }) => {
     setGoogleAuthInProgress(true);
 
     try {
-      // Configure Google Sign-In
-      GoogleSignIn.configure({
-        iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-        androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // Your Android OAuth2 ID
-        webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Your Web OAuth2 ID
-        offlineAccess: true,
-        hostedDomain: '',
-        forceCodeForRefreshToken: true,
-      });
-
-      // Check Play Services availability (Android)
-      await GoogleSignIn.hasPlayServices();
-
-      // Sign out any existing user first
-      const isSignedIn = await GoogleSignIn.isSignedIn();
-      if (isSignedIn) {
-        await GoogleSignIn.signOut();
+      // Use the centralized auth utils
+      const result = await authUtils.signInWithGoogle();
+      
+      if (!result.success) {
+        throw new Error(result.error);
       }
 
-      // Perform sign-in
-      const userInfo = await GoogleSignIn.signIn();
-      
-      console.log('Google Sign-In successful:', userInfo.user.email);
+      console.log('Google Sign-In successful:', result.user.email);
 
       // Generate username from Google name
       const generateUsername = (firstName, lastName) => {
@@ -145,63 +135,76 @@ const RegistrationScreenContent = ({ navigation, route }) => {
       // Prepare user data from Google response
       const googleUserData = {
         authMethod: 'google',
-        email: userInfo.user.email,
-        firstName: userInfo.user.givenName || '',
-        lastName: userInfo.user.familyName || '',
+        email: result.user.email,
+        firstName: result.user.givenName || result.user.name?.split(' ')[0] || '',
+        lastName: result.user.familyName || result.user.name?.split(' ').slice(1).join(' ') || '',
         username: generateUsername(
-          userInfo.user.givenName || '',
-          userInfo.user.familyName || ''
+          result.user.givenName || result.user.name?.split(' ')[0] || '',
+          result.user.familyName || result.user.name?.split(' ').slice(1).join(' ') || ''
         ),
-        profileImage: userInfo.user.photo || '',
-        googleId: userInfo.user.id,
-        idToken: userInfo.idToken,
-        accessToken: userInfo.accessToken,
+        profileImage: result.user.photo || '',
+        googleId: result.user.id,
+        idToken: result.idToken,
+        accessToken: result.accessToken,
         emailVerified: true,
         syncedToServer: true, // Google users are pre-authenticated
         firebaseUid: null, // Will be set during Firebase sync
-        lastSyncAt: new Date().toISOString()
+        lastSyncAt: new Date().toISOString(),
+        platform: Platform.OS
       };
 
       // Update registration state
       selectAuthMethod('google');
       updateMultipleUserFields(googleUserData);
 
-      // Show success message
-      Alert.alert(
-        'Google Sign-In Successful',
-        `Welcome ${userInfo.user.name}! Your information has been pre-filled. Please review and complete your profile.`,
-        [
-          {
-            text: 'Continue',
-            onPress: () => {
-              // Animate to next step
-              Animated.timing(formAnimation, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-              }).start();
+        // Show success message
+        Alert.alert(
+          'Google Sign-In Successful',
+          `Welcome ${result.user.name || result.user.email}! Your information has been pre-filled. Please review and complete your profile.`,
+          [
+            {
+              text: 'Continue',
+              onPress: () => {
+                // Animate to next step
+                Animated.timing(formAnimation, {
+                  toValue: 1,
+                  duration: 300,
+                  useNativeDriver: true,
+                }).start();
+              }
             }
-          }
-        ]
-      );
+          ]
+        );
 
       return {
         success: true,
         userData: googleUserData
       };
 
-    } catch (error) {
+        } catch (error) {
       console.error('Google Sign-In Error:', error);
 
       let errorMessage = 'Failed to sign in with Google';
       
-      if (error.code === 'SIGN_IN_CANCELLED') {
-        errorMessage = 'Sign-in was cancelled';
-      } else if (error.code === 'IN_PROGRESS') {
-        errorMessage = 'Sign-in already in progress';
-      } else if (error.code === 'PLAY_SERVICES_NOT_AVAILABLE') {
-        errorMessage = 'Google Play Services not available';
-      } else if (error.message?.includes('network')) {
+      if (Platform.OS === 'web') {
+        if (error.code === 'auth/popup-closed-by-user') {
+          errorMessage = 'Sign-in was cancelled';
+        } else if (error.code === 'auth/popup-blocked') {
+          errorMessage = 'Sign-in popup was blocked. Please allow popups for this site.';
+        } else if (error.code === 'auth/network-request-failed') {
+          errorMessage = 'Network error. Please check your connection.';
+        }
+      } else {
+        if (error.code === 'SIGN_IN_CANCELLED') {
+          errorMessage = 'Sign-in was cancelled';
+        } else if (error.code === 'IN_PROGRESS') {
+          errorMessage = 'Sign-in already in progress';
+        } else if (error.code === 'PLAY_SERVICES_NOT_AVAILABLE') {
+          errorMessage = 'Google Play Services not available';
+        }
+      }
+      
+      if (error.message?.includes('network')) {
         errorMessage = 'Network error. Please check your connection and try again.';
       }
 
@@ -364,8 +367,11 @@ const RegistrationScreenContent = ({ navigation, route }) => {
     onAuthMethodSelect: handleAuthMethodSelect,
     onRegistrationComplete: handleRegistrationComplete,
     googleAuthInProgress,
-    networkInitialized
+    networkInitialized,
+    autoAdvanceAfterGoogleAuth: true
   };
+
+  
 
   return (
     <View style={styles.container}>
