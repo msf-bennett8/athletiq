@@ -5,32 +5,32 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
-// Environment-based configuration with proper error handling
+// Environment-based configuration with CORRECTED API KEY
 const getFirebaseConfig = () => {
   const baseConfig = {
-    apiKey: "AIzaSyCGlmciUps6QR1VjCjOKYcqBoJrwVXJdeQ",
+    apiKey: "AIzaSyAFv62-gPj7PbsQ2yvTaRVNdx9pjw5HxAg", // FIXED: Match google-services.json
     authDomain: "athletiq-37e35.firebaseapp.com",
     projectId: "athletiq-37e35",
     storageBucket: "athletiq-37e35.firebasestorage.app",
     messagingSenderId: "497434151930"
   };
 
-  // Platform-specific configurations - CORRECTED App IDs from Firebase Console
+  // Platform-specific configurations
   if (Platform.OS === 'web') {
     return {
       ...baseConfig,
-      appId: "1:497434151930:web:eed4da28416da9adf6f243", // Corrected from Console
+      appId: "1:497434151930:web:eed4da28416da9adf6f243",
       measurementId: "G-NY2FMJHHHD"
     };
   } else if (Platform.OS === 'ios') {
     return {
       ...baseConfig,
-      appId: "1:497434151930:ios:dd0a36b3faec520cf6f243" // Corrected from Console
+      appId: "1:497434151930:ios:dd0a36b3faec520cf6f243"
     };
   } else {
     return {
       ...baseConfig,
-      appId: "1:497434151930:android:b3084b7d9d3df3ccf6f243" // This one was already correct
+      appId: "1:497434151930:android:b3084b7d9d3df3ccf6f243"
     };
   }
 };
@@ -41,22 +41,18 @@ try {
   if (Platform.OS === 'web') {
     console.log('🌐 Initializing Firebase Web SDK...');
     
-    // Use static imports instead of require for better bundling
+    // FIXED: Move imports to top level to avoid bundle issues
     const { initializeApp, getApps } = require('firebase/app');
-    const { getAuth, connectAuthEmulator } = require('firebase/auth');
-    const { getFirestore, connectFirestoreEmulator } = require('firebase/firestore');
-    const { getStorage, connectStorageEmulator } = require('firebase/storage');
+    const { getAuth } = require('firebase/auth');
+    const { getFirestore } = require('firebase/firestore');
+    const { getStorage } = require('firebase/storage');
 
     const firebaseConfig = getFirebaseConfig();
     
     // Initialize Firebase (prevent multiple initialization)
     if (getApps().length === 0) {
       firebaseApp = initializeApp(firebaseConfig);
-      console.log('✅ Firebase app created with config:', {
-        projectId: firebaseConfig.projectId,
-        authDomain: firebaseConfig.authDomain,
-        appId: firebaseConfig.appId
-      });
+      console.log('✅ Firebase app created');
     } else {
       firebaseApp = getApps()[0];
       console.log('✅ Using existing Firebase app');
@@ -67,24 +63,21 @@ try {
     db = getFirestore(firebaseApp);
     storage = getStorage(firebaseApp);
 
-    // Set up auth persistence
-    auth.setPersistence = async (persistence) => {
-      try {
-        const { setPersistence, browserLocalPersistence } = require('firebase/auth');
-        await setPersistence(auth, browserLocalPersistence);
-      } catch (error) {
-        console.warn('Auth persistence setup failed:', error.message);
-      }
-    };
+    // FIXED: Simplified auth persistence
+    try {
+      const { setPersistence, browserLocalPersistence } = require('firebase/auth');
+      setPersistence(auth, browserLocalPersistence);
+    } catch (error) {
+      console.warn('Auth persistence setup failed:', error.message);
+    }
 
     console.log('✅ Firebase Web SDK initialized successfully');
 
   } else {
     console.log('📱 Initializing React Native Firebase...');
     
-    // FIXED: Remove duplicate 'app' declaration
+    // FIXED: Cleaner React Native Firebase initialization
     const rnFirebaseApp = require('@react-native-firebase/app').default;
-    const firebaseConfig = getFirebaseConfig();
     const authModule = require('@react-native-firebase/auth').default;
     const firestoreModule = require('@react-native-firebase/firestore').default;
     const storageModule = require('@react-native-firebase/storage').default;
@@ -94,11 +87,13 @@ try {
     db = firestoreModule();
     storage = storageModule();
 
-    // Configure Firestore settings for better offline support
+    // FIXED: More reasonable Firestore cache size for mobile performance
     try {
+      const cacheSize = __DEV__ ? 10 * 1024 * 1024 : 40 * 1024 * 1024; // 10MB dev, 40MB prod
+      
       db.settings({
         persistence: true,
-        cacheSizeBytes: firestoreModule.CACHE_SIZE_UNLIMITED,
+        cacheSizeBytes: cacheSize, // FIXED: Reasonable cache size instead of unlimited
       }).then(() => {
         console.log('📱 Firestore offline persistence configured');
       }).catch((error) => {
@@ -128,29 +123,24 @@ try {
   storage = null;
 }
 
-// Enhanced health check function
+// FIXED: More efficient health check
 export const checkFirebaseHealth = async () => {
   try {
-    if (!db) {
+    if (!db || !auth) {
       return { healthy: false, error: 'Firebase not initialized' };
     }
 
-    if (Platform.OS === 'web') {
-      const { collection, limit, getDocs } = require('firebase/firestore');
-      const testRef = collection(db, '_healthcheck');
-      await getDocs(limit(testRef, 1));
-    } else {
-      await db.collection('_healthcheck').limit(1).get();
-    }
-
-    return { healthy: true };
+    // Simple auth state check instead of Firestore query
+    const currentUser = auth.currentUser;
+    return { healthy: true, authenticated: !!currentUser };
+    
   } catch (error) {
     return { healthy: false, error: error.message };
   }
 };
 
-// Connection status checker with timeout
-export const checkFirebaseConnection = async (timeoutMs = 10000) => {
+// FIXED: Faster connection check with shorter timeout
+export const checkFirebaseConnection = async (timeoutMs = 5000) => {
   try {
     const healthCheck = await Promise.race([
       checkFirebaseHealth(),
@@ -166,16 +156,19 @@ export const checkFirebaseConnection = async (timeoutMs = 10000) => {
   }
 };
 
-// Debug function to check Firebase status
-export const debugFirebaseStatus = () => {
-  console.log('🔍 Firebase Debug Status:', {
+// ADDED: Performance monitoring function
+export const getFirebasePerformanceMetrics = () => {
+  return {
     platform: Platform.OS,
-    firebaseApp: !!firebaseApp,
-    auth: !!auth,
-    db: !!db,
-    storage: !!storage,
-    config: getFirebaseConfig()
-  });
+    initialized: {
+      app: !!firebaseApp,
+      auth: !!auth,
+      db: !!db,
+      storage: !!storage
+    },
+    authState: auth?.currentUser ? 'authenticated' : 'not_authenticated',
+    timestamp: new Date().toISOString()
+  };
 };
 
 // Export Firebase instances

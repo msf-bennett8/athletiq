@@ -11,7 +11,9 @@ import { auth } from '../config/firebase.config';
 // Google Sign-In Configuration
 export const configureGoogleSignIn = () => {
   GoogleSignIn.configure({
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
+    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
+    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // Your Android OAuth2 ID
+    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Your Web OAuth2 ID
     offlineAccess: true,
     hostedDomain: '', // Optional
     forceCodeForRefreshToken: true,
