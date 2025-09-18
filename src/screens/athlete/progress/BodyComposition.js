@@ -204,7 +204,7 @@ const BodyComposition = ({ navigation }) => {
   };
 
   const achievements = [
-    { id: 1, name: 'Consistency King', icon: 'emoji-events', earned: true, description: '30 days of tracking' },
+    { id: 1, name: 'Consistency King', icon: 'jump-rope', earned: true, description: '30 days of tracking' },
     { id: 2, name: 'Body Goal', icon: 'fitness-center', earned: true, description: 'Reached target body fat %' },
     { id: 3, name: 'Muscle Builder', icon: 'trending-up', earned: false, description: 'Gain 2kg muscle mass' },
     { id: 4, name: 'Hydration Hero', icon: 'water-drop', earned: true, description: 'Optimal water percentage' },
@@ -389,7 +389,7 @@ const BodyComposition = ({ navigation }) => {
         <Card style={{ margin: SPACING.md, backgroundColor: COLORS.surface, elevation: 4 }}>
           <Card.Content style={{ padding: SPACING.lg }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: SPACING.md }}>
-              <Icon name="emoji-events" size={24} color={COLORS.warning} />
+              <Icon name="jump-rope" size={24} color={COLORS.warning} />
               <Text style={[TEXT_STYLES.h3, { marginLeft: SPACING.sm }]}>Achievements</Text>
               <Chip 
                 style={{ marginLeft: 'auto', backgroundColor: `${COLORS.success}20` }}

@@ -174,7 +174,7 @@ const CompetitionPrep = ({ navigation }) => {
     build: { name: 'Build Phase', color: COLORS.warning, icon: 'trending-up' },
     peak: { name: 'Peak Phase', color: COLORS.peak, icon: 'star' },
     taper: { name: 'Taper Phase', color: COLORS.taper, icon: 'restore' },
-    competition: { name: 'Competition', color: COLORS.competition, icon: 'emoji-events' },
+    competition: { name: 'Competition', color: COLORS.competition, icon: 'jump-rope' },
     recovery: { name: 'Recovery', color: COLORS.recovery, icon: 'spa' },
   });
 
@@ -368,7 +368,7 @@ const CompetitionPrep = ({ navigation }) => {
 
           <View style={styles.competitionInfo}>
             <View style={styles.competitionRow}>
-              <Icon name="emoji-events" size={20} color={COLORS.competition} />
+              <Icon name="jump-rope" size={20} color={COLORS.competition} />
               <Text style={[TEXT_STYLES.body, { marginLeft: SPACING.sm, fontWeight: 'bold' }]}>
                 {athlete.nextCompetition.name}
               </Text>
@@ -536,7 +536,7 @@ const CompetitionPrep = ({ navigation }) => {
             🏆 Competition Dashboard
           </Text>
           <Animated.View style={{ transform: [{ scale: pulseAnimation }] }}>
-            <Icon name="emoji-events" size={32} color={COLORS.gold} />
+            <Icon name="jump-rope" size={32} color={COLORS.gold} />
           </Animated.View>
         </View>
       </LinearGradient>

@@ -279,7 +279,7 @@ const SeasonReports = ({ navigation }) => {
                     onDismiss={() => setShowMenu(false)}
                     anchor={
                       <IconButton
-                        icon="more-vert"
+                        icon="dots-vertical"
                         iconColor="white"
                         size={24}
                         onPress={() => setShowMenu(true)}
@@ -737,7 +737,7 @@ const SeasonReports = ({ navigation }) => {
                   onPress={() => shareReport(report)}
                 />
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   iconColor={COLORS.textSecondary}
                   onPress={() => {

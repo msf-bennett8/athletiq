@@ -432,7 +432,7 @@ const Competitions = ({ navigation }) => {
         />
       ) : (
         <View style={styles.emptyContainer}>
-          <Icon name="emoji-events" size={80} color={COLORS.primary} />
+          <Icon name="jump-rope" size={80} color={COLORS.primary} />
           <Text style={styles.emptyTitle}>No competitions found</Text>
           <Text style={styles.emptySubtitle}>
             Try adjusting your search or filters

@@ -451,7 +451,7 @@ const VideoConsultation = ({ navigation, route }) => {
                   onPress={() => Alert.alert('Chat', 'Pre-call messaging coming soon!')}
                 />
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   onPress={() => Alert.alert('Options', 'Session options coming soon!')}
                 />

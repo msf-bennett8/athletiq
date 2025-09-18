@@ -49,7 +49,7 @@ const FitnessLevel = ({ navigation }) => {
     { value: 'beginner', label: 'Beginner', description: 'New to fitness or returning after a long break', icon: 'fitness-center' },
     { value: 'intermediate', label: 'Intermediate', description: 'Regular exercise for 6+ months', icon: 'trending-up' },
     { value: 'advanced', label: 'Advanced', description: 'Consistent training for 2+ years', icon: 'military-tech' },
-    { value: 'expert', label: 'Expert/Athlete', description: 'Professional or competitive level', icon: 'emoji-events' },
+    { value: 'expert', label: 'Expert/Athlete', description: 'Professional or competitive level', icon: 'jump-rope' },
   ];
 
   const workoutFrequencies = [

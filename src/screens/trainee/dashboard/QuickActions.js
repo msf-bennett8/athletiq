@@ -127,7 +127,7 @@ const QuickActions = ({ navigation }) => {
       id: 8,
       title: 'Goals',
       subtitle: 'Set Targets',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#4caf50',
       gradient: ['#11998e', '#38ef7d'],
       badge: null,

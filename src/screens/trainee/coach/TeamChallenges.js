@@ -242,7 +242,7 @@ const TeamChallenges = ({ navigation, route }) => {
       case 'team': return 'group';
       case 'skill': return 'sports-soccer';
       case 'mental': return 'psychology';
-      default: return 'emoji-events';
+      default: return 'jump-rope';
     }
   };
 
@@ -690,7 +690,7 @@ const TeamChallenges = ({ navigation, route }) => {
         >
           <View style={styles.statsRow}>
             <Surface style={styles.statCard}>
-              <Icon name="emoji-events" size={24} color={COLORS.gold} />
+              <Icon name="jump-rope" size={24} color={COLORS.gold} />
               <Text style={styles.statNumber}>{totalPoints}</Text>
               <Text style={styles.statLabel}>Total Points</Text>
             </Surface>
@@ -746,7 +746,7 @@ const TeamChallenges = ({ navigation, route }) => {
             />
           ) : (
             <View style={styles.emptyState}>
-              <Icon name="emoji-events" size={64} color={COLORS.textSecondary} />
+              <Icon name="jump-rope" size={64} color={COLORS.textSecondary} />
               <Text style={styles.emptyTitle}>No challenges found</Text>
               <Text style={styles.emptySubtitle}>
                 {searchQuery ? 'Try adjusting your search terms' : 'Check back later for new challenges!'}
@@ -870,7 +870,7 @@ const TeamChallenges = ({ navigation, route }) => {
                             <Text style={styles.rewardText}>{selectedChallenge.points} XP Points</Text>
                           </View>
                           <View style={styles.rewardItem}>
-                            <Icon name="emoji-events" size={20} color={COLORS.gold} />
+                            <Icon name="jump-rope" size={20} color={COLORS.gold} />
                             <Text style={styles.rewardText}>Achievement Badge</Text>
                           </View>
                           <View style={styles.rewardItem}>

@@ -70,7 +70,7 @@ const StressLevels = ({ navigation }) => {
     { id: 'relationships', label: 'Relationships', icon: 'people' },
     { id: 'finances', label: 'Financial', icon: 'attach-money' },
     { id: 'health', label: 'Health Concerns', icon: 'healing' },
-    { id: 'competition', label: 'Competition', icon: 'emoji-events' }
+    { id: 'competition', label: 'Competition', icon: 'jump-rope' }
   ];
 
   // Sample data - replace with Redux data

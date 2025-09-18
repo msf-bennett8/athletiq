@@ -99,7 +99,7 @@ const AthleteProfile = ({ navigation }) => {
     },
     achievements: [
       { id: 1, title: 'Early Bird', description: '50 morning workouts', icon: 'alarm', earned: true, date: '2024-03-15' },
-      { id: 2, title: 'Consistency King', description: '30-day streak', icon: 'emoji-events', earned: true, date: '2024-02-28' },
+      { id: 2, title: 'Consistency King', description: '30-day streak', icon: 'jump-rope', earned: true, date: '2024-02-28' },
       { id: 3, title: 'Team Player', description: 'Helped 10 teammates', icon: 'people', earned: true, date: '2024-04-10' },
       { id: 4, title: 'Speed Demon', description: 'Improve 40-yard dash by 0.5s', icon: 'speed', earned: false, progress: 75 },
       { id: 5, title: 'Iron Will', description: 'Complete 100 strength sessions', icon: 'fitness-center', earned: false, progress: 68 },
@@ -430,7 +430,7 @@ const AthleteProfile = ({ navigation }) => {
                   <MaterialIcons
                     name={
                       activity.type === 'workout' ? 'fitness-center' :
-                      activity.type === 'achievement' ? 'emoji-events' :
+                      activity.type === 'achievement' ? 'jump-rope' :
                       'flag'
                     }
                     size={20}
@@ -883,7 +883,7 @@ const AthleteProfile = ({ navigation }) => {
                 Edit Profile
               </Chip>
               <Chip 
-                icon="emoji-events" 
+                icon="jump-rope" 
                 onPress={() => setAchievementsModal(true)}
                 style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
                 textStyle={{ color: 'white' }}

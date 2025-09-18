@@ -11,7 +11,16 @@ import {
   Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Video } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
+
+// Create video player when selectedVideo changes
+const player = useVideoPlayer(selectedVideo?.url || '', player => {
+  player.loop = false;
+  player.muted = false;
+  if (showVideoModal && selectedVideo) {
+    player.play();
+  }
+});
 
 const SessionDetails = ({ route, navigation }) => {
   const { sessionId } = route.params;
@@ -135,9 +144,12 @@ const SessionDetails = ({ route, navigation }) => {
   };
 
   const handleVideoPress = (video) => {
-    setSelectedVideo(video);
-    setShowVideoModal(true);
-  };
+  if (player) {
+    player.pause(); // Pause current video if playing
+  }
+  setSelectedVideo(video);
+  setShowVideoModal(true);
+};
 
   const submitFeedback = async () => {
     if (rating === 0) {
@@ -498,17 +510,23 @@ const SessionDetails = ({ route, navigation }) => {
         <View style={styles.videoModalContainer}>
           <View style={styles.videoModalHeader}>
             <Text style={styles.videoModalTitle}>{selectedVideo?.title}</Text>
-            <TouchableOpacity onPress={() => setShowVideoModal(false)}>
+            <TouchableOpacity 
+             onPress={() => {
+                if (player) {
+                  player.pause();
+                }
+                setShowVideoModal(false);
+              }}
+              >
               <Ionicons name="close" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
           {selectedVideo && (
-            <Video
-              source={{ uri: selectedVideo.url }}
+            <VideoView
               style={styles.videoPlayer}
-              useNativeControls
-              resizeMode="contain"
-              shouldPlay
+              player={player}
+              allowsFullscreen
+              allowsPictureInPicture
             />
           )}
         </View>

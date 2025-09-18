@@ -317,7 +317,7 @@ const EquipmentTracker = ({ navigation }) => {
               Log Usage
             </Button>
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               onPress={() => setSelectedEquipment(item)}
               style={styles.moreButton}
             />

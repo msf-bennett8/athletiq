@@ -571,7 +571,7 @@ const TrainingPartnerChat = ({ navigation }) => {
                   {formatTimestamp(conversation.lastMessage.timestamp)}
                 </Text>
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={18}
                   onPress={() => {
                     Alert.alert(

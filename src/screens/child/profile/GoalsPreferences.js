@@ -547,7 +547,7 @@ const GoalsPreferences = ({ navigation, route }) => {
                         
                         {isCompleted && (
                           <Icon 
-                            name="emoji-events" 
+                            name="jump-rope" 
                             size={28} 
                             color="#ffd700" 
                             style={styles.completedIcon}

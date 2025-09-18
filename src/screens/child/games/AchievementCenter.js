@@ -67,7 +67,7 @@ const AchievementCenter = ({ navigation }) => {
       points: 100,
       earned: true,
       earnedDate: '2024-08-15',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       rarity: 'common',
       progress: 100
     },
@@ -221,7 +221,7 @@ const AchievementCenter = ({ navigation }) => {
           </View>
           
           <View style={styles.statItem}>
-            <Icon name="emoji-events" size={24} color="#FFD700" />
+            <Icon name="jump-rope" size={24} color="#FFD700" />
             <Text style={styles.statValue}>{earnedAchievements.length}</Text>
             <Text style={styles.statLabel}>Badges</Text>
           </View>
@@ -503,7 +503,7 @@ const AchievementCenter = ({ navigation }) => {
       </ScrollView>
       
       <FAB
-        icon="emoji-events"
+        icon="jump-rope"
         style={styles.fab}
         onPress={() => Alert.alert('🎯 Keep Going!', 'Check back daily for new achievements and challenges!')}
       />

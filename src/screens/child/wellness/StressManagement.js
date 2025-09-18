@@ -1350,7 +1350,7 @@ const StressManagement = ({ navigation, route }) => {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.achievementList}>
               {[
-                { id: 'first-meditation', name: 'First Steps', icon: 'emoji-events', unlocked: completedSessions > 0 },
+                { id: 'first-meditation', name: 'First Steps', icon: 'jump-rope', unlocked: completedSessions > 0 },
                 { id: 'week-streak', name: 'Week Warrior', icon: 'local-fire-department', unlocked: streakCount >= 7 },
                 { id: 'mood-master', name: 'Mood Master', icon: 'sentiment-very-satisfied', unlocked: moodHistory.length >= 30 },
                 { id: 'gratitude-guru', name: 'Gratitude Guru', icon: 'favorite', unlocked: gratitudeList.length >= 20 },
@@ -1572,7 +1572,7 @@ const StressManagement = ({ navigation, route }) => {
             <List.Item
               title="Group Challenges"
               description="Join team wellness challenges"
-              left={() => <Icon name="emoji-events" size={24} color={COLORS.warning} />}
+              left={() => <Icon name="jump-rope" size={24} color={COLORS.warning} />}
               onPress={() => {
                 setActiveModal('');
                 Alert.alert('Feature Coming Soon', 'Group challenges will be available in the next update!');

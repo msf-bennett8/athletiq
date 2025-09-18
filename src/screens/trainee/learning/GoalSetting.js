@@ -215,7 +215,7 @@ const GoalSetting = ({ navigation }) => {
                   size={24} color="#fff" />
             <Text style={styles.goalTitle}>{goal.title}</Text>
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               iconColor="#fff"
               size={20}
               onPress={() => {
@@ -495,7 +495,7 @@ const GoalSetting = ({ navigation }) => {
           <Text style={styles.sectionTitle}>📊 Your Progress</Text>
           <View style={styles.statsGrid}>
             <Surface style={styles.statCard} elevation={2}>
-              <Icon name="emoji-events" size={24} color={COLORS.warning} />
+              <Icon name="jump-rope" size={24} color={COLORS.warning} />
               <Text style={styles.statNumber}>0</Text>
               <Text style={styles.statLabel}>Goals Completed</Text>
             </Surface>

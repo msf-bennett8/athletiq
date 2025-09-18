@@ -252,7 +252,7 @@ const PersonalRecords = ({ navigation, route }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => handleViewDetails(record)}
           />
@@ -367,7 +367,7 @@ const PersonalRecords = ({ navigation, route }) => {
 
   const renderEmptyState = () => (
     <Surface style={styles.emptyState}>
-      <Icon name="emoji-events" size={80} color={COLORS.secondary} />
+      <Icon name="jump-rope" size={80} color={COLORS.secondary} />
       <Text style={styles.emptyTitle}>No Personal Records Yet</Text>
       <Text style={styles.emptyText}>
         {selectedClient 
@@ -397,7 +397,7 @@ const PersonalRecords = ({ navigation, route }) => {
             <View style={styles.modalHeader}>
               <View style={styles.modalTitleContainer}>
                 <Icon 
-                  name="emoji-events" 
+                  name="jump-rope" 
                   size={28} 
                   color="#ffd700" 
                   style={{ marginRight: SPACING.sm }}

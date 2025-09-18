@@ -489,7 +489,7 @@ const ResourceSharing = ({ navigation }) => {
             </View>
             
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               onPress={() => {
                 Alert.alert('Resource Options', 'What would you like to do?', [

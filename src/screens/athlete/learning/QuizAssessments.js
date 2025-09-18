@@ -798,7 +798,7 @@ const QuizAssessments = ({ navigation }) => {
                     <Text style={[TEXT_STYLES.small, { color: COLORS.textSecondary }]}>Required</Text>
                   </View>
                   <View style={{ alignItems: 'center' }}>
-                    <Icon name="emoji-events" size={24} color={COLORS.warning} />
+                    <Icon name="jump-rope" size={24} color={COLORS.warning} />
                     <Text style={[TEXT_STYLES.body, { fontWeight: '600', marginTop: SPACING.xs }]}>
                       +{quizResults.score * 10}
                     </Text>

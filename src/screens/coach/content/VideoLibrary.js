@@ -546,7 +546,7 @@ const VideoLibrary = ({ navigation }) => {
             )}
             {!selectionMode && (
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 size={20}
                 onPress={() => Alert.alert('Video Actions', 'Edit, Share, or Delete this video')}
               />

@@ -293,11 +293,11 @@ const GoalProgress = ({ navigation, route }) => {
 
   const getBadgeIcon = (badge) => {
     const badges = {
-      gold: { icon: 'emoji-events', color: COLORS.gold },
-      silver: { icon: 'emoji-events', color: COLORS.silver },
-      bronze: { icon: 'emoji-events', color: COLORS.bronze },
+      gold: { icon: 'jump-rope', color: COLORS.gold },
+      silver: { icon: 'jump-rope', color: COLORS.silver },
+      bronze: { icon: 'jump-rope', color: COLORS.bronze },
     };
-    return badges[badge] || { icon: 'emoji-events', color: COLORS.primary };
+    return badges[badge] || { icon: 'jump-rope', color: COLORS.primary };
   };
 
   const renderStatsCard = () => (
@@ -315,7 +315,7 @@ const GoalProgress = ({ navigation, route }) => {
         
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
-            <Icon name="emoji-events" size={24} color="#fff" />
+            <Icon name="jump-rope" size={24} color="#fff" />
             <Text style={styles.statValue}>{getCompletedGoalsCount()}</Text>
             <Text style={styles.statLabel}>Completed</Text>
           </View>

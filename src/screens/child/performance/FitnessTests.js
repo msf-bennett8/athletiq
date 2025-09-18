@@ -356,7 +356,7 @@ const FitnessTests = ({ navigation }) => {
               <Text style={styles.statLabel}>Tests Completed</Text>
             </View>
             <View style={styles.overviewStat}>
-              <Icon name="emoji-events" size={24} color={COLORS.success} />
+              <Icon name="jump-rope" size={24} color={COLORS.success} />
               <Text style={styles.statNumber}>{excellentTests}</Text>
               <Text style={styles.statLabel}>Excellent Scores</Text>
             </View>

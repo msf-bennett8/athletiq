@@ -234,7 +234,7 @@ const SportsTours = ({ navigation }) => {
   const categories = [
     { key: 'all', label: 'All Tours', icon: 'explore' },
     { key: 'training', label: 'Training', icon: 'fitness-center' },
-    { key: 'competition', label: 'Competition', icon: 'emoji-events' },
+    { key: 'competition', label: 'Competition', icon: 'jump-rope' },
     { key: 'adventure', label: 'Adventure', icon: 'terrain' },
     { key: 'skills', label: 'Skills', icon: 'school' },
   ];

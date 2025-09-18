@@ -375,7 +375,7 @@ const PersonalBest = ({ navigation }) => {
         {personalBestData.recentAchievements.map((achievement, index) => (
           <View key={index} style={styles.achievementItem}>
             <View style={styles.achievementLeft}>
-              <Icon name="emoji-events" size={20} color="#FFD700" />
+              <Icon name="jump-rope" size={20} color="#FFD700" />
               <View style={styles.achievementText}>
                 <Text style={styles.achievementName}>{achievement.name}</Text>
                 <Text style={styles.achievementDate}>{achievement.date}</Text>

@@ -364,7 +364,7 @@ const ExerciseLibrary = ({ navigation, route }) => {
                   </Text>
                 </View>
                 <View style={styles.detailItem}>
-                  <Icon name="emoji-events" size={16} color={COLORS.primary} />
+                  <Icon name="jump-rope" size={16} color={COLORS.primary} />
                   <Text style={[TEXT_STYLES.caption, { marginLeft: SPACING.xs }]}>
                     {item.points} pts
                   </Text>
@@ -482,7 +482,7 @@ const ExerciseLibrary = ({ navigation, route }) => {
                     </Text>
                   </View>
                   <View style={styles.statItem}>
-                    <Icon name="emoji-events" size={20} color="#FFD700" />
+                    <Icon name="jump-rope" size={20} color="#FFD700" />
                     <Text style={[TEXT_STYLES.caption, { color: 'white', marginTop: SPACING.xs }]}>
                       {selectedExercise.points} pts
                     </Text>

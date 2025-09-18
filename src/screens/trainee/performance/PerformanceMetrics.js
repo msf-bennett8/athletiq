@@ -564,7 +564,7 @@ const PerformanceMetricsScreen = ({ navigation }) => {
             {/* Stats Row */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
               <View style={{ alignItems: 'center' }}>
-                <Icon name="emoji-events" size={20} color="#FFD700" />
+                <Icon name="jump-rope" size={20} color="#FFD700" />
                 <Text style={[TEXT_STYLES.caption, { marginTop: 2, color: COLORS.textSecondary }]}>
                   PB: {metric.personalBest} {metric.unit}
                 </Text>

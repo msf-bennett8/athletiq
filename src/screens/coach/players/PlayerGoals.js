@@ -165,7 +165,7 @@ const PlayerGoals = ({ navigation }) => {
       ],
       rewards: ['👑', '🎖️', '100 XP'],
       streak: 3,
-      icon: 'emoji-events',
+      icon: 'jump-rope',
     },
     {
       id: '4',

@@ -333,7 +333,7 @@ const TechniqueAnalysis = ({ navigation, route }) => {
           style={[styles.quickActionCard, { backgroundColor: COLORS.secondary }]}
           onPress={() => navigation.navigate('Achievements')}
         >
-          <Icon name="emoji-events" size={32} color="white" />
+          <Icon name="jump-rope" size={32} color="white" />
           <Text style={styles.quickActionText}>My Badges 🏆</Text>
         </TouchableOpacity>
       </View>

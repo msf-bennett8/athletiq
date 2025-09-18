@@ -413,7 +413,7 @@ const MyTrainingSessions = ({ navigation }) => {
             <View style={styles.sessionsContainer}>
               {filteredSessions(completedSessions).length === 0 ? (
                 <Surface style={styles.emptyState}>
-                  <Icon name="emoji-events" size={64} color={COLORS.textSecondary} />
+                  <Icon name="jump-rope" size={64} color={COLORS.textSecondary} />
                   <Text style={[TEXT_STYLES.h3, styles.emptyTitle]}>
                     No completed sessions yet
                   </Text>

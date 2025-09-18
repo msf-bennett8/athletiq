@@ -767,7 +767,7 @@ const EquipmentGuide = ({ navigation }) => {
           );
         }}
       >
-        <Icon name="emoji-events" size={20} color="#000000" />
+        <Icon name="jump-rope" size={20} color="#000000" />
         <Text style={{
           marginLeft: SPACING.xs,
           fontWeight: 'bold',

@@ -454,7 +454,7 @@ const ServicesListing = ({ navigation }) => {
                 trackColor={{ false: '#767577', true: COLORS.success + '50' }}
               />
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 size={20}
                 onPress={() => {
                   Alert.alert(

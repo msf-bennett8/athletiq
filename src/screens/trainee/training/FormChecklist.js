@@ -500,7 +500,7 @@ const FormChecklist = ({ navigation, route }) => {
               style={{ padding: SPACING.lg, borderRadius: 12 }}
             >
               <View style={{ alignItems: 'center' }}>
-                <Icon name="emoji-events" size={48} color="white" />
+                <Icon name="jump-rope" size={48} color="white" />
                 <Text style={[TEXT_STYLES.header, { color: 'white', textAlign: 'center', marginVertical: SPACING.sm }]}>
                   🎉 Great Job!
                 </Text>

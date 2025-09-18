@@ -473,7 +473,7 @@ const NutritionalGoals = ({ navigation }) => {
         ]}>
           <View style={styles.achievementIcon}>
             <Icon
-              name={achievement.earned ? 'emoji-events' : 'radio-button-unchecked'}
+              name={achievement.earned ? 'jump-rope' : 'radio-button-unchecked'}
               size={24}
               color={achievement.earned ? COLORS.warning : COLORS.textSecondary}
             />

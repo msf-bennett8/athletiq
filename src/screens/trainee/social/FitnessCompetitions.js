@@ -193,7 +193,7 @@ const FitnessCompetitions = ({ navigation }) => {
   ]);
 
   const [achievements, setAchievements] = useState([
-    { id: 1, title: 'First Victory', icon: 'emoji-events', earned: true, description: 'Win your first competition' },
+    { id: 1, title: 'First Victory', icon: 'jump-rope', earned: true, description: 'Win your first competition' },
     { id: 2, title: 'Consistency King', icon: 'trending-up', earned: true, description: '5-day participation streak' },
     { id: 3, title: 'Team Player', icon: 'groups', earned: false, description: 'Join 3 team competitions' },
     { id: 4, title: 'Challenge Seeker', icon: 'explore', earned: true, description: 'Join 10 competitions' },
@@ -264,9 +264,9 @@ const FitnessCompetitions = ({ navigation }) => {
   };
 
   const getRankIcon = (rank) => {
-    if (rank === 1) return 'emoji-events';
-    if (rank === 2) return 'emoji-events';
-    if (rank === 3) return 'emoji-events';
+    if (rank === 1) return 'jump-rope';
+    if (rank === 2) return 'jump-rope';
+    if (rank === 3) return 'jump-rope';
     return 'person';
   };
 
@@ -587,7 +587,7 @@ const FitnessCompetitions = ({ navigation }) => {
           <Text style={TEXT_STYLES.caption}>Score: {item.score}</Text>
         </View>
         {index < 3 && (
-          <Icon name="emoji-events" size={20} color={getRankColor(index + 1)} />
+          <Icon name="jump-rope" size={20} color={getRankColor(index + 1)} />
         )}
       </View>
     </Surface>
@@ -600,7 +600,7 @@ const FitnessCompetitions = ({ navigation }) => {
           colors={[COLORS.gold, '#FFA000']}
           style={{ padding: SPACING.md, alignItems: 'center' }}
         >
-          <Icon name="emoji-events" size={40} color="white" />
+          <Icon name="jump-rope" size={40} color="white" />
           <Text style={[TEXT_STYLES.h3, { color: 'white', marginVertical: SPACING.sm }]}>
             Global Rankings
           </Text>
@@ -941,7 +941,7 @@ const FitnessCompetitions = ({ navigation }) => {
                         <Text style={TEXT_STYLES.caption}>Score: {leader.score}</Text>
                       </View>
                       {index < 3 && (
-                        <Icon name="emoji-events" size={20} color={getRankColor(index + 1)} />
+                        <Icon name="jump-rope" size={20} color={getRankColor(index + 1)} />
                       )}
                     </View>
                   </Surface>

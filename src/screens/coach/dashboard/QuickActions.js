@@ -362,7 +362,7 @@ const QuickActions = ({ navigation }) => {
         >
           <View style={{ alignItems: 'center' }}>
             <Icon
-              name="emoji-events"
+              name="jump-rope"
               size={32}
               color={COLORS.warning}
               style={{ marginBottom: SPACING.xs }}

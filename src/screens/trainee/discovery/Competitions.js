@@ -324,7 +324,7 @@ const Competitions = ({ navigation }) => {
               </View>
 
               <View style={styles.detailItem}>
-                <Icon name="emoji-events" size={16} color={COLORS.gold} />
+                <Icon name="jump-rope" size={16} color={COLORS.gold} />
                 <Text style={styles.detailText}>{competition.prize}</Text>
               </View>
 
@@ -468,7 +468,7 @@ const Competitions = ({ navigation }) => {
               joinedComps.map(renderCompetitionCard)
             ) : (
               <Surface style={styles.emptyState}>
-                <Icon name="emoji-events" size={80} color={COLORS.textSecondary} />
+                <Icon name="jump-rope" size={80} color={COLORS.textSecondary} />
                 <Text style={styles.emptyTitle}>No Competitions Yet</Text>
                 <Text style={styles.emptySubtitle}>
                   Join your first competition to start tracking your progress!
@@ -609,7 +609,7 @@ const Competitions = ({ navigation }) => {
         <View style={styles.tabs}>
           {[
             { key: 'discover', label: 'Discover', icon: 'explore' },
-            { key: 'joined', label: 'Joined', icon: 'emoji-events' },
+            { key: 'joined', label: 'Joined', icon: 'jump-rope' },
             { key: 'leaderboard', label: 'Leaderboard', icon: 'leaderboard' },
           ].map((tab) => (
             <TouchableOpacity

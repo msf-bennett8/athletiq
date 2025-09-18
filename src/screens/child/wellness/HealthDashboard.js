@@ -158,7 +158,7 @@ const HealthDashboard = ({ navigation }) => {
         title: 'Great Sleep Pattern!',
         message: 'You\'ve maintained consistent sleep for 5 days! 😴',
         time: '1 day ago',
-        icon: 'emoji-events',
+        icon: 'jump-rope',
       },
       {
         id: 3,

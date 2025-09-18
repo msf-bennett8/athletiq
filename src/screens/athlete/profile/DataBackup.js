@@ -485,7 +485,7 @@ const DataBackup = ({ navigation }) => {
                 borderRadius: 8,
                 elevation: 1,
               }}>
-                <MaterialIcons name="emoji-events" size={20} color={COLORS.success} />
+                <MaterialIcons name="jump-rope" size={20} color={COLORS.success} />
                 <Text style={[TEXT_STYLES.caption, { marginTop: 4 }]}>Achievements</Text>
                 <Text style={[TEXT_STYLES.body, { fontWeight: '600' }]}>{dataStats.achievements}</Text>
               </Surface>
@@ -772,7 +772,7 @@ const DataBackup = ({ navigation }) => {
             {[
               { key: 'workouts', label: 'Workouts & Sessions', icon: 'fitness-center' },
               { key: 'progress', label: 'Progress & Analytics', icon: 'trending-up' },
-              { key: 'achievements', label: 'Achievements & Badges', icon: 'emoji-events' },
+              { key: 'achievements', label: 'Achievements & Badges', icon: 'jump-rope' },
               { key: 'profile', label: 'Profile Information', icon: 'person' },
               { key: 'media', label: 'Photos & Videos', icon: 'photo-library' },
             ].map((item) => (

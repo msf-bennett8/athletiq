@@ -308,7 +308,7 @@ const DailyGoals = ({ navigation }) => {
               Today's Progress
             </Text>
             <Chip 
-              icon="emoji-events" 
+              icon="jump-rope" 
               style={[styles.pointsChip, { backgroundColor: COLORS.warning }]}
               textStyle={{ color: 'white', fontWeight: 'bold' }}
             >
@@ -536,7 +536,7 @@ const DailyGoals = ({ navigation }) => {
 
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
-      <Icon name="emoji-events" size={80} color={COLORS.textSecondary} />
+      <Icon name="jump-rope" size={80} color={COLORS.textSecondary} />
       <Text style={[TEXT_STYLES.heading3, { marginTop: SPACING.md, textAlign: 'center' }]}>
         No goals found
       </Text>

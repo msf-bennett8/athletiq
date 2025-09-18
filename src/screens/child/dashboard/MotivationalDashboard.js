@@ -305,7 +305,7 @@ const MotivationalDashboard = ({ navigation }) => {
             </Surface>
             
             <Surface style={styles.statCard}>
-              <Icon name="emoji-events" size={32} color="#FFD700" />
+              <Icon name="jump-rope" size={32} color="#FFD700" />
               <Text style={styles.statNumber}>{mockData.totalPoints.toLocaleString()}</Text>
               <Text style={styles.statLabel}>Total Points</Text>
             </Surface>

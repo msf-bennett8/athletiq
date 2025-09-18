@@ -233,7 +233,7 @@ const SportsProfile = ({ navigation }) => {
         { backgroundColor: achievement.type === 'team' ? `${COLORS.primary}20` : `${COLORS.success}20` }
       ]}>
         <MaterialIcons 
-          name={achievement.type === 'team' ? 'group' : 'emoji-events'} 
+          name={achievement.type === 'team' ? 'group' : 'jump-rope'} 
           size={20} 
           color={achievement.type === 'team' ? COLORS.primary : COLORS.success}
         />
@@ -441,7 +441,7 @@ const SportsProfile = ({ navigation }) => {
           {/* Achievements */}
           <SportsCard 
             title="Achievements" 
-            icon="emoji-events"
+            icon="jump-rope"
             onAction={() => Alert.alert('Feature Coming Soon! 🚧', 'Achievement management will be available in the next update.')}
           >
             {sportsProfile.achievements.map((achievement) => (

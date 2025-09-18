@@ -213,7 +213,7 @@ const WorkoutNotes = ({ navigation, route }) => {
   const categories = [
     { id: 'all', label: 'All Notes', icon: 'description', color: COLORS.primary },
     { id: 'performance', label: 'Performance', icon: 'trending-up', color: '#4CAF50' },
-    { id: 'achievement', label: 'Achievements', icon: 'emoji-events', color: '#FFD700' },
+    { id: 'achievement', label: 'Achievements', icon: 'jump-rope', color: '#FFD700' },
     { id: 'recovery', label: 'Recovery', icon: 'spa', color: '#00BCD4' },
     { id: 'feedback', label: 'Coach Feedback', icon: 'feedback', color: '#FF9800' },
     { id: 'mental', label: 'Mental Game', icon: 'psychology', color: '#9C27B0' },
@@ -610,7 +610,7 @@ const WorkoutNotes = ({ navigation, route }) => {
                 <View style={styles.achievementsContainer}>
                   {item.achievements.map((achievement, achIndex) => (
                     <View key={achIndex} style={styles.achievementBadge}>
-                      <Icon name="emoji-events" size={12} color="#FFD700" />
+                      <Icon name="jump-rope" size={12} color="#FFD700" />
                       <Text style={[TEXT_STYLES.caption, { color: COLORS.text, marginLeft: 4 }]}>
                         {achievement}
                       </Text>

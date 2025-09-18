@@ -431,7 +431,7 @@ const RestTimer = ({ navigation, route }) => {
             </Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={28}
             onPress={() => Alert.alert('Feature in Development', 'Timer settings coming soon!')}

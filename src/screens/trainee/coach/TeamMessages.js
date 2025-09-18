@@ -406,7 +406,7 @@ const TeamMessages = ({ navigation, route }) => {
                   </View>
                 </View>
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   iconColor="white"
                   size={24}
                   onPress={() => {

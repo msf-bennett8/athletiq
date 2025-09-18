@@ -463,7 +463,7 @@ const CoachNetwork = ({ navigation }) => {
             </Button>
             
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               onPress={() => {
                 Alert.alert(

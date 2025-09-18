@@ -432,7 +432,7 @@ const WorkoutTimer = ({ navigation, route }) => {
               colors={[COLORS.success, '#45A049']}
               style={styles.summaryHeader}
             >
-              <Icon name="emoji-events" size={48} color="white" />
+              <Icon name="jump-rope" size={48} color="white" />
               <Text style={styles.summaryTitle}>Workout Complete! 🎉</Text>
               <Text style={styles.summarySubtitle}>{workoutData.title}</Text>
             </LinearGradient>

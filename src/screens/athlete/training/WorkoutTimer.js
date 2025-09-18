@@ -348,7 +348,7 @@ const WorkoutTimer = ({ navigation, route }) => {
             </Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => Alert.alert('Feature Coming Soon! 🚀', 'More options will be available in the next update.')}

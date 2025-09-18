@@ -618,7 +618,7 @@ const PromotionalTools = ({ navigation }) => {
             onPress={() => navigation.navigate('MarketingAnalytics')}
           />
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => navigation.navigate('MarketingSettings')}

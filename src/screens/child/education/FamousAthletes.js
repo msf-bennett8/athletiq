@@ -497,7 +497,7 @@ const FamousAthletes = ({ navigation }) => {
                 <Text style={styles.sectionTitle}>🏆 Major Achievements</Text>
                 {selectedAthlete.achievements.map((achievement, index) => (
                   <View key={index} style={styles.achievementItem}>
-                    <Icon name="emoji-events" size={16} color="#FFD700" />
+                    <Icon name="jump-rope" size={16} color="#FFD700" />
                     <Text style={styles.achievementItemText}>{achievement}</Text>
                   </View>
                 ))}

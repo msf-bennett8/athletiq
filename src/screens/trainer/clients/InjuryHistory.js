@@ -185,7 +185,7 @@ const InjuryHistory = ({ navigation, route }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => handleViewDetails(injury)}
           />

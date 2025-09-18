@@ -113,12 +113,12 @@ const TrainingPlanLibrary = ({ navigation }) => {
   ]);
 
   const categories = [
-    { key: 'all', label: 'All Sports', icon: 'sports' },
-    { key: 'football', label: 'Football', icon: 'sports-football' },
-    { key: 'basketball', label: 'Basketball', icon: 'sports-basketball' },
-    { key: 'soccer', label: 'Soccer', icon: 'sports-soccer' },
-    { key: 'tennis', label: 'Tennis', icon: 'sports-tennis' },
-    { key: 'fitness', label: 'Fitness', icon: 'fitness-center' },
+    { key: 'all', label: 'All Sports', icon: 'stadium' },
+    { key: 'football', label: 'Football', icon: 'football' },
+    { key: 'basketball', label: 'Basketball', icon: 'basketball' },
+    { key: 'soccer', label: 'Soccer', icon: 'soccer' },
+    { key: 'tennis', label: 'Tennis', icon: 'tennis' },
+    { key: 'fitness', label: 'Fitness', icon: 'radiobox-marked' },
   ];
 
   const difficultyColors = {
@@ -369,7 +369,7 @@ const TrainingPlanLibrary = ({ navigation }) => {
               onPress={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
             />
             <IconButton
-              icon="filter-list"
+              icon="tune"
               iconColor="white"
               size={24}
               onPress={() => setFilterModalVisible(true)}
@@ -432,7 +432,7 @@ const TrainingPlanLibrary = ({ navigation }) => {
 
       {/* Floating Action Button */}
       <FAB
-        icon="add"
+        icon="plus"
         style={{
           position: 'absolute',
           margin: SPACING.md,

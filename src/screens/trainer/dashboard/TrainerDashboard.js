@@ -1015,7 +1015,7 @@ const TrainerDashboard = ({ navigation }) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setMenuVisible(true)}>
-                <Icon name="more-vert" size={24} color="white" style={styles.headerIcon} />
+                <Icon name="dots-vertical" size={24} color="white" style={styles.headerIcon} />
               </TouchableOpacity>
             </View>
           </View>

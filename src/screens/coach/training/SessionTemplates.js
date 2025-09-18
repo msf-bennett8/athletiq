@@ -501,7 +501,7 @@ const SessionTemplates = ({ navigation }) => {
                   Use
                 </Button>
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   onPress={() => {
                     setSelectedTemplate(item);
@@ -556,7 +556,7 @@ const SessionTemplates = ({ navigation }) => {
                       </Text>
                     </View>
                     <IconButton
-                      icon="more-vert"
+                      icon="dots-vertical"
                       size={20}
                       onPress={() => {
                         setSelectedTemplate(item);

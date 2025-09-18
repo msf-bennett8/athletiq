@@ -374,7 +374,7 @@ const TeamChat = ({ navigation, route }) => {
             onPress={() => Alert.alert('Video Call', 'Video call feature coming soon!')}
           />
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             onPress={() => Alert.alert('Team Info', 'Team settings feature coming soon!')}
           />

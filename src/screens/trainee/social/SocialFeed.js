@@ -437,7 +437,7 @@ const SocialFeed = ({ navigation }) => {
                 </Button>
               )}
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 size={20}
                 onPress={() => Alert.alert('Feature Coming Soon! 🚀', 'Post options will be available soon.')}
               />
@@ -484,7 +484,7 @@ const SocialFeed = ({ navigation }) => {
           {post.content.achievement && (
             <Surface style={styles.achievementContainer}>
               <View style={styles.achievementHeader}>
-                <Icon name="emoji-events" size={20} color="#FFD700" />
+                <Icon name="jump-rope" size={20} color="#FFD700" />
                 <Text style={styles.achievementTitle}>{post.content.achievement.type}</Text>
               </View>
               <View style={styles.progressContainer}>

@@ -322,7 +322,7 @@ const Certification = ({ navigation }) => {
           
           {certification.earned && (
             <View style={styles.earnedContainer}>
-              <Icon name="emoji-events" size={16} color="#FFD700" />
+              <Icon name="jump-rope" size={16} color="#FFD700" />
               <Text style={styles.earnedText}>
                 Earned on {new Date(certification.earnedDate).toLocaleDateString()}
               </Text>

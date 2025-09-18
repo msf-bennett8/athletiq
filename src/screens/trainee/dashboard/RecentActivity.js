@@ -84,7 +84,7 @@ const RecentActivities = ({ navigation }) => {
         level: 'Gold',
         nextGoal: '14 days',
       },
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#ffd700',
       gradient: ['#ffd700', '#ffed4e'],
       badge: 'ACHIEVEMENT',

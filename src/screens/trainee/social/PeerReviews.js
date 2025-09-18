@@ -361,7 +361,7 @@ const PeerReviews = ({ navigation }) => {
               key={index}
               style={styles.badgeChip}
               textStyle={styles.badgeChipText}
-              icon="emoji-events"
+              icon="jump-rope"
             >
               {badge}
             </Chip>

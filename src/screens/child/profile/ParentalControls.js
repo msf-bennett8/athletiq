@@ -477,7 +477,7 @@ const ParentalControls = ({ navigation }) => {
                 <Text style={styles.contactRole}>{contact.role}</Text>
               </View>
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 iconColor={COLORS.textSecondary}
                 size={20}
                 onPress={() => openModal('contactOptions')}

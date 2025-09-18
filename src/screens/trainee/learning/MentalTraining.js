@@ -64,7 +64,7 @@ const MentalTraining = ({ navigation }) => {
     { id: 'relaxation', label: 'Relaxation', icon: 'spa', color: '#4ECDC4' },
     { id: 'motivation', label: 'Motivation', icon: 'flash-on', color: '#45B7D1' },
     { id: 'visualization', label: 'Visualization', icon: 'visibility', color: '#96CEB4' },
-    { id: 'confidence', label: 'Confidence', icon: 'emoji-events', color: '#FFEAA7' },
+    { id: 'confidence', label: 'Confidence', icon: 'jump-rope', color: '#FFEAA7' },
   ];
 
   // Mental training sessions

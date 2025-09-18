@@ -127,7 +127,7 @@ const NotificationContent = ({ navigation }) => {
       priority: 'medium',
       actionable: true,
       action: 'View Achievement',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.warning,
       points: 150,
     },
@@ -205,7 +205,7 @@ const NotificationContent = ({ navigation }) => {
   const filterCategories = [
     { id: 'all', label: 'All', icon: 'notifications', color: COLORS.text, count: notifications.length },
     { id: 'training', label: 'Training', icon: 'fitness-center', color: COLORS.primary, count: notifications.filter(n => n.type === 'training').length },
-    { id: 'achievement', label: 'Achievements', icon: 'emoji-events', color: COLORS.warning, count: notifications.filter(n => n.type === 'achievement').length },
+    { id: 'achievement', label: 'Achievements', icon: 'jump-rope', color: COLORS.warning, count: notifications.filter(n => n.type === 'achievement').length },
     { id: 'message', label: 'Messages', icon: 'message', color: COLORS.success, count: notifications.filter(n => n.type === 'message').length },
     { id: 'reminder', label: 'Reminders', icon: 'schedule', color: COLORS.info, count: notifications.filter(n => n.type === 'reminder').length },
     { id: 'social', label: 'Social', icon: 'people', color: COLORS.purple, count: notifications.filter(n => n.type === 'social').length },

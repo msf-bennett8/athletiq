@@ -201,7 +201,7 @@ const HydrationTracker = ({ navigation }) => {
               ]}
             >
               <Icon
-                name={isGoalReached ? "emoji-events" : "opacity"}
+                name={isGoalReached ? "jump-rope" : "opacity"}
                 size={60}
                 color="#ffffff"
               />
@@ -272,7 +272,7 @@ const HydrationTracker = ({ navigation }) => {
         </View>
         
         <View style={styles.statItem}>
-          <Icon name="emoji-events" size={24} color="#FFD700" />
+          <Icon name="jump-rope" size={24} color="#FFD700" />
           <Text style={styles.statNumber}>12</Text>
           <Text style={styles.statLabel}>Goals Met</Text>
         </View>

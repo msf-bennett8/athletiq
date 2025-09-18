@@ -494,7 +494,7 @@ const GroupClasses = ({ navigation, route }) => {
                     style={{ backgroundColor: COLORS.surface }}
                   />
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     size={20}
                     onPress={() => showClassActions(classItem)}
                     style={{ backgroundColor: COLORS.surface }}

@@ -214,7 +214,7 @@ const GamificationHub = ({ navigation }) => {
           <Text style={[TEXT_STYLES.caption, { color: COLORS.textSecondary }]}>Day Streak</Text>
         </Surface>
         <Surface style={styles.headerStatCard}>
-          <Icon name="emoji-events" size={24} color={COLORS.primary} />
+          <Icon name="jump-rope" size={24} color={COLORS.primary} />
           <Text style={[TEXT_STYLES.h3, { color: COLORS.primary }]}>{playerStats.badgesEarned}</Text>
           <Text style={[TEXT_STYLES.caption, { color: COLORS.textSecondary }]}>Badges</Text>
         </Surface>
@@ -246,7 +246,7 @@ const GamificationHub = ({ navigation }) => {
       {[
         { key: 'overview', title: 'Overview', icon: 'dashboard' },
         { key: 'challenges', title: 'Challenges', icon: 'flag' },
-        { key: 'achievements', title: 'Achievements', icon: 'emoji-events' },
+        { key: 'achievements', title: 'Achievements', icon: 'jump-rope' },
         { key: 'badges', title: 'Badges', icon: 'military-tech' },
       ].map((tab) => (
         <TouchableOpacity
@@ -289,7 +289,7 @@ const GamificationHub = ({ navigation }) => {
           style={[styles.overviewCard, { backgroundColor: COLORS.success }]}
           onPress={() => setSelectedTab('achievements')}
         >
-          <Icon name="emoji-events" size={32} color="white" />
+          <Icon name="jump-rope" size={32} color="white" />
           <Text style={[TEXT_STYLES.h3, { color: 'white', marginTop: 8 }]}>4</Text>
           <Text style={[TEXT_STYLES.caption, { color: 'rgba(255,255,255,0.8)' }]}>Recent Achievements</Text>
         </TouchableOpacity>

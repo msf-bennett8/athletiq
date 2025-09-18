@@ -310,7 +310,7 @@ const EarningsReports = ({ navigation }) => {
             subtitle="Monthly breakdown"
             titleStyle={TEXT_STYLES.h3}
             right={(props) => (
-              <IconButton {...props} icon="more-vert" onPress={handleExportReport} />
+              <IconButton {...props} icon="dots-vertical" onPress={handleExportReport} />
             )}
           />
           <Card.Content>

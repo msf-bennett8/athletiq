@@ -249,7 +249,7 @@ const FunActivities = ({ navigation }) => {
           style={styles.quickAction}
           onPress={() => Alert.alert('🚀 Feature Coming Soon!', 'Daily challenge feature is being developed!')}
         >
-          <Icon name="emoji-events" size={30} color={COLORS.primary} />
+          <Icon name="jump-rope" size={30} color={COLORS.primary} />
           <Text style={TEXT_STYLES.caption}>Daily Challenge</Text>
         </TouchableOpacity>
         <TouchableOpacity 

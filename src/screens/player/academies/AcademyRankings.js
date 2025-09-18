@@ -381,7 +381,7 @@ const AcademyRankings = ({ navigation }) => {
                 <Text style={styles.statLabel}>Rating</Text>
               </View>
               <View style={styles.statItem}>
-                <Icon name="emoji-events" size={16} color="#FF6F00" />
+                <Icon name="jump-rope" size={16} color="#FF6F00" />
                 <Text style={styles.statValue}>{academy.stats.championships}</Text>
                 <Text style={styles.statLabel}>Titles</Text>
               </View>
@@ -675,7 +675,7 @@ const AcademyRankings = ({ navigation }) => {
                         <Text style={styles.statDescription}>Average Rating</Text>
                       </View>
                       <View style={styles.statCard}>
-                        <Icon name="emoji-events" size={24} color="#FF6F00" />
+                        <Icon name="jump-rope" size={24} color="#FF6F00" />
                         <Text style={styles.statNumber}>{selectedAcademy?.stats.championships}</Text>
                         <Text style={styles.statDescription}>Championships</Text>
                       </View>

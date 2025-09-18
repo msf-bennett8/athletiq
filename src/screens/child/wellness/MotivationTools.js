@@ -161,7 +161,7 @@ const MotivationalTools = ({ navigation }) => {
       title: "Complete Week Challenge",
       progress: 5,
       total: 7,
-      icon: "emoji-events",
+      icon: "jump-rope",
       color: COLORS.motivation.strength,
       type: "weekly",
       points: 100,
@@ -397,7 +397,7 @@ const MotivationalTools = ({ navigation }) => {
     <Card style={styles.card}>
       <Card.Content>
         <View style={styles.sectionHeader}>
-          <Icon name="emoji-events" size={24} color={COLORS.primary} />
+          <Icon name="jump-rope" size={24} color={COLORS.primary} />
           <Text style={[TEXT_STYLES.h3, { marginLeft: SPACING.sm }]}>
             Achievement Zone 🏆
           </Text>

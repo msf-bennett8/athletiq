@@ -514,7 +514,7 @@ const GroupDiscussions = ({ navigation }) => {
                     Open Chat
                   </Button>
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     size={20}
                     onPress={() => Alert.alert('Feature Coming Soon', 'Group options will be available soon!')}
                   />

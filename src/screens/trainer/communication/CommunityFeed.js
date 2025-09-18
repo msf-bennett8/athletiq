@@ -131,7 +131,7 @@ const CommunityFeed = ({ navigation }) => {
   const filters = [
     { key: 'all', label: 'All Posts', icon: 'dynamic-feed' },
     { key: 'tips', label: 'Tips', icon: 'lightbulb' },
-    { key: 'achievements', label: 'Wins', icon: 'emoji-events' },
+    { key: 'achievements', label: 'Wins', icon: 'jump-rope' },
     { key: 'questions', label: 'Q&A', icon: 'help' },
     { key: 'events', label: 'Events', icon: 'event' },
   ];
@@ -139,7 +139,7 @@ const CommunityFeed = ({ navigation }) => {
   const postTypes = [
     { key: 'update', label: 'Update', icon: 'update', color: COLORS.primary },
     { key: 'tip', label: 'Training Tip', icon: 'lightbulb', color: COLORS.success },
-    { key: 'achievement', label: 'Achievement', icon: 'emoji-events', color: '#FFD700' },
+    { key: 'achievement', label: 'Achievement', icon: 'jump-rope', color: '#FFD700' },
     { key: 'question', label: 'Question', icon: 'help', color: COLORS.secondary },
   ];
 
@@ -264,7 +264,7 @@ const CommunityFeed = ({ navigation }) => {
             </Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => Alert.alert('Feature Coming Soon', 'Post options will be available soon!')}
           />
@@ -336,7 +336,7 @@ const CommunityFeed = ({ navigation }) => {
                     backgroundColor: '#FFD700' + '20',
                   }}
                 >
-                  <Icon name="emoji-events" size={16} color="#FFD700" />
+                  <Icon name="jump-rope" size={16} color="#FFD700" />
                   <Text style={[TEXT_STYLES.caption, { 
                     marginLeft: 4, 
                     color: '#B8860B',

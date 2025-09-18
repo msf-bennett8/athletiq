@@ -197,7 +197,7 @@ const PhotoGallery = ({ navigation }) => {
   const categories = [
     { id: 'all', label: 'All Photos', icon: 'photo-library', count: photos.length },
     { id: 'training', label: 'Training', icon: 'fitness-center', count: photos.filter(p => p.category === 'training').length },
-    { id: 'achievement', label: 'Achievements', icon: 'emoji-events', count: photos.filter(p => p.category === 'achievement').length },
+    { id: 'achievement', label: 'Achievements', icon: 'jump-rope', count: photos.filter(p => p.category === 'achievement').length },
     { id: 'team', label: 'Team', icon: 'group', count: photos.filter(p => p.category === 'team').length },
     { id: 'equipment', label: 'Equipment', icon: 'sports', count: photos.filter(p => p.category === 'equipment').length },
     { id: 'progress', label: 'Progress', icon: 'trending-up', count: photos.filter(p => p.category === 'progress').length },
@@ -416,7 +416,7 @@ const PhotoGallery = ({ navigation }) => {
                       onPress={() => setShowMenuVisible(true)}
                       style={styles.menuButton}
                     >
-                      <Icon name="more-vert" size={24} color={COLORS.surface} />
+                      <Icon name="dots-vertical" size={24} color={COLORS.surface} />
                     </TouchableOpacity>
                   }
                 >
@@ -502,7 +502,7 @@ const PhotoGallery = ({ navigation }) => {
           <View style={styles.photoOverlay}>
             {photo.achievement && (
               <View style={styles.achievementBadge}>
-                <Icon name="emoji-events" size={16} color={COLORS.warning} />
+                <Icon name="jump-rope" size={16} color={COLORS.warning} />
               </View>
             )}
             

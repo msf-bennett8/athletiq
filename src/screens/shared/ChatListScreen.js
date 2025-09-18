@@ -541,14 +541,14 @@ const ChatListScreen = ({ navigation }) => {
             
             <View style={styles.headerRight}>
               <IconButton
-                icon="add"
+                icon="plus"
                 iconColor="white"
                 size={24}
                 onPress={handleNewChatPress}
                 disabled={!authReady || !currentFirebaseUser}
               />
               <IconButton
-                icon="search"
+                icon="magnify"
                 iconColor="white"
                 size={24}
                 onPress={() => {
@@ -560,7 +560,7 @@ const ChatListScreen = ({ navigation }) => {
                 onDismiss={() => setShowMoreMenu(false)}
                 anchor={
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     iconColor="white"
                     size={24}
                     onPress={() => setShowMoreMenu(true)}
@@ -570,7 +570,7 @@ const ChatListScreen = ({ navigation }) => {
                 <Menu.Item 
                   onPress={() => handleMoreMenuOption('settings')} 
                   title="Settings"
-                  leadingIcon="settings"
+                  leadingIcon="cog"
                 />
                 <Menu.Item 
                   onPress={() => handleMoreMenuOption('archived')} 
@@ -580,7 +580,7 @@ const ChatListScreen = ({ navigation }) => {
                 <Menu.Item 
                   onPress={() => handleMoreMenuOption('help')} 
                   title="Help & Support"
-                  leadingIcon="help"
+                  leadingIcon="account"
                 />
                 <Menu.Item 
                   onPress={() => handleMoreMenuOption('logout')} 
@@ -830,10 +830,11 @@ const ChatListScreen = ({ navigation }) => {
           { transform: [{ scale: fabScale.current }] }
         ]}>
           <FAB
-            icon="add"
+            icon="plus"
             onPress={handleNewChatPress}
             style={styles.fab}
             color="white"
+            label="New chat"
           />
         </Animated.View>
       )}

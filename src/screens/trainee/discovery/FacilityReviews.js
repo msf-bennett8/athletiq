@@ -280,7 +280,7 @@ const FacilityReviews = ({ navigation, route }) => {
               <Text style={styles.helpfulText}>Helpful ({review.helpful})</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Icon name="more-vert" size={20} color={COLORS.textSecondary} />
+              <Icon name="dots-vertical" size={20} color={COLORS.textSecondary} />
             </TouchableOpacity>
           </View>
         </Card.Content>

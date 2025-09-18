@@ -340,7 +340,7 @@ const ClientContractsScreen = ({ navigation }) => {
             Message
           </Button>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => handleContractAction('modify', contract)}
           />

@@ -89,7 +89,7 @@ const PersonalRecords = ({ navigation }) => {
     totalRecords: 15,
     recentRecords: 3,
     categories: [
-      { id: 'all', name: 'All Records', count: 15, icon: 'emoji-events' },
+      { id: 'all', name: 'All Records', count: 15, icon: 'jump-rope' },
       { id: 'speed', name: 'Speed', count: 4, icon: 'flash-on' },
       { id: 'strength', name: 'Strength', count: 3, icon: 'fitness-center' },
       { id: 'endurance', name: 'Endurance', count: 5, icon: 'directions-run' },
@@ -297,7 +297,7 @@ const PersonalRecords = ({ navigation }) => {
         <View style={styles.overviewContent}>
           <View style={styles.overviewStats}>
             <View style={styles.statItem}>
-              <Icon name="emoji-events" size={32} color="#fff" />
+              <Icon name="jump-rope" size={32} color="#fff" />
               <Text style={styles.statValue}>{mockRecordsData.totalRecords}</Text>
               <Text style={styles.statLabel}>Total Records</Text>
             </View>
@@ -475,7 +475,7 @@ const PersonalRecords = ({ navigation }) => {
             <Text style={styles.quickStatLabel}>Improvement Rate</Text>
           </Surface>
           <Surface style={styles.quickStatItem}>
-            <Icon name="emoji-events" size={24} color={COLORS.warning} />
+            <Icon name="jump-rope" size={24} color={COLORS.warning} />
             <Text style={styles.quickStatValue}>12</Text>
             <Text style={styles.quickStatLabel}>Top Records</Text>
           </Surface>

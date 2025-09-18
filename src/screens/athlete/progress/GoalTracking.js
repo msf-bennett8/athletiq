@@ -122,7 +122,7 @@ const GoalTracking = ({ navigation }) => {
   ]);
 
   const goalCategories = [
-    { label: 'All Goals', value: 'all', icon: 'emoji-events' },
+    { label: 'All Goals', value: 'all', icon: 'jump-rope' },
     { label: 'Strength', value: 'strength', icon: 'fitness-center' },
     { label: 'Endurance', value: 'endurance', icon: 'directions-run' },
     { label: 'Skill', value: 'skill', icon: 'psychology' },
@@ -192,7 +192,7 @@ const GoalTracking = ({ navigation }) => {
 
   const getCategoryIcon = (category) => {
     const categoryData = goalCategories.find(cat => cat.value === category);
-    return categoryData ? categoryData.icon : 'emoji-events';
+    return categoryData ? categoryData.icon : 'jump-rope';
   };
 
   const getPriorityColor = (priority) => {
@@ -563,7 +563,7 @@ const GoalTracking = ({ navigation }) => {
             filteredGoals.map(renderGoalCard)
           ) : (
             <View style={styles.emptyState}>
-              <Icon name="emoji-events" size={80} color={COLORS.secondary} />
+              <Icon name="jump-rope" size={80} color={COLORS.secondary} />
               <Text style={styles.emptyTitle}>No Goals Yet!</Text>
               <Text style={styles.emptySubtitle}>
                 Start your journey by setting your first goal 🚀

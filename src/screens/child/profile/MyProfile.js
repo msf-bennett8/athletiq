@@ -75,13 +75,13 @@ const MyProfile = ({ navigation, route }) => {
     { label: 'Training Sessions', value: profileData.completedSessions, icon: 'fitness-center', color: '#667eea' },
     { label: 'Current Streak', value: `${profileData.streak} days`, icon: 'local-fire-department', color: '#f5576c' },
     { label: 'Total Points', value: profileData.totalPoints, icon: 'stars', color: '#ffd700' },
-    { label: 'Achievements', value: profileData.achievements, icon: 'emoji-events', color: '#43e97b' },
+    { label: 'Achievements', value: profileData.achievements, icon: 'jump-rope', color: '#43e97b' },
   ];
 
   const quickActions = [
     { id: 'edit', title: 'Edit Profile', icon: 'edit', color: '#667eea', route: 'EditProfile' },
     { id: 'goals', title: 'My Goals', icon: 'flag', color: '#43e97b', route: 'GoalsPreferences' },
-    { id: 'achievements', title: 'Badges', icon: 'emoji-events', color: '#ffd700', action: () => setShowAchievementsModal(true) },
+    { id: 'achievements', title: 'Badges', icon: 'jump-rope', color: '#ffd700', action: () => setShowAchievementsModal(true) },
     { id: 'stats', title: 'Stats', icon: 'bar-chart', color: '#4facfe', action: () => setShowStatsModal(true) },
   ];
 
@@ -563,7 +563,7 @@ const MyProfile = ({ navigation, route }) => {
           >
             <Card style={styles.modalCard}>
               <Card.Content style={styles.modalContent}>
-                <Icon name="emoji-events" size={48} color="#ffd700" />
+                <Icon name="jump-rope" size={48} color="#ffd700" />
                 <Text style={styles.modalTitle}>My Badge Collection! 🏆</Text>
                 
                 <ScrollView style={styles.achievementsModalScroll}>

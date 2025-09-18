@@ -303,7 +303,7 @@ const RecoveryProtocols = ({ navigation }) => {
               </Text>
             </View>
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               iconColor="#fff"
               size={20}
               onPress={() => handleAssignProtocol(item)}

@@ -106,7 +106,7 @@ const AthleteAttendanceStats = ({ navigation }) => {
     ],
     achievements: [
       { id: 1, title: 'Perfect Week', description: '7 days straight', icon: 'local-fire-department', earned: true },
-      { id: 2, title: 'Consistency King', description: '30 days 90%+', icon: 'emoji-events', earned: true },
+      { id: 2, title: 'Consistency King', description: '30 days 90%+', icon: 'jump-rope', earned: true },
       { id: 3, title: 'Never Give Up', description: '50 sessions', icon: 'fitness-center', earned: false },
     ]
   };
@@ -299,7 +299,7 @@ const AthleteAttendanceStats = ({ navigation }) => {
     <Card style={styles.card} elevation={2}>
       <Card.Content>
         <View style={styles.sectionHeader}>
-          <Icon name="emoji-events" size={24} color={COLORS.warning} />
+          <Icon name="jump-rope" size={24} color={COLORS.warning} />
           <Text style={styles.sectionTitle}>Achievements</Text>
         </View>
         

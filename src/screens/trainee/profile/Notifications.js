@@ -106,7 +106,7 @@ const Notifications = ({ navigation }) => {
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
       read: false,
       priority: 'medium',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.warning,
       actionable: false,
     },
@@ -368,7 +368,7 @@ const Notifications = ({ navigation }) => {
                 onPress={() => setShowMenu(true)}
                 style={styles.headerButton}
               >
-                <Icon name="more-vert" size={20} color="white" />
+                <Icon name="dots-vertical" size={20} color="white" />
               </TouchableOpacity>
             }
           >

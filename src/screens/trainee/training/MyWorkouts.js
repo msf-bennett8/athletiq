@@ -387,7 +387,7 @@ const MyWorkouts = ({ navigation }) => {
           <Text style={styles.miniStatLabel}>Minutes</Text>
         </Surface>
         <Surface style={styles.miniStat}>
-          <Icon name="emoji-events" size={24} color={COLORS.warning} />
+          <Icon name="jump-rope" size={24} color={COLORS.warning} />
           <Text style={styles.miniStatValue}>{mockStats.achievements.filter(a => a.unlocked).length}</Text>
           <Text style={styles.miniStatLabel}>Badges</Text>
         </Surface>

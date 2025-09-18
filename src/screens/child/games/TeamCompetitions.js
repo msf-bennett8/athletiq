@@ -137,7 +137,7 @@ const TeamCompetitions = ({ navigation, route }) => {
       startDate: 'Next Monday',
       prize: 'Championship entry + 2000 points',
       difficulty: 'Hard',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: ['#ef5350', '#e53935'],
       estimatedDuration: '2 weeks',
       requirements: ['Team level 5+', 'Complete pre-qualifier', 'Coach approval'],
@@ -329,7 +329,7 @@ const TeamCompetitions = ({ navigation, route }) => {
 
         <View style={styles.quickStatsContainer}>
           <View style={styles.quickStat}>
-            <MaterialIcons name="emoji-events" size={20} color="#ffd700" />
+            <MaterialIcons name="jump-rope" size={20} color="#ffd700" />
             <Text style={styles.quickStatText}>3 Active</Text>
           </View>
           <View style={styles.quickStat}>
@@ -470,7 +470,7 @@ const TeamCompetitions = ({ navigation, route }) => {
                 </Text>
               </View>
               <View style={styles.statRow}>
-                <MaterialIcons name="emoji-events" size={16} color="#ffd700" />
+                <MaterialIcons name="jump-rope" size={16} color="#ffd700" />
                 <Text style={styles.statText}>{competition.prize}</Text>
               </View>
             </View>
@@ -576,7 +576,7 @@ const TeamCompetitions = ({ navigation, route }) => {
           ]}>
             {team.rank <= 3 ? (
               <MaterialIcons
-                name={team.rank === 1 ? 'emoji-events' : team.rank === 2 ? 'workspace-premium' : 'military-tech'}
+                name={team.rank === 1 ? 'jump-rope' : team.rank === 2 ? 'workspace-premium' : 'military-tech'}
                 size={20}
                 color={team.rank === 1 ? '#FFD700' : team.rank === 2 ? '#C0C0C0' : '#CD7F32'}
               />

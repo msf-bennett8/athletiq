@@ -57,7 +57,8 @@
       "expo-location",
       "expo-document-picker",
       "expo-image-picker",
-      "expo-av",
+      "expo-audio",
+      "expo-video",
       "expo-local-authentication",
       "@react-native-firebase/app",
       [

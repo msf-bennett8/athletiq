@@ -375,7 +375,7 @@ const MotionAnalysisScreen = ({ navigation }) => {
                   <Text style={styles.performanceValue}>7 days</Text>
                 </View>
                 <View style={styles.performanceStat}>
-                  <Icon name="emoji-events" size={20} color={COLORS.primary} />
+                  <Icon name="jump-rope" size={20} color={COLORS.primary} />
                   <Text style={styles.performanceLabel}>Achievements</Text>
                   <Text style={styles.performanceValue}>5 new</Text>
                 </View>

@@ -564,7 +564,7 @@ const AnatomyGuide = ({ navigation }) => {
                 <Text style={TEXT_STYLES.body}>{selectedBodySystem.difficulty}</Text>
               </View>
               <View style={{ alignItems: 'center' }}>
-                <Icon name="emoji-events" size={24} color={COLORS.accent} />
+                <Icon name="jump-rope" size={24} color={COLORS.accent} />
                 <Text style={TEXT_STYLES.caption}>Reward</Text>
                 <Text style={TEXT_STYLES.body}>{selectedBodySystem.points} XP</Text>
               </View>

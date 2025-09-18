@@ -527,7 +527,7 @@ const TeamOverview = ({ navigation }) => {
                           marginRight: 4,
                           marginBottom: 4,
                         }}
-                        icon={() => <Icon name="emoji-events" size={10} color={COLORS.warning} />}
+                        icon={() => <Icon name="jump-rope" size={10} color={COLORS.warning} />}
                       >
                         {achievement}
                       </Chip>

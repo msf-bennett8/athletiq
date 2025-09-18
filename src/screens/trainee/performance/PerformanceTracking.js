@@ -58,7 +58,7 @@ const PerformanceTracking = ({ navigation }) => {
     totalPoints: 2450,
     nextLevelPoints: 2800,
     achievements: [
-      { id: '1', title: 'Consistency King', icon: 'emoji-events', earned: true },
+      { id: '1', title: 'Consistency King', icon: 'jump-rope', earned: true },
       { id: '2', title: 'Strength Builder', icon: 'fitness-center', earned: true },
       { id: '3', title: 'Cardio Champion', icon: 'directions-run', earned: false },
     ],
@@ -184,7 +184,7 @@ const PerformanceTracking = ({ navigation }) => {
       </Surface>
       
       <Surface style={styles.statCard} elevation={2}>
-        <Icon name="emoji-events" size={28} color={COLORS.warning} />
+        <Icon name="jump-rope" size={28} color={COLORS.warning} />
         <Text style={[TEXT_STYLES.h1, { marginTop: 8 }]}>
           {performanceMetrics.achievements.filter(a => a.earned).length}
         </Text>

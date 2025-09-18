@@ -196,7 +196,7 @@ const ParentUpdates = ({ navigation }) => {
       case 'attendance': return 'event-available';
       case 'nutrition': return 'restaurant';
       case 'injury_prevention': return 'health-and-safety';
-      case 'achievement': return 'emoji-events';
+      case 'achievement': return 'jump-rope';
       default: return 'info';
     }
   };

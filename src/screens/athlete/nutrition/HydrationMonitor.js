@@ -540,7 +540,7 @@ const HydrationMonitoring = ({ navigation }) => {
                 7-Day Streak 🔥
               </Chip>
               <Chip
-                icon="emoji-events"
+                icon="jump-rope"
                 style={[styles.achievementChip, { backgroundColor: `${COLORS.warning}20` }]}
               >
                 Goal Master 🎯

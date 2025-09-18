@@ -453,7 +453,7 @@ const Portfolio = ({ navigation }) => {
               onPress={() => handleToggleFeatured(item.id)}
             />
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               iconColor={COLORS.textSecondary}
               onPress={() => {

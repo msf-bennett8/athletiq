@@ -468,7 +468,7 @@ const SessionBookings = ({ navigation }) => {
                 onDismiss={() => setShowMenuId(null)}
                 anchor={
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     size={20}
                     onPress={() => setShowMenuId(booking.id)}
                   />

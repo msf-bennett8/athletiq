@@ -576,7 +576,7 @@ const PersonalWorkouts = ({ navigation }) => {
             onPress={() => setActiveTab('completed')}
           >
             <Icon 
-              name="emoji-events" 
+              name="jump-rope" 
               size={20} 
               color={activeTab === 'completed' ? 'white' : COLORS.textSecondary} 
             />
@@ -623,7 +623,7 @@ const PersonalWorkouts = ({ navigation }) => {
             <View style={styles.completedContainer}>
               {completedWorkouts.length === 0 ? (
                 <Surface style={styles.emptyState}>
-                  <Icon name="emoji-events" size={64} color={COLORS.textSecondary} />
+                  <Icon name="jump-rope" size={64} color={COLORS.textSecondary} />
                   <Text style={[TEXT_STYLES.h3, styles.emptyTitle]}>
                     No completed workouts yet
                   </Text>

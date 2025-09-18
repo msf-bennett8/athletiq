@@ -310,7 +310,7 @@ const ParentSearchHome = ({ navigation }) => {
             style={styles.menuButton}
             onPress={() => setModalVisible(true)}
           >
-            <Icon name="more-vert" size={24} color="#fff" />
+            <Icon name="dots-vertical" size={24} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>

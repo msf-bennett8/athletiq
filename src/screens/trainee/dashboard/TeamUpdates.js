@@ -49,7 +49,7 @@ const TeamUpdates = ({ navigation }) => {
   const tabs = [
     { key: 'all', label: 'All Updates', icon: 'dynamic-feed' },
     { key: 'announcements', label: 'Announcements', icon: 'campaign' },
-    { key: 'achievements', label: 'Achievements', icon: 'emoji-events' },
+    { key: 'achievements', label: 'Achievements', icon: 'jump-rope' },
     { key: 'social', label: 'Social', icon: 'people' },
   ];
 
@@ -374,7 +374,7 @@ const TeamUpdates = ({ navigation }) => {
   const getTypeIcon = (type) => {
     switch (type) {
       case 'announcement': return 'campaign';
-      case 'achievement': return 'emoji-events';
+      case 'achievement': return 'jump-rope';
       case 'social': return 'chat';
       default: return 'info';
     }

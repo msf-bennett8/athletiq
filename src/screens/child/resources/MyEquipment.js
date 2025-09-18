@@ -213,7 +213,7 @@ const MyEquipmentsScreen = ({ navigation }) => {
             <Subtitle style={styles.cardSubtitle}>{item.sport} • {item.brand}</Subtitle>
           </View>
           <IconButton
-            icon={item.needsReplacement ? 'warning' : 'more-vert'}
+            icon={item.needsReplacement ? 'warning' : 'dots-vertical'}
             iconColor="white"
             size={20}
             onPress={() => item.needsReplacement ? handleRequestReplacement(item) : null}

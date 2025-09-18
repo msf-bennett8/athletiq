@@ -254,7 +254,7 @@ const EmergencyContacts = ({ navigation }) => {
               onDismiss={() => setMenuVisible(null)}
               anchor={
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   onPress={() => setMenuVisible(contact.id)}
                 />

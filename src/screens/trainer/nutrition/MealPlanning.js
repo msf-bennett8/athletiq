@@ -415,7 +415,7 @@ const MealPlanning = ({ navigation, route }) => {
                         </Text>
                       </View>
                       <IconButton
-                        icon="more-vert"
+                        icon="dots-vertical"
                         size={16}
                         iconColor={COLORS.textSecondary}
                         onPress={() => Alert.alert('Meal Options', 'Edit or remove this meal')}
@@ -443,7 +443,7 @@ const MealPlanning = ({ navigation, route }) => {
                       </Text>
                     </View>
                     <IconButton
-                      icon="more-vert"
+                      icon="dots-vertical"
                       size={16}
                       iconColor={COLORS.textSecondary}
                       onPress={() => Alert.alert('Meal Options', 'Edit or remove this meal')}

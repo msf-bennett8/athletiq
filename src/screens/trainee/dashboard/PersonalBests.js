@@ -301,10 +301,10 @@ const PersonalBest = ({ navigation, route }) => {
   };
 
   const getRankBadge = (rank) => {
-    if (rank === 1) return { icon: 'emoji-events', color: COLORS.gold, text: '1st' };
-    if (rank === 2) return { icon: 'emoji-events', color: COLORS.silver, text: '2nd' };
-    if (rank === 3) return { icon: 'emoji-events', color: COLORS.bronze, text: '3rd' };
-    return { icon: 'emoji-events', color: COLORS.textSecondary, text: `${rank}th` };
+    if (rank === 1) return { icon: 'jump-rope', color: COLORS.gold, text: '1st' };
+    if (rank === 2) return { icon: 'jump-rope', color: COLORS.silver, text: '2nd' };
+    if (rank === 3) return { icon: 'jump-rope', color: COLORS.bronze, text: '3rd' };
+    return { icon: 'jump-rope', color: COLORS.textSecondary, text: `${rank}th` };
   };
 
   const renderStatsCard = () => (
@@ -316,7 +316,7 @@ const PersonalBest = ({ navigation, route }) => {
         end={{ x: 1, y: 1 }}
       >
         <View style={styles.statsHeader}>
-          <Icon name="emoji-events" size={32} color="#fff" />
+          <Icon name="jump-rope" size={32} color="#fff" />
           <Text style={styles.statsTitle}>Personal Records 🏆</Text>
         </View>
         

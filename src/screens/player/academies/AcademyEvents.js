@@ -195,7 +195,7 @@ const AcademyEvents = ({ navigation, route }) => {
 
   const eventTypes = [
     { key: 'all', label: 'All Events', icon: 'event' },
-    { key: 'tournament', label: 'Tournaments', icon: 'emoji-events' },
+    { key: 'tournament', label: 'Tournaments', icon: 'jump-rope' },
     { key: 'camp', label: 'Training Camps', icon: 'outdoor-grill' },
     { key: 'workshop', label: 'Workshops', icon: 'school' },
     { key: 'special', label: 'Special Events', icon: 'celebration' },
@@ -639,7 +639,7 @@ const AcademyEvents = ({ navigation, route }) => {
                   </Text>
                   {selectedEvent.prizes.map((prize, index) => (
                     <View key={index} style={styles.prizeItem}>
-                      <Icon name="emoji-events" size={16} color={COLORS.warning} />
+                      <Icon name="jump-rope" size={16} color={COLORS.warning} />
                       <Text style={styles.prizeText}>{prize}</Text>
                     </View>
                   ))}

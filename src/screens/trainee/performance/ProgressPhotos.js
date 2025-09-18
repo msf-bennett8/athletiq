@@ -316,7 +316,7 @@ const ProgressPhotos = ({ navigation }) => {
           onDismiss={() => setMenuVisible(false)}
           anchor={
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               iconColor="white"
               size={24}
               onPress={() => setMenuVisible(true)}

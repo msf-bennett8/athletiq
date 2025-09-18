@@ -323,7 +323,7 @@ const MacroTracking = ({ navigation, route }) => {
             </Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={16}
             iconColor={COLORS.textSecondary}
             onPress={() => Alert.alert('Food Options', 'Edit or remove this food item')}

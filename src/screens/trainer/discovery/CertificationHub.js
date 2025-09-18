@@ -357,7 +357,7 @@ const CertificationHub = ({ navigation }) => {
         {[
           { key: 'current', label: 'Current', icon: 'verified' },
           { key: 'discover', label: 'Discover', icon: 'explore' },
-          { key: 'achievements', label: 'Achievements', icon: 'emoji-events' },
+          { key: 'achievements', label: 'Achievements', icon: 'jump-rope' },
         ].map((tab) => (
           <TouchableOpacity
             key={tab.key}

@@ -342,7 +342,7 @@ const CustomDrills = ({ navigation }) => {
           <View style={styles.statsHeader}>
             <Avatar.Icon
               size={50}
-              icon="emoji-events"
+              icon="jump-rope"
               style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
             />
             <View style={styles.statsInfo}>

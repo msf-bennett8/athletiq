@@ -169,7 +169,7 @@ const ACHIEVEMENTS = [
     id: 'first_quest',
     title: 'First Steps',
     description: 'Complete your first quest',
-    icon: 'emoji-events',
+    icon: 'jump-rope',
     color: COLORS.gold,
     unlocked: true,
     date: '2024-08-20',
@@ -398,7 +398,7 @@ const SkillQuest = ({ navigation }) => {
       </Surface>
       
       <Surface style={[styles.statCard, { backgroundColor: COLORS.primary + '20' }]}>
-        <MaterialIcons name="emoji-events" size={24} color={COLORS.primary} />
+        <MaterialIcons name="jump-rope" size={24} color={COLORS.primary} />
         <Text style={styles.statNumber}>8</Text>
         <Text style={styles.statLabel}>Achievements</Text>
       </Surface>

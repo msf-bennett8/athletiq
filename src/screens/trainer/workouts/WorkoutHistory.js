@@ -385,7 +385,7 @@ const WorkoutHistory = ({ navigation, route }) => {
                   color="white" 
                 />
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   iconColor="white"
                   size={20}
                   onPress={() => {
@@ -577,7 +577,7 @@ const WorkoutHistory = ({ navigation, route }) => {
               onDismiss={() => setShowMenu(false)}
               anchor={
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   iconColor="white"
                   size={24}
                   onPress={() => setShowMenu(true)}

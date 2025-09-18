@@ -310,7 +310,7 @@ const SportsHistory = ({ navigation }) => {
       switch (type) {
         case 'training': return 'fitness-center';
         case 'match': return 'sports';
-        case 'achievement': return 'emoji-events';
+        case 'achievement': return 'jump-rope';
         default: return 'event';
       }
     };
@@ -440,7 +440,7 @@ const SportsHistory = ({ navigation }) => {
                     </View>
                     
                     <View style={styles.modalDetailItem}>
-                      <Icon name="emoji-events" size={20} color="#FFD700" />
+                      <Icon name="jump-rope" size={20} color="#FFD700" />
                       <Text style={styles.modalDetailText}>
                         {selectedAchievement.level} Achievement
                       </Text>

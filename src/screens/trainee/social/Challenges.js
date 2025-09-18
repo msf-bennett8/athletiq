@@ -369,7 +369,7 @@ const Challenges = ({ navigation }) => {
 
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
-      <Icon name="emoji-events" size={80} color={COLORS.textSecondary} />
+      <Icon name="jump-rope" size={80} color={COLORS.textSecondary} />
       <Text style={styles.emptyTitle}>No Challenges Found</Text>
       <Text style={styles.emptySubtitle}>
         {searchQuery 

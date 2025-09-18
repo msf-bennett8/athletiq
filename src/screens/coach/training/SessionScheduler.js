@@ -445,7 +445,7 @@ const SessionScheduler = ({ navigation }) => {
               
               <View style={{ marginLeft: SPACING.md }}>
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   onPress={() => {
                     Alert.alert(

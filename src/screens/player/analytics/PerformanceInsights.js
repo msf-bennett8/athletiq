@@ -254,7 +254,7 @@ const PerformanceInsights = ({ navigation }) => {
         id: 'ach_1',
         title: 'Consistency Champion',
         description: '30 days streak',
-        icon: 'emoji-events',
+        icon: 'jump-rope',
         color: COLORS.warning,
         unlocked: true,
         date: '2024-08-10',
@@ -435,7 +435,7 @@ const PerformanceInsights = ({ navigation }) => {
 
       <View style={styles.overviewRow}>
         <Surface style={[styles.overviewCard, { backgroundColor: COLORS.warning }]} elevation={3}>
-          <MaterialIcons name="emoji-events" size={32} color={COLORS.surface} />
+          <MaterialIcons name="jump-rope" size={32} color={COLORS.surface} />
           <Text style={[styles.overviewValue, { color: COLORS.surface }]}>
             {insightsData.strengthsCount}
           </Text>
@@ -563,7 +563,7 @@ const PerformanceInsights = ({ navigation }) => {
             </Chip>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => handleGoalAction(goal)}
           />

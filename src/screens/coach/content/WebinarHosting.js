@@ -353,7 +353,7 @@ const WebinarHosting = ({ navigation, route }) => {
         )}
         
         <IconButton
-          icon="more-vert"
+          icon="dots-vertical"
           size={20}
           onPress={() => Alert.alert('More Options', 'Additional webinar management options coming soon!')}
         />

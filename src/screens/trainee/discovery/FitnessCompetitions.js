@@ -475,7 +475,7 @@ const FitnessCompetitions = ({ navigation }) => {
                   <Text style={styles.detailText}>{competition.participants} joined</Text>
                 </View>
                 <View style={styles.detailItem}>
-                  <Icon name="emoji-events" size={16} color={COLORS.primary} />
+                  <Icon name="jump-rope" size={16} color={COLORS.primary} />
                   <Text style={styles.detailText}>{competition.prize}</Text>
                 </View>
                 <View style={styles.detailItem}>
@@ -631,7 +631,7 @@ const FitnessCompetitions = ({ navigation }) => {
             scrollEnabled={false}
             ListEmptyComponent={() => (
               <View style={styles.emptyContainer}>
-                <Icon name="emoji-events" size={64} color={COLORS.textSecondary} />
+                <Icon name="jump-rope" size={64} color={COLORS.textSecondary} />
                 <Text style={styles.emptyTitle}>No competitions found</Text>
                 <Text style={styles.emptySubtitle}>
                   Try adjusting your search or filters to find more competitions

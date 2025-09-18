@@ -168,7 +168,7 @@ const CompetitionResults = ({ navigation }) => {
   };
 
   const getPositionIcon = (position) => {
-    if (position === 1) return 'emoji-events';
+    if (position === 1) return 'jump-rope';
     if (position === 2) return 'looks-two';
     if (position === 3) return 'looks-3';
     return 'participation';
@@ -246,7 +246,7 @@ const CompetitionResults = ({ navigation }) => {
               </View>
               {competition.performance.motm && (
                 <View style={styles.statItem}>
-                  <Icon name="emoji-events" size={20} color={COLORS.success} />
+                  <Icon name="jump-rope" size={20} color={COLORS.success} />
                   <Text style={[styles.statValue, { color: COLORS.success }]}>MOTM</Text>
                 </View>
               )}
@@ -316,7 +316,7 @@ const CompetitionResults = ({ navigation }) => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {[
           { key: 'all', label: 'All', icon: 'list' },
-          { key: 'won', label: 'Victories', icon: 'emoji-events' },
+          { key: 'won', label: 'Victories', icon: 'jump-rope' },
           { key: 'completed', label: 'Completed', icon: 'check-circle' },
           { key: 'upcoming', label: 'Upcoming', icon: 'schedule' },
           { key: 'tournament', label: 'Tournaments', icon: 'sports' },

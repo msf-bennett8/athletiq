@@ -607,7 +607,7 @@ const WeeklyChallenges = ({ navigation, route }) => {
 
           {challenge.isCompleted && (
             <View style={styles.completedSection}>
-              <MaterialIcons name="emoji-events" size={20} color="#4CAF50" />
+              <MaterialIcons name="jump-rope" size={20} color="#4CAF50" />
               <Text style={styles.completedText}>Challenge Complete! 🎉</Text>
             </View>
           )}

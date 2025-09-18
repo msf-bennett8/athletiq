@@ -190,7 +190,7 @@ const PerformanceAnalytics = ({ route }) => {
       type: 'achievement',
       title: 'Strength Milestone',
       description: 'Team average bench press reached 180lbs',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.accent,
       priority: 'low',
     },

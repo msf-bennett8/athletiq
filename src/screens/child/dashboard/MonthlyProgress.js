@@ -241,7 +241,7 @@ const MonthlyProgress = ({ navigation }) => {
               colors={['#4ECDC4', '#44A08D']}
               style={styles.motivationGradient}
             >
-              <Icon name="emoji-events" size={40} color="#FFD700" />
+              <Icon name="jump-rope" size={40} color="#FFD700" />
               <Text style={styles.motivationTitle}>
                 You're Doing Amazing! 🌟
               </Text>

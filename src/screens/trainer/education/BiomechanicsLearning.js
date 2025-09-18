@@ -708,7 +708,7 @@ const BiomechanicsLearning = ({ navigation }) => {
                 <Text style={TEXT_STYLES.body}>{selectedModule.practicalExercises}</Text>
               </View>
               <View style={{ alignItems: 'center' }}>
-                <Icon name="emoji-events" size={28} color={COLORS.warning} />
+                <Icon name="jump-rope" size={28} color={COLORS.warning} />
                 <Text style={TEXT_STYLES.caption}>Reward</Text>
                 <Text style={TEXT_STYLES.body}>{selectedModule.points} XP</Text>
               </View>

@@ -231,7 +231,7 @@ const ClientProgress = ({ navigation, route }) => {
         </View>
 
         <TouchableOpacity style={styles.moreButton}>
-          <Icon name="more-vert" size={24} color={COLORS.white} />
+          <Icon name="dots-vertical" size={24} color={COLORS.white} />
         </TouchableOpacity>
       </View>
     </LinearGradient>

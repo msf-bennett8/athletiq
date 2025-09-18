@@ -168,7 +168,7 @@ const MessageCenter = ({ navigation }) => {
       priority: 'normal',
       category: 'achievement',
       hasAttachment: false,
-      achievementIcon: 'emoji-events',
+      achievementIcon: 'jump-rope',
     },
     {
       id: 'msg_4',
@@ -339,7 +339,7 @@ const MessageCenter = ({ navigation }) => {
   };
 
   const getMessageTypeIcon = (type, category) => {
-    if (category === 'achievement') return 'emoji-events';
+    if (category === 'achievement') return 'jump-rope';
     
     switch (type) {
       case 'coach': return 'sports';

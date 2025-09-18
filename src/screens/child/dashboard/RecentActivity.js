@@ -65,7 +65,7 @@ const RecentActivity = ({ navigation, route }) => {
       timestamp: '1 day ago',
       points: 50,
       badge: 'champion',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.primary,
     },
     {

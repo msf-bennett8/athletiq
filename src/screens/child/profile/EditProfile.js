@@ -430,7 +430,7 @@ const EditProfile = ({ navigation, route }) => {
             >
               <Card.Content>
                 <View style={styles.achievementContent}>
-                  <Icon name="emoji-events" size={48} color="#ff6b35" />
+                  <Icon name="jump-rope" size={48} color="#ff6b35" />
                   <View style={styles.achievementText}>
                     <Text style={styles.achievementNumber}>
                       {profileData.achievements || 0}

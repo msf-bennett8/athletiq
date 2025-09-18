@@ -386,7 +386,7 @@ const SessionDetails = ({ route, navigation }) => {
             {session.title}
           </Text>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => setShowNotes(true)}

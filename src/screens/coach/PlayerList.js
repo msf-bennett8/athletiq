@@ -491,7 +491,7 @@ const PlayerList = () => {
                       <Chip
                         key={idx}
                         compact
-                        icon="emoji-events"
+                        icon="jump-rope"
                         style={styles.achievementChip}
                         textStyle={{ fontSize: 10, color: COLORS.text, fontWeight: '500' }}
                         iconColor={COLORS.primary}

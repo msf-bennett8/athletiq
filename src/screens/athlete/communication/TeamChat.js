@@ -449,7 +449,7 @@ const TeamChatScreen = ({ navigation, route }) => {
             onPress={() => Alert.alert('Team Info', 'Team information and settings coming soon! ℹ️')}
           />
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="#ffffff"
             size={20}
             onPress={() => Alert.alert('Chat Options', 'More chat options coming soon! ⚙️')}

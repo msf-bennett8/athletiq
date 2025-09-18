@@ -540,7 +540,7 @@ const ImprovementAreasScreen = ({ navigation }) => {
             filteredAreas.map(renderImprovementArea)
           ) : (
             <View style={{ padding: SPACING.xl, alignItems: 'center' }}>
-              <Icon name="emoji-events" size={64} color={COLORS.success} />
+              <Icon name="jump-rope" size={64} color={COLORS.success} />
               <Text style={[TEXT_STYLES.h3, { marginTop: SPACING.md, textAlign: 'center' }]}>
                 No Areas Need Improvement! 🎉
               </Text>

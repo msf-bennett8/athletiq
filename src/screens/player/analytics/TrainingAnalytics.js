@@ -415,7 +415,7 @@ const TrainingAnalytics = ({ navigation }) => {
         
         <View style={styles.quickStatsGrid}>
           <Surface style={styles.quickStatItem} elevation={1}>
-            <Icon name="emoji-events" size={28} color={COLORS.warning} />
+            <Icon name="jump-rope" size={28} color={COLORS.warning} />
             <Text style={styles.quickStatNumber}>{trainingStats.personalBests}</Text>
             <Text style={styles.quickStatLabel}>Personal Bests</Text>
           </Surface>

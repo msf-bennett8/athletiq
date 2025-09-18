@@ -465,7 +465,7 @@ const PerformanceAnalyticsScreen = ({ navigation }) => {
   const renderAchievements = () => (
     <Animated.View style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: SPACING.md, marginBottom: SPACING.md }}>
-        <Icon name="emoji-events" size={24} color="#FFD700" />
+        <Icon name="jump-rope" size={24} color="#FFD700" />
         <Text style={[TEXT_STYLES.h3, { marginLeft: SPACING.sm }]}>
           Recent Achievements 🏆
         </Text>
@@ -513,7 +513,7 @@ const PerformanceAnalyticsScreen = ({ navigation }) => {
         mode="outlined"
         onPress={() => navigation.navigate('Achievements')}
         style={{ margin: SPACING.md }}
-        icon="emoji-events"
+        icon="jump-rope"
       >
         View All Achievements
       </Button>

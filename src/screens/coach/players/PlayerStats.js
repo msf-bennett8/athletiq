@@ -247,7 +247,7 @@ const PlayerStats = ({ navigation }) => {
           { label: 'Sessions', value: mockStats.overview.totalSessions, icon: 'fitness-center', color: COLORS.primary },
           { label: 'Completion', value: `${mockStats.overview.completionRate}%`, icon: 'check-circle', color: COLORS.success },
           { label: 'Streak', value: `${mockStats.overview.currentStreak} days`, icon: 'local-fire-department', color: COLORS.accent },
-          { label: 'Achievements', value: mockStats.overview.achievements, icon: 'emoji-events', color: COLORS.warning },
+          { label: 'Achievements', value: mockStats.overview.achievements, icon: 'jump-rope', color: COLORS.warning },
         ].map((stat, index) => (
           <Surface
             key={index}
@@ -417,7 +417,7 @@ const PlayerStats = ({ navigation }) => {
         { key: 'overview', label: 'Overview', icon: 'dashboard' },
         { key: 'performance', label: 'Performance', icon: 'trending-up' },
         { key: 'activities', label: 'Activities', icon: 'history' },
-        { key: 'achievements', label: 'Awards', icon: 'emoji-events' },
+        { key: 'achievements', label: 'Awards', icon: 'jump-rope' },
       ].map((tab) => (
         <TouchableOpacity
           key={tab.key}

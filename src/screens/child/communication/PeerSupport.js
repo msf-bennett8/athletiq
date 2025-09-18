@@ -230,7 +230,7 @@ const PeerSupport = ({ navigation }) => {
         onPress={() => setActiveTab('challenges')}
       >
         <MaterialIcons 
-          name="emoji-events" 
+          name="jump-rope" 
           size={20} 
           color={activeTab === 'challenges' ? COLORS.white : COLORS.textSecondary} 
         />

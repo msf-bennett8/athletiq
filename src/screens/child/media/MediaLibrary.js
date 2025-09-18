@@ -102,7 +102,7 @@ const MediaLibrary = ({ navigation }) => {
     { id: 'all', name: 'All My Stuff', icon: 'folder', color: COLORS.primary, count: 24 },
     { id: 'videos', name: 'Training Videos', icon: 'videocam', color: '#E91E63', count: 12 },
     { id: 'photos', name: 'Progress Photos', icon: 'photo-camera', color: '#4CAF50', count: 8 },
-    { id: 'achievements', name: 'Achievements', icon: 'emoji-events', color: '#FFD700', count: 4 },
+    { id: 'achievements', name: 'Achievements', icon: 'jump-rope', color: '#FFD700', count: 4 },
     { id: 'favorites', name: 'My Favorites', icon: 'favorite', color: '#FF5722', count: 6 },
   ];
 
@@ -401,7 +401,7 @@ const MediaLibrary = ({ navigation }) => {
                 borderRadius: 20,
                 padding: SPACING.sm,
               }}>
-                <Icon name="emoji-events" size={20} color={COLORS.white} />
+                <Icon name="jump-rope" size={20} color={COLORS.white} />
               </View>
             )}
           </View>
@@ -791,7 +791,7 @@ const MediaLibrary = ({ navigation }) => {
                         }}>
                           <Card.Content style={{ padding: SPACING.md }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                              <Icon name="emoji-events" size={24} color="#FFD700" />
+                              <Icon name="jump-rope" size={24} color="#FFD700" />
                               <View style={{ marginLeft: SPACING.md, flex: 1 }}>
                                 <Text style={[TEXT_STYLES.body, { fontWeight: 'bold' }]}>
                                   Achievement Unlocked!
@@ -1056,7 +1056,7 @@ const MediaLibrary = ({ navigation }) => {
                         marginBottom: SPACING.md,
                       }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          <Icon name="emoji-events" size={20} color="#FFD700" />
+                          <Icon name="jump-rope" size={20} color="#FFD700" />
                           <Text style={[TEXT_STYLES.body, { marginLeft: SPACING.sm }]}>
                             Achievements
                           </Text>
@@ -1152,7 +1152,7 @@ const MediaLibrary = ({ navigation }) => {
                     backgroundColor: COLORS.success + '20',
                   }}>
                     <Card.Content style={{ padding: SPACING.lg, alignItems: 'center' }}>
-                      <Icon name="emoji-events" size={48} color={COLORS.success} />
+                      <Icon name="jump-rope" size={48} color={COLORS.success} />
                       <Text style={[TEXT_STYLES.subtitle, { 
                         textAlign: 'center',
                         marginTop: SPACING.md,

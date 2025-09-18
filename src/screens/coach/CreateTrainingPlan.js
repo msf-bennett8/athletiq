@@ -76,21 +76,21 @@ const CreateTrainingPlan = ({ navigation }) => {
 
   // Popular sports data
   const popularSports = [
-    { id: 'football', name: 'Football', icon: 'sports-football', color: '#4CAF50' },
-    { id: 'basketball', name: 'Basketball', icon: 'sports-basketball', color: '#FF9800' },
-    { id: 'tennis', name: 'Tennis', icon: 'sports-tennis', color: '#2196F3' },
-    { id: 'soccer', name: 'Soccer', icon: 'sports-soccer', color: '#8BC34A' },
-    { id: 'volleyball', name: 'Volleyball', icon: 'sports-volleyball', color: '#E91E63' },
+    { id: 'football', name: 'Football', icon: 'soccer', color: '#4CAF50' },
+    { id: 'basketball', name: 'Basketball', icon: 'basketball', color: '#FF9800' },
+    { id: 'tennis', name: 'Tennis', icon: 'tennis', color: '#2196F3' },
+    { id: 'soccer', name: 'Soccer', icon: 'soccer', color: '#8BC34A' },
+    { id: 'volleyball', name: 'Volleyball', icon: 'volleyball', color: '#E91E63' },
     { id: 'swimming', name: 'Swimming', icon: 'pool', color: '#00BCD4' },
-    { id: 'running', name: 'Running', icon: 'directions-run', color: '#9C27B0' },
-    { id: 'gym', name: 'Gym Training', icon: 'fitness-center', color: '#607D8B' },
+    { id: 'running', name: 'Running', icon: 'run', color: '#9C27B0' },
+    { id: 'gym', name: 'Gym Training', icon: 'jump-rope', color: '#607D8B' },
   ];
 
   const difficultyLevels = [
     { id: 'beginner', name: 'Beginner', icon: 'looks-one', color: '#4CAF50', description: 'New to the sport' },
     { id: 'intermediate', name: 'Intermediate', icon: 'looks-two', color: '#FF9800', description: 'Some experience' },
     { id: 'advanced', name: 'Advanced', icon: 'looks-3', color: '#F44336', description: 'Experienced athletes' },
-    { id: 'professional', name: 'Professional', icon: 'emoji-events', color: '#9C27B0', description: 'Elite level' },
+    { id: 'professional', name: 'Professional', icon: 'jump-rope', color: '#9C27B0', description: 'Elite level' },
   ];
 
   // Initialize animations
@@ -356,7 +356,7 @@ const CreateTrainingPlan = ({ navigation }) => {
         mode="outlined"
         style={styles.input}
         error={!!errors.title}
-        left={<TextInput.Icon icon="edit" />}
+        left={<TextInput.Icon icon="pencil" />}
         maxLength={50}
       />
       {errors.title && <HelperText type="error" visible>{errors.title}</HelperText>}
@@ -369,7 +369,7 @@ const CreateTrainingPlan = ({ navigation }) => {
         multiline
         numberOfLines={4}
         style={styles.input}
-        left={<TextInput.Icon icon="description" />}
+        left={<TextInput.Icon icon="text-box" />}
         maxLength={500}
       />
 
@@ -379,7 +379,7 @@ const CreateTrainingPlan = ({ navigation }) => {
           mode={form.sport ? "contained" : "outlined"}
           onPress={() => setShowSportModal(true)}
           style={styles.sportButton}
-          icon={form.sport ? "check" : "add"}
+          icon={form.sport ? "check" : "radiobox-marked"}
           contentStyle={{ height: 50 }}
         >
           {form.sport || "Select Sport"}
@@ -397,7 +397,7 @@ const CreateTrainingPlan = ({ navigation }) => {
             keyboardType="numeric"
             style={styles.input}
             error={!!errors.durationWeeks}
-            left={<TextInput.Icon icon="schedule" />}
+            left={<TextInput.Icon icon="calendar" />}
           />
           {errors.durationWeeks && (
             <HelperText type="error" visible>{errors.durationWeeks}</HelperText>
@@ -413,7 +413,7 @@ const CreateTrainingPlan = ({ navigation }) => {
             keyboardType="numeric"
             style={styles.input}
             error={!!errors.targetAge}
-            left={<TextInput.Icon icon="person" />}
+            left={<TextInput.Icon icon="account-multiple" />}
             placeholder="Optional"
           />
           {errors.targetAge && (
@@ -513,12 +513,12 @@ const CreateTrainingPlan = ({ navigation }) => {
           
           <View style={styles.reviewStats}>
             <View style={styles.statItem}>
-              <Icon name="fitness-center" size={20} color={COLORS.primary} />
+              <Icon name="protein" size={20} color={COLORS.primary} />
               <Text style={styles.statText}>{form.difficulty}</Text>
             </View>
             {form.targetAge && (
               <View style={styles.statItem}>
-                <Icon name="person" size={20} color={COLORS.primary} />
+                <Icon name="account-multiple" size={20} color={COLORS.primary} />
                 <Text style={styles.statText}>Age {form.targetAge}+</Text>
               </View>
             )}
@@ -581,7 +581,7 @@ const CreateTrainingPlan = ({ navigation }) => {
       >
         <View style={styles.headerContent}>
           <IconButton
-            icon="arrow-back"
+            icon="arrow-left"
             iconColor="#fff"
             onPress={() => navigation.goBack()}
           />
@@ -632,7 +632,7 @@ const CreateTrainingPlan = ({ navigation }) => {
                 mode="contained"
                 onPress={nextStep}
                 style={styles.nextButton}
-                icon="arrow-forward"
+                icon="arrow-right"
                 disabled={
                   (step === 1 && (!form.title || !form.sport || !form.durationWeeks)) ||
                   (step === 2 && Object.keys(errors).length > 0)

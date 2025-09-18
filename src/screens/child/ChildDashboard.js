@@ -141,7 +141,7 @@ const ChildDashboard = ({ navigation }) => {
   // Enhanced stats with gamification
   const playerStats = [
     { 
-      icon: 'emoji-events', 
+      icon: 'jump-rope', 
       label: 'Points', 
       value: childData.totalPoints.toLocaleString(), 
       subtitle: 'total earned',
@@ -265,7 +265,7 @@ const ChildDashboard = ({ navigation }) => {
           color: '#FF6B6B'
         },
         { 
-          icon: 'emoji-events', 
+          icon: 'jump-rope', 
           label: 'Achievements', 
           action: () => showFeatureAlert('Achievements'),
           color: '#FFD700'
@@ -963,7 +963,7 @@ const ChildDashboard = ({ navigation }) => {
                 <LinearGradient
                   colors={['#4ECDC4', '#44B3AA']}
                   style={styles.funCardGradient}>
-                  <Icon name="emoji-events" size={32} color="white" />
+                  <Icon name="jump-rope" size={32} color="white" />
                   <Text style={styles.funCardTitle}>Weekly Challenge</Text>
                   <Text style={styles.funCardSubtitle}>Speed champion</Text>
                   <Text style={styles.funCardReward}>+500 pts</Text>

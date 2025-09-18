@@ -156,7 +156,7 @@ const PlayerDashboard = ({ navigation }) => {
       trend: '+12% growth'
     },
     { 
-      icon: 'emoji-events', 
+      icon: 'jump-rope', 
       label: 'Goals', 
       value: '5/7', 
       subtitle: 'achieved',
@@ -259,7 +259,7 @@ const PlayerDashboard = ({ navigation }) => {
       text: 'New personal record in bench press', 
       time: '1 day ago',
       type: 'achievement',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#FF9800',
       action: () => navigation.navigate('PersonalRecords')
     },
@@ -321,7 +321,7 @@ const PlayerDashboard = ({ navigation }) => {
           color: '#9B59B6'
         },
         { 
-          icon: 'emoji-events', 
+          icon: 'jump-rope', 
           label: 'Personal Records', 
           action: () => navigation.navigate('PersonalRecords'),
           color: '#2ECC71'
@@ -1428,7 +1428,7 @@ const renderQuickSearchModal = () => (
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setMenuVisible(true)}>
-                <Icon name="more-vert" size={24} color="white" style={styles.headerIcon} />
+                <Icon name="dots-vertical" size={24} color="white" style={styles.headerIcon} />
               </TouchableOpacity>
             </View>
           </View>

@@ -161,7 +161,7 @@ const CoachUpdates = ({ navigation, route }) => {
     { key: 'training_plan', label: 'Training Plans', icon: 'fitness-center' },
     { key: 'feedback', label: 'Feedback', icon: 'comment' },
     { key: 'schedule_change', label: 'Schedule', icon: 'schedule' },
-    { key: 'achievement', label: 'Achievements', icon: 'emoji-events' },
+    { key: 'achievement', label: 'Achievements', icon: 'jump-rope' },
   ];
 
   useEffect(() => {
@@ -247,7 +247,7 @@ const CoachUpdates = ({ navigation, route }) => {
       feedback: 'comment',
       schedule_change: 'schedule',
       motivation: 'favorite',
-      achievement: 'emoji-events',
+      achievement: 'jump-rope',
     };
     return icons[type] || 'notifications';
   };
@@ -310,7 +310,7 @@ const CoachUpdates = ({ navigation, route }) => {
               <Badge size={8} style={styles.unreadBadge} />
             )}
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               onPress={() => Alert.alert('Feature Coming Soon', 'Update options will be available soon!')}
             />

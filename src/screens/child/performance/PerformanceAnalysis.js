@@ -187,7 +187,7 @@ const PerformanceAnalysis = ({ navigation }) => {
     <Card style={styles.sectionCard} elevation={2}>
       <Card.Content>
         <View style={styles.sectionHeader}>
-          <Icon name="emoji-events" size={24} color={COLORS.primary} />
+          <Icon name="jump-rope" size={24} color={COLORS.primary} />
           <Text style={[TEXT_STYLES.subheading, { marginLeft: SPACING.sm }]}>
             Achievement Badges 🏆
           </Text>

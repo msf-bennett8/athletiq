@@ -517,7 +517,7 @@ const TimeManagement = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.actionButton}>
-            <Icon name="more-vert" size={16} color={COLORS.textLight} />
+            <Icon name="dots-vertical" size={16} color={COLORS.textLight} />
           </TouchableOpacity>
         </View>
       </View>

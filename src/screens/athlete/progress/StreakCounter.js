@@ -170,7 +170,7 @@ const StreakCounter = ({ navigation, route }) => {
 
   const achievements_data = [
     { id: 1, title: 'Fire Starter', description: '7 day streak', icon: 'whatshot', earned: true, points: 100 },
-    { id: 2, title: 'Dedication', description: '30 day streak', icon: 'emoji-events', earned: true, points: 300 },
+    { id: 2, title: 'Dedication', description: '30 day streak', icon: 'jump-rope', earned: true, points: 300 },
     { id: 3, title: 'Beast Mode', description: '100 workouts', icon: 'fitness-center', earned: true, points: 500 },
     { id: 4, title: 'Consistency King', description: '60 day streak', icon: 'crown', earned: false, points: 600 },
     { id: 5, title: 'Marathon Master', description: '365 day streak', icon: 'star', earned: false, points: 1000 },
@@ -305,7 +305,7 @@ const StreakCounter = ({ navigation, route }) => {
               </Text>
             </View>
             {milestone.achieved && (
-              <Icon name="emoji-events" size={24} color={milestone.color} />
+              <Icon name="jump-rope" size={24} color={milestone.color} />
             )}
           </View>
         ))}

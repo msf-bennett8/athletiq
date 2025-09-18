@@ -182,7 +182,7 @@ const ClientProgress = ({ navigation, route }) => {
         ],
       },
       achievements: [
-        { id: 'a1', title: 'First 10kg Lost', icon: 'emoji-events', date: '2024-10-15', color: COLORS.warning },
+        { id: 'a1', title: 'First 10kg Lost', icon: 'jump-rope', date: '2024-10-15', color: COLORS.warning },
         { id: 'a2', title: '30-Day Streak', icon: 'local-fire-department', date: '2024-10-01', color: COLORS.error },
         { id: 'a3', title: 'Strength Goal 90%', icon: 'fitness-center', date: '2024-11-01', color: COLORS.success },
       ],

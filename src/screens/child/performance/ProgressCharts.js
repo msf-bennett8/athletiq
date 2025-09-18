@@ -179,7 +179,7 @@ const ProgressCharts = ({ navigation }) => {
     { value: 'overall', label: 'Overall', icon: 'assessment' },
     { value: 'skills', label: 'Skills', icon: 'trending-up' },
     { value: 'sessions', label: 'Sessions', icon: 'event' },
-    { value: 'achievements', label: 'Achievements', icon: 'emoji-events' },
+    { value: 'achievements', label: 'Achievements', icon: 'jump-rope' },
   ];
 
   useEffect(() => {
@@ -507,7 +507,7 @@ const ProgressCharts = ({ navigation }) => {
       <Card style={styles.chartCard} elevation={3}>
         <Card.Content>
           <View style={styles.chartHeader}>
-            <Icon name="emoji-events" size={24} color={COLORS.primary} />
+            <Icon name="jump-rope" size={24} color={COLORS.primary} />
             <Text style={styles.chartTitle}>Achievements Timeline 🏆</Text>
           </View>
 
@@ -518,7 +518,7 @@ const ProgressCharts = ({ navigation }) => {
               <Text style={styles.achievementStatLabel}>Total Badges</Text>
             </Surface>
             <Surface style={styles.achievementStatItem}>
-              <Icon name="emoji-events" size={20} color={COLORS.success} />
+              <Icon name="jump-rope" size={20} color={COLORS.success} />
               <Text style={styles.achievementStatValue}>21</Text>
               <Text style={styles.achievementStatLabel}>Personal Records</Text>
             </Surface>

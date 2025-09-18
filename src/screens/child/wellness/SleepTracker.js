@@ -140,7 +140,7 @@ const SleepTracker = ({ navigation }) => {
       id: 1,
       title: 'Sleep Champion',
       description: 'Sleep 9+ hours for 7 nights',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       progress: 4,
       total: 7,
       earned: false,
@@ -523,7 +523,7 @@ const SleepTracker = ({ navigation }) => {
     <Card style={styles.card}>
       <Card.Content>
         <View style={styles.sectionHeader}>
-          <Icon name="emoji-events" size={24} color={COLORS.primary} />
+          <Icon name="jump-rope" size={24} color={COLORS.primary} />
           <Text style={[TEXT_STYLES.h3, { marginLeft: SPACING.sm }]}>
             Sleep Achievements 🏆
           </Text>

@@ -91,7 +91,7 @@ const MotivationalMessages = () => {
       id: '3',
       category: 'Achievement',
       message: 'Champions train, losers complain. Which one are you today? 🏆',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#45b7d1',
       uses: 52
     },

@@ -281,7 +281,7 @@ const SeasonStart = ({ navigation }) => {
   const CompetitionCard = ({ competition, onRemove }) => (
     <Surface style={styles.competitionCard}>
       <View style={styles.competitionContent}>
-        <Icon name="emoji-events" size={20} color={COLORS.gold} />
+        <Icon name="jump-rope" size={20} color={COLORS.gold} />
         <View style={styles.competitionInfo}>
           <Text style={styles.competitionName}>{competition.name}</Text>
           <Text style={styles.competitionDate}>{competition.date}</Text>
@@ -416,7 +416,7 @@ const SeasonStart = ({ navigation }) => {
               ))}
               {competitions.length === 0 && (
                 <Surface style={styles.emptyState}>
-                  <Icon name="emoji-events" size={48} color={COLORS.textSecondary} />
+                  <Icon name="jump-rope" size={48} color={COLORS.textSecondary} />
                   <Text style={styles.emptyText}>No competitions added yet</Text>
                   <Text style={styles.emptySubtext}>Add your target events to track progress</Text>
                 </Surface>
@@ -794,7 +794,7 @@ const AddCompetitionModal = ({ onAdd, onClose }) => {
         onChangeText={(text) => setCompetition({ ...competition, name: text })}
         style={styles.modalInput}
         placeholder="e.g., Boston Marathon"
-        left={<TextInput.Icon icon="emoji-events" />}
+        left={<TextInput.Icon icon="jump-rope" />}
       />
 
       <TextInput

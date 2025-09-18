@@ -358,7 +358,7 @@ const PricingPackagesScreen = ({ navigation }) => {
               <Text style={TEXT_STYLES.caption}>{pkg.description}</Text>
             </View>
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               onPress={() => {
                 Alert.alert(

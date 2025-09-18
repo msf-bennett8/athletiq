@@ -491,7 +491,7 @@ const NotificationSettings = ({ navigation }) => {
           </Button>
           <Button
             mode="outlined"
-            icon="emoji-events"
+            icon="jump-rope"
             onPress={() => testNotification('achievement')}
             style={styles.testButton}
           >
@@ -619,7 +619,7 @@ const NotificationSettings = ({ navigation }) => {
 
         {renderNotificationCategory(
           "Progress & Achievement 🏆",
-          "emoji-events",
+          "jump-rope",
           [
             { key: 'achievementUnlocked', label: 'Achievements', desc: 'When you unlock new achievements' },
             { key: 'weeklyReports', label: 'Weekly Reports', desc: 'Your weekly progress summary' },

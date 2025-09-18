@@ -215,7 +215,7 @@ const AICoachingAssistantScreen = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <IconButton icon="more-vert" iconColor="white" onPress={() => Alert.alert('Options', 'Feature coming soon!')} />
+        <IconButton icon="dots-vertical" iconColor="white" onPress={() => Alert.alert('Options', 'Feature coming soon!')} />
       </LinearGradient>
 
       {/* Messages */}
@@ -461,7 +461,7 @@ const AICoachingAssistantScreen = ({ navigation }) => {
                   </View>
                 </View>
               </View>
-              <IconButton icon="more-vert" size={16} />
+              <IconButton icon="dots-vertical" size={16} />
             </Card.Content>
           </Card>
         ))}
@@ -481,7 +481,7 @@ const AICoachingAssistantScreen = ({ navigation }) => {
         <LinearGradient colors={['#EBF8FF', '#DBEAFE']} style={styles.performanceCard}>
           <View style={styles.performanceHeader}>
             <Text style={[TEXT_STYLES.body, { fontWeight: '600' }]}>Training Efficiency</Text>
-            <Icon name="emoji-events" size={20} color={COLORS.primary} />
+            <Icon name="jump-rope" size={20} color={COLORS.primary} />
           </View>
           <Text style={[TEXT_STYLES.h1, { color: COLORS.primary, marginBottom: 4 }]}>87%</Text>
           <Text style={TEXT_STYLES.caption}>Session completion rate</Text>

@@ -390,7 +390,7 @@ const UpcomingTraining = ({ navigation }) => {
               </View>
               
               <View style={styles.statItem}>
-                <Icon name="emoji-events" size={24} color="#fff" />
+                <Icon name="jump-rope" size={24} color="#fff" />
                 <Text style={styles.statValue}>{weeklyOverview.nextMilestone - weeklyOverview.streakDays}</Text>
                 <Text style={styles.statLabel}>To Milestone</Text>
               </View>

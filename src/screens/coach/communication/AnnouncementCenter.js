@@ -250,7 +250,7 @@ const AnnouncementCenter = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             onPress={() => Alert.alert('Options', 'Edit/Delete options coming soon!')}
           />

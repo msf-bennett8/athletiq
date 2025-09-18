@@ -560,7 +560,7 @@ const CompetitionResults = ({ navigation }) => {
         >
           {[
             { key: 'all', label: 'All', icon: 'sports-soccer' },
-            { key: 'league', label: 'League', icon: 'emoji-events' },
+            { key: 'league', label: 'League', icon: 'jump-rope' },
             { key: 'cup', label: 'Cup', icon: 'military-tech' },
             { key: 'european', label: 'European', icon: 'public' },
           ].map(filter => (

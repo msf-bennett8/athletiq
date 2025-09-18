@@ -332,7 +332,7 @@ const AnnouncementsScreen = ({ navigation, route }) => {
             { key: 'all', label: 'All', icon: 'list' },
             { key: 'program', label: 'Programs', icon: 'fitness-center' },
             { key: 'schedule', label: 'Schedule', icon: 'schedule' },
-            { key: 'challenge', label: 'Challenges', icon: 'emoji-events' },
+            { key: 'challenge', label: 'Challenges', icon: 'jump-rope' },
             { key: 'report', label: 'Reports', icon: 'analytics' },
           ].map((filter) => (
             <Chip
@@ -399,7 +399,7 @@ const AnnouncementsScreen = ({ navigation, route }) => {
                   {announcement.priority.toUpperCase()}
                 </Chip>
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   onPress={() => Alert.alert('Feature Coming Soon', 'More options will be available soon!')}
                 />

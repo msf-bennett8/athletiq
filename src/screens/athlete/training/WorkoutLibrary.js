@@ -485,7 +485,7 @@ const WorkoutHistory = ({ navigation }) => {
         
         {stats.personalRecords > 0 && (
           <View style={styles.achievementBanner}>
-            <Icon name="emoji-events" size={24} color="#FFD700" />
+            <Icon name="jump-rope" size={24} color="#FFD700" />
             <Text style={[TEXT_STYLES.body, { color: COLORS.text, marginLeft: 8 }]}>
               {stats.personalRecords} Personal Record{stats.personalRecords !== 1 ? 's' : ''} this period! 🎉
             </Text>

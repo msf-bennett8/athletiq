@@ -107,7 +107,7 @@ const DataExport = ({ navigation }) => {
       id: 2,
       name: 'Season Summary',
       description: 'Complete season statistics and achievements',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.success,
       dataTypes: ['playerStats', 'competitionResults', 'performanceMetrics'],
       format: 'excel',

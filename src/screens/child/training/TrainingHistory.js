@@ -445,7 +445,7 @@ const TrainingHistory = ({ navigation }) => {
                 )}
                 {session.achievements.length > 0 && (
                   <View style={styles.achievementsRow}>
-                    <Icon name="emoji-events" size={16} color={COLORS.warning} />
+                    <Icon name="jump-rope" size={16} color={COLORS.warning} />
                     <Text style={styles.achievementsText}>
                       {session.achievements.length} achievement{session.achievements.length > 1 ? 's' : ''} 🏆
                     </Text>
@@ -544,7 +544,7 @@ const TrainingHistory = ({ navigation }) => {
                     <Text style={styles.modalSectionTitle}>Achievements 🏆</Text>
                     {selectedSession.achievements.map((achievement, index) => (
                       <View key={index} style={styles.achievementItem}>
-                        <Icon name="emoji-events" size={18} color={COLORS.warning} />
+                        <Icon name="jump-rope" size={18} color={COLORS.warning} />
                         <Text style={styles.achievementText}>{achievement}</Text>
                       </View>
                     ))}
@@ -631,7 +631,7 @@ const TrainingHistory = ({ navigation }) => {
                   <Surface style={styles.statCard} elevation={2}>
                     <Text style={styles.statCardNumber}>{stats.achievements}</Text>
                     <Text style={styles.statCardLabel}>Achievements</Text>
-                    <Icon name="emoji-events" size={24} color={COLORS.warning} />
+                    <Icon name="jump-rope" size={24} color={COLORS.warning} />
                   </Surface>
                 </View>
 

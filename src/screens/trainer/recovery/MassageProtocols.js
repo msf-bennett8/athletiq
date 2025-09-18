@@ -358,7 +358,7 @@ const MassageProtocol = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             onPress={() => {
               setSelectedProtocol(protocol);
               Alert.alert('Protocol Options', 'Detailed view coming soon!');

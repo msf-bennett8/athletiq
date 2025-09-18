@@ -265,7 +265,7 @@ const SkillChallenges = ({ navigation }) => {
         {/* Stats Row */}
         <View style={styles.statsRow}>
           <Surface style={styles.statCard}>
-            <Icon name="emoji-events" size={20} color={COLORS.primary} />
+            <Icon name="jump-rope" size={20} color={COLORS.primary} />
             <Text style={[TEXT_STYLES.caption, styles.statLabel]}>Completed</Text>
             <Text style={[TEXT_STYLES.h3, styles.statValue]}>12</Text>
           </Surface>

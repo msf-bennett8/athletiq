@@ -261,7 +261,7 @@ const InjuryPrevention = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             onPress={() => Alert.alert('More Options', 'Feature coming soon!')}
           />
         </View>

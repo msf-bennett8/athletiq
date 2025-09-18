@@ -269,7 +269,7 @@ const AccountManagement = ({ navigation }) => {
 
           <View style={styles.settingItem}>
             <View style={styles.settingLeft}>
-              <Icon name="emoji-events" size={24} color={COLORS.secondary} />
+              <Icon name="jump-rope" size={24} color={COLORS.secondary} />
               <View>
                 <Text style={styles.settingText}>Achievements & Progress</Text>
                 <Text style={styles.settingSubtext}>Celebrate your milestones</Text>

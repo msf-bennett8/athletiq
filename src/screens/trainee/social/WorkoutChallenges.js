@@ -479,7 +479,7 @@ const WorkoutChallenges = ({ navigation }) => {
 
           <View style={styles.completedStats}>
             <View style={styles.completedStatItem}>
-              <Icon name="emoji-events" size={20} color={COLORS.success} />
+              <Icon name="jump-rope" size={20} color={COLORS.success} />
               <Text style={styles.completedStatLabel}>Rank</Text>
               <Text style={styles.completedStatValue}>#{item.rank}</Text>
             </View>

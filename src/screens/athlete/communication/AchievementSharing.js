@@ -67,7 +67,7 @@ const AchievementSharing = ({ navigation }) => {
       title: 'First Marathon Completed! 🏃‍♂️',
       description: 'Just finished my first marathon in 4:15:32! The training paid off!',
       category: 'milestones',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#FFD700',
       date: '2024-08-20',
       points: 500,
@@ -443,7 +443,7 @@ const AchievementSharing = ({ navigation }) => {
             </View>
           ) : (
             <View style={styles.emptyState}>
-              <Icon name="emoji-events" size={64} color={COLORS.text + '40'} />
+              <Icon name="jump-rope" size={64} color={COLORS.text + '40'} />
               <Text style={styles.emptyTitle}>No achievements yet</Text>
               <Text style={styles.emptyMessage}>
                 Keep training and achieving your goals to unlock achievements!

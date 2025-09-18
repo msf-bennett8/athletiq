@@ -339,7 +339,7 @@ const Credentials = ({ navigation }) => {
       'Degree': 'school',
       'Certification': 'verified',
       'License': 'assignment',
-      'Award': 'emoji-events',
+      'Award': 'jump-rope',
       'Workshop': 'groups',
       'Course': 'menu-book',
       'Seminar': 'event',
@@ -537,7 +537,7 @@ const Credentials = ({ navigation }) => {
               </Chip>
             )}
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               iconColor={COLORS.textSecondary}
               size={20}
               onPress={() => {

@@ -333,7 +333,7 @@ const AutoProgressTrackingScreen = ({ navigation }) => {
               <Text style={styles.statValue}>+15%</Text>
             </View>
             <Surface style={[styles.statIcon, { backgroundColor: `${COLORS.secondary}20` }]}>
-              <Icon name="emoji-events" size={24} color={COLORS.secondary} />
+              <Icon name="jump-rope" size={24} color={COLORS.secondary} />
             </Surface>
           </View>
           <View style={styles.statTrend}>

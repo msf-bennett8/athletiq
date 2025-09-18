@@ -227,7 +227,7 @@ const StudyPlans = ({ navigation }) => {
       'strength-warrior': 'fitness-center',
       'speed-demon': 'flash-on',
       'flexibility-master': 'self-improvement',
-      'plan-finisher': 'emoji-events',
+      'plan-finisher': 'jump-rope',
     };
     return badgeIcons[badge] || 'star';
   };

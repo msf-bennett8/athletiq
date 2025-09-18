@@ -76,7 +76,7 @@ const VirtualTrophiesScreen = ({ navigation }) => {
       earned: true,
       earnedDate: '2024-08-15',
       sport: 'football',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: '#FFD700',
       celebration: true,
       requirements: 'Score 1 goal in training',
@@ -202,7 +202,7 @@ const VirtualTrophiesScreen = ({ navigation }) => {
     { id: 'performance', title: 'Performance', icon: 'trending-up' },
     { id: 'leadership', title: 'Leadership', icon: 'star' },
     { id: 'dedication', title: 'Dedication', icon: 'favorite' },
-    { id: 'achievement', title: 'Achievements', icon: 'emoji-events' },
+    { id: 'achievement', title: 'Achievements', icon: 'jump-rope' },
     { id: 'fitness', title: 'Fitness', icon: 'fitness-center' },
     { id: 'skill', title: 'Skills', icon: 'sports' },
     { id: 'character', title: 'Character', icon: 'volunteer-activism' },
@@ -300,11 +300,11 @@ const VirtualTrophiesScreen = ({ navigation }) => {
   // Get trophy type icon
   const getTrophyTypeIcon = (type) => {
     switch (type) {
-      case 'trophy': return 'emoji-events';
+      case 'trophy': return 'jump-rope';
       case 'medal': return 'military-tech';
       case 'certificate': return 'workspace-premium';
       case 'badge': return 'verified';
-      default: return 'emoji-events';
+      default: return 'jump-rope';
     }
   };
 
@@ -583,7 +583,7 @@ const VirtualTrophiesScreen = ({ navigation }) => {
             }
             ListEmptyComponent={() => (
               <View style={styles.emptyContainer}>
-                <Icon name="emoji-events" size={64} color={COLORS.secondary} />
+                <Icon name="jump-rope" size={64} color={COLORS.secondary} />
                 <Text style={styles.emptyTitle}>No trophies found</Text>
                 <Text style={styles.emptyText}>
                   Try adjusting your search or filter criteria

@@ -284,7 +284,7 @@ const CommunitySupport = ({ navigation }) => {
       >
         {[
           { id: 'forum', label: 'Forum', icon: 'forum' },
-          { id: 'challenges', label: 'Challenges', icon: 'emoji-events' },
+          { id: 'challenges', label: 'Challenges', icon: 'jump-rope' },
           { id: 'motivation', label: 'Daily Boost', icon: 'lightbulb' },
           { id: 'connect', label: 'Connect', icon: 'people' },
         ].map((tab) => (

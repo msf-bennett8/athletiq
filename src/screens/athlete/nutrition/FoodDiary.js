@@ -451,7 +451,7 @@ const FoodDiary = ({ navigation }) => {
               onDismiss={() => setMenuVisible(false)}
               anchor={
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={24}
                   iconColor={COLORS.white}
                   onPress={() => setMenuVisible(true)}

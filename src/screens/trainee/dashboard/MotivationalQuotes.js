@@ -195,7 +195,7 @@ const MotivationalQuotes = ({ navigation, route }) => {
   const categories = [
     { key: 'all', label: 'All Quotes', icon: 'format-quote', color: COLORS.primary },
     { key: 'motivation', label: 'Motivation', icon: 'local-fire-department', color: COLORS.motivational },
-    { key: 'success', label: 'Success', icon: 'emoji-events', color: COLORS.warning },
+    { key: 'success', label: 'Success', icon: 'jump-rope', color: COLORS.warning },
     { key: 'mindset', label: 'Mindset', icon: 'psychology', color: COLORS.wisdom },
     { key: 'strength', label: 'Strength', icon: 'fitness-center', color: COLORS.success },
     { key: 'confidence', label: 'Confidence', icon: 'star', color: COLORS.inspiration },
@@ -331,7 +331,7 @@ const MotivationalQuotes = ({ navigation, route }) => {
               <Text style={styles.dailyQuoteLabel}>Quote of the Day ☀️</Text>
             </View>
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               iconColor="#fff"
               size={20}
               onPress={() => Alert.alert('Feature Coming Soon', 'Quote options will be available soon!')}

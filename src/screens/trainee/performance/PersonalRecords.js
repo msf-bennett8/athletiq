@@ -151,7 +151,7 @@ const PersonalRecords = ({ navigation }) => {
       },
     ],
     milestones: [
-      { id: '1', title: 'First 100kg Deadlift', date: '2024-07-15', icon: 'emoji-events' },
+      { id: '1', title: 'First 100kg Deadlift', date: '2024-07-15', icon: 'jump-rope' },
       { id: '2', title: 'Sub-50min 10K', date: '2024-08-05', icon: 'directions-run' },
       { id: '3', title: '5min Plank Challenge', date: 'Coming Soon', icon: 'timer', upcoming: true },
     ],
@@ -317,7 +317,7 @@ const PersonalRecords = ({ navigation }) => {
           colors={['#4ECDC4', '#44A08D']}
           style={styles.statGradient}
         >
-          <Icon name="emoji-events" size={28} color="white" />
+          <Icon name="jump-rope" size={28} color="white" />
           <Text style={[TEXT_STYLES.h1, { color: 'white', marginTop: 8 }]}>
             {recordsData.totalRecords}
           </Text>

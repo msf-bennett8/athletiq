@@ -384,7 +384,7 @@ const TeamRoster = ({ navigation }) => {
             </Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => Alert.alert('Team Menu', 'Team settings coming soon! ⚙️')}

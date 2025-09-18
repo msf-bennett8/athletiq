@@ -230,7 +230,7 @@ const Badges = ({ navigation, route }) => {
     { id: 'leadership', name: 'Leadership', icon: 'military-tech', color: '#f39c12' },
     { id: 'consistency', name: 'Consistency', icon: 'schedule', color: '#1abc9c' },
     { id: 'dedication', name: 'Dedication', icon: 'favorite', color: '#e91e63' },
-    { id: 'achievements', name: 'Achievements', icon: 'emoji-events', color: '#ff9800' }
+    { id: 'achievements', name: 'Achievements', icon: 'jump-rope', color: '#ff9800' }
   ];
 
   const filteredBadges = mockBadges.filter(badge => {

@@ -517,7 +517,7 @@ const SearchTrainingPartners = ({ navigation }) => {
 
           <Card.Actions style={styles.cardActions}>
             <View style={styles.achievementContainer}>
-              <Icon name="emoji-events" size={16} color={COLORS.warning} />
+              <Icon name="jump-rope" size={16} color={COLORS.warning} />
               <Text style={[TEXT_STYLES.caption, { marginLeft: SPACING.xs }]}>
                 {partner.achievements[0]}
               </Text>

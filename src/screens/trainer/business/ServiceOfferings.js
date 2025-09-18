@@ -414,7 +414,7 @@ const ServiceOfferings = ({ navigation }) => {
               onDismiss={() => setShowMenuId(null)}
               anchor={
                 <IconButton
-                  icon="more-vert"
+                  icon="dots-vertical"
                   size={20}
                   iconColor="white"
                   style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}

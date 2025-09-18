@@ -623,7 +623,7 @@ const MyCoach = ({ navigation, route }) => {
             <Text style={TEXT_STYLES.caption}>lbs Lost</Text>
           </View>
           <View style={styles.progressItem}>
-            <Icon name="emoji-events" size={24} color={COLORS.warning} />
+            <Icon name="jump-rope" size={24} color={COLORS.warning} />
             <Text style={[TEXT_STYLES.h2, { marginTop: 4, color: COLORS.warning }]}>
               {coachData.recentProgress.goalsAchieved}
             </Text>

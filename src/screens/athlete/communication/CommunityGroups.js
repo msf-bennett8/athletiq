@@ -504,7 +504,7 @@ const CommunityGroups = ({ navigation }) => {
                       Chat
                     </Button>
                     <IconButton
-                      icon="more-vert"
+                      icon="dots-vertical"
                       size={20}
                       onPress={() => handleLeaveGroup(group)}
                     />

@@ -397,7 +397,7 @@ const CoachNotes = ({ navigation }) => {
                 onDismiss={() => setShowMenuIndex(null)}
                 anchor={
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     size={20}
                     onPress={() => setShowMenuIndex(index)}
                   />

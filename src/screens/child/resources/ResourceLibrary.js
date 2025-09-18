@@ -456,7 +456,7 @@ const ResourceLibraryScreen = ({ navigation }) => {
           onPress={() => Alert.alert('🎯 Challenges', 'Feature coming soon! Take on learning challenges.')}
         >
           <Surface style={[styles.quickAccessSurface, { backgroundColor: '#FFF3E0' }]}>
-            <Icon name="emoji-events" size={32} color="#F57C00" />
+            <Icon name="jump-rope" size={32} color="#F57C00" />
             <Text style={styles.quickAccessText}>Challenges</Text>
           </Surface>
         </TouchableOpacity>

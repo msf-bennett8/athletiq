@@ -192,7 +192,7 @@ const TeamStats = ({ navigation, route }) => {
           >
             <View style={styles.positionContent}>
               <View style={styles.positionLeft}>
-                <Icon name="emoji-events" size={40} color="white" />
+                <Icon name="jump-rope" size={40} color="white" />
                 <Text style={styles.positionNumber}>#{mockTeamStats.overview.position}</Text>
               </View>
               <View style={styles.positionRight}>

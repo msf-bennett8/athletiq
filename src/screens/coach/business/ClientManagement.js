@@ -618,19 +618,19 @@ const renderClientCard = ({ item, index }) => (
                 <Text style={styles.headerTitle}>Client Management</Text>
                 <View style={styles.headerIcons}>
                   <IconButton
-                    icon="analytics"
+                    icon="chart-line"
                     size={24}
                     iconColor="white"
                     onPress={() => Alert.alert('Analytics', 'Feature coming soon!')}
                   />
                   <IconButton
-                    icon="notifications"
+                    icon="bell"
                     size={24}
                     iconColor="white"
                     onPress={() => Alert.alert('Notifications', 'Feature coming soon!')}
                   />
                   <IconButton
-                    icon="more-vert"
+                    icon="dots-vertical"
                     size={24}
                     iconColor="white"
                     onPress={() => setShowSettingsModal(true)}
@@ -654,7 +654,7 @@ const renderClientCard = ({ item, index }) => (
               <View style={styles.filterRow}>
                 <View style={styles.filterLeftSection}>
                   <IconButton
-                    icon="filter-list"
+                    icon="tune"
                     size={20}
                     iconColor="white"
                     onPress={() => setShowFilterModal(true)}
@@ -725,9 +725,10 @@ const renderClientCard = ({ item, index }) => (
 
       {/* Floating Action Button */}
       <FAB
-        icon="person-add"
+        icon="plus"
         style={styles.fab}
         onPress={handleAddClient}
+        label="Add client"
         color="white"
       />
 

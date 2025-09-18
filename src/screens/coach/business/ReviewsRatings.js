@@ -383,7 +383,7 @@ const ReviewRatings = ({ navigation }) => {
               onPress={() => handleShareReview(review)}
             />
             <IconButton
-              icon="more-vert"
+              icon="dots-vertical"
               size={20}
               onPress={() => {
                 Alert.alert(
@@ -599,7 +599,7 @@ const ReviewRatings = ({ navigation }) => {
             onPress={() => navigation.navigate('ReviewAnalytics')}
           />
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => navigation.navigate('ReviewSettings')}

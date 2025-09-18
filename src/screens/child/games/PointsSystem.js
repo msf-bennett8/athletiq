@@ -127,7 +127,7 @@ const PointsSystem = ({ navigation, route }) => {
   const pointsHistory = [
     { id: 1, activity: 'Training Session Complete', points: 50, time: '2 hours ago', icon: 'fitness-center', type: 'earned' },
     { id: 2, activity: 'Daily Check-in Bonus', points: 10, time: '1 day ago', icon: 'check-circle', type: 'earned' },
-    { id: 3, activity: 'Achievement Unlocked: Consistent Trainer', points: 100, time: '2 days ago', icon: 'emoji-events', type: 'earned' },
+    { id: 3, activity: 'Achievement Unlocked: Consistent Trainer', points: 100, time: '2 days ago', icon: 'jump-rope', type: 'earned' },
     { id: 4, activity: 'Weekly Challenge Complete', points: 75, time: '3 days ago', icon: 'flag', type: 'earned' },
     { id: 5, activity: 'Motivational Quote Share', points: 15, time: '3 days ago', icon: 'share', type: 'earned' },
     { id: 6, activity: 'Equipment Purchase', points: -200, time: '1 week ago', icon: 'shopping-cart', type: 'spent' },
@@ -443,7 +443,7 @@ const PointsSystem = ({ navigation, route }) => {
         </Surface>
 
         <Surface style={styles.statCard}>
-          <MaterialIcons name="emoji-events" size={32} color="#FF9800" />
+          <MaterialIcons name="jump-rope" size={32} color="#FF9800" />
           <Text style={styles.statNumber}>#{userStats.rank}</Text>
           <Text style={styles.statLabel}>Rank</Text>
         </Surface>

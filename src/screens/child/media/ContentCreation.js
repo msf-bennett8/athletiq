@@ -102,7 +102,7 @@ const ContentCreation = ({ navigation }) => {
     { id: 'video', name: 'Training Video', icon: 'videocam', color: COLORS.primary },
     { id: 'photo', name: 'Progress Photo', icon: 'photo-camera', color: COLORS.success },
     { id: 'story', name: 'My Story', icon: 'auto-stories', color: COLORS.warning },
-    { id: 'achievement', name: 'Achievement', icon: 'emoji-events', color: '#FFD700' },
+    { id: 'achievement', name: 'Achievement', icon: 'jump-rope', color: '#FFD700' },
   ];
 
   // Kid-friendly tags
@@ -143,7 +143,7 @@ const ContentCreation = ({ navigation }) => {
       id: 4,
       title: 'Personal Record 🏆',
       description: 'Celebrate your achievements!',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       tags: ['🏆 Victory', '💯 Perfect'],
       sample: 'New personal best! I ran faster than ever before! So proud of myself! 🏃💨'
     }

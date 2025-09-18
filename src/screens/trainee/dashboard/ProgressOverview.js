@@ -129,7 +129,7 @@ const ProgressOverview = ({ navigation }) => {
           </View>
           <Avatar.Icon 
             size={60} 
-            icon="emoji-events" 
+            icon="jump-rope" 
             style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
           />
         </View>

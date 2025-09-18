@@ -177,7 +177,7 @@ const ProgressSharing = ({ navigation }) => {
 
   const shareTypes = [
     { key: 'workout', label: 'Workout', icon: 'fitness-center', color: '#4CAF50' },
-    { key: 'achievement', label: 'Achievement', icon: 'emoji-events', color: '#FF9800' },
+    { key: 'achievement', label: 'Achievement', icon: 'jump-rope', color: '#FF9800' },
     { key: 'transformation', label: 'Transformation', icon: 'trending-up', color: '#9C27B0' },
     { key: 'milestone', label: 'Milestone', icon: 'flag', color: '#2196F3' }
   ];
@@ -344,7 +344,7 @@ const ProgressSharing = ({ navigation }) => {
                 {typeConfig.label}
               </Chip>
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 size={20}
                 onPress={() => Alert.alert('Feature Coming Soon! 🚀', 'Post management options will be available soon.')}
               />
@@ -520,7 +520,7 @@ const ProgressSharing = ({ navigation }) => {
         {[
           { key: 'all', label: 'All Posts', icon: 'view-list' },
           { key: 'following', label: 'Following', icon: 'people' },
-          { key: 'achievements', label: 'Achievements', icon: 'emoji-events' },
+          { key: 'achievements', label: 'Achievements', icon: 'jump-rope' },
           { key: 'transformations', label: 'Transformations', icon: 'trending-up' }
         ].map((filter) => (
           <TouchableOpacity

@@ -122,7 +122,7 @@ const MotivationalContent = ({ navigation }) => {
     { id: 'videos', name: 'Videos', icon: 'play-circle-filled', color: '#4ECDC4' },
     { id: 'articles', name: 'Articles', icon: 'article', color: '#45B7D1' },
     { id: 'podcasts', name: 'Podcasts', icon: 'podcast', color: '#FFA07A' },
-    { id: 'challenges', name: 'Challenges', icon: 'emoji-events', color: '#98D8C8' },
+    { id: 'challenges', name: 'Challenges', icon: 'jump-rope', color: '#98D8C8' },
   ];
 
   const motivationalQuotes = [
@@ -448,7 +448,7 @@ const MotivationalContent = ({ navigation }) => {
       case 'video': return 'play-circle-filled';
       case 'article': return 'article';
       case 'podcast': return 'podcast';
-      case 'challenge': return 'emoji-events';
+      case 'challenge': return 'jump-rope';
       default: return 'star';
     }
   };

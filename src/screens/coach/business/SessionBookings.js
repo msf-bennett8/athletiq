@@ -230,7 +230,7 @@ const SessionBookings = ({ navigation }) => {
           </View>
         </View>
         <IconButton
-          icon="more-vert"
+          icon="dots-vertical"
           size={20}
           onPress={() => Alert.alert('🔄 Feature in Development', 'More options coming soon!')}
         />

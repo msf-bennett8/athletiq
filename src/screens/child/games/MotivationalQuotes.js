@@ -488,7 +488,7 @@ const MotivationalQuotes = ({ navigation, route }) => {
                     colors={['#ffa726', '#ff7043']}
                     style={styles.actionCardGradient}
                   >
-                    <MaterialIcons name="emoji-events" size={28} color="#fff" />
+                    <MaterialIcons name="jump-rope" size={28} color="#fff" />
                     <Text style={styles.actionCardText}>My Badges</Text>
                   </LinearGradient>
                 </TouchableOpacity>

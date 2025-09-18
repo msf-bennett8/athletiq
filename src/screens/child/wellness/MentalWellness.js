@@ -195,7 +195,7 @@ const MentalWellness = ({ navigation }) => {
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Icon name="emoji-events" size={32} color={COLORS.white} />
+            <Icon name="jump-rope" size={32} color={COLORS.white} />
             <Text style={styles.statNumber}>
               {achievements.filter(a => a.earned).length}
             </Text>
@@ -248,7 +248,7 @@ const MentalWellness = ({ navigation }) => {
     <Card style={styles.card}>
       <Card.Content>
         <View style={styles.sectionHeader}>
-          <Icon name="emoji-events" size={24} color={COLORS.primary} />
+          <Icon name="jump-rope" size={24} color={COLORS.primary} />
           <Text style={[TEXT_STYLES.h3, { marginLeft: SPACING.sm }]}>
             Your Badges 🏆
           </Text>

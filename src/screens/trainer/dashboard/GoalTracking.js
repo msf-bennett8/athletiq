@@ -191,7 +191,7 @@ const GoalTracking = ({ navigation }) => {
   const tabs = [
     { key: 'my-goals', label: 'My Goals', icon: 'flag' },
     { key: 'client-goals', label: 'Client Goals', icon: 'people' },
-    { key: 'achievements', label: 'Achievements', icon: 'emoji-events' }
+    { key: 'achievements', label: 'Achievements', icon: 'jump-rope' }
   ];
 
   const goalFilters = [
@@ -258,7 +258,7 @@ const GoalTracking = ({ navigation }) => {
                 </Chip>
               </View>
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 size={20}
                 onPress={() => Alert.alert('Goal Options', 'Edit, Delete, or Share goal')}
               />

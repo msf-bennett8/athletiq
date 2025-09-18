@@ -882,7 +882,7 @@ const FindAcademies = ({ navigation }) => {
                         <View style={styles.achievementsList}>
                           {selectedAcademy.achievements.map((achievement, idx) => (
                             <View key={idx} style={styles.achievementItem}>
-                              <Icon name="emoji-events" size={16} color="#FFD700" />
+                              <Icon name="jump-rope" size={16} color="#FFD700" />
                               <Text style={styles.achievementText}>{achievement}</Text>
                             </View>
                           ))}

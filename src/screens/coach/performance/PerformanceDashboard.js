@@ -328,7 +328,7 @@ const PerformanceDashboard = ({ navigation }) => {
 
         <Surface style={{ padding: SPACING.medium, borderRadius: 12, flex: 1, marginHorizontal: SPACING.xsmall, elevation: 2 }}>
           <View style={{ alignItems: 'center' }}>
-            <Icon name="emoji-events" size={32} color={COLORS.warning} />
+            <Icon name="jump-rope" size={32} color={COLORS.warning} />
             <Text style={[TEXT_STYLES.title, { fontWeight: 'bold', marginTop: SPACING.small }]}>12</Text>
             <Text style={[TEXT_STYLES.caption, { color: COLORS.textSecondary, textAlign: 'center' }]}>
               Goals This Week

@@ -71,7 +71,7 @@ const ACHIEVEMENT_TYPES = {
     gradients: [COLORS.success, '#8bc34a'],
   },
   MILESTONE: {
-    icon: 'emoji-events',
+    icon: 'jump-rope',
     color: COLORS.gold,
     gradients: [COLORS.gold, '#ffeb3b'],
   },

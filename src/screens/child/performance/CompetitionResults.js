@@ -183,9 +183,9 @@ const CompetitionResults = ({ navigation }) => {
 
   const getPositionIcon = (position) => {
     switch (position) {
-      case 1: return 'emoji-events';
-      case 2: return 'emoji-events';
-      case 3: return 'emoji-events';
+      case 1: return 'jump-rope';
+      case 2: return 'jump-rope';
+      case 3: return 'jump-rope';
       default: return 'sports';
     }
   };
@@ -451,7 +451,7 @@ const CompetitionResults = ({ navigation }) => {
           {filteredResults.length === 0 ? (
             <Card style={styles.emptyStateCard}>
               <Card.Content style={styles.emptyStateContent}>
-                <Icon name="emoji-events" size={80} color={COLORS.secondary} />
+                <Icon name="jump-rope" size={80} color={COLORS.secondary} />
                 <Text style={styles.emptyStateTitle}>No Competition Results</Text>
                 <Text style={styles.emptyStateText}>
                   Your competition results will appear here once you participate in events

@@ -113,7 +113,7 @@ const SmartGoalSetting = ({ navigation }) => {
       { id: 'improve_technique', text: 'Improve my technique 🎯', points: 150, icon: 'trending-up' },
       { id: 'daily_practice', text: 'Practice every day for 30 mins ⏰', points: 200, icon: 'access-time' },
       { id: 'team_player', text: 'Be a great team player 🤝', points: 125, icon: 'groups' },
-      { id: 'competition_ready', text: 'Get ready for competitions 🏆', points: 175, icon: 'emoji-events' },
+      { id: 'competition_ready', text: 'Get ready for competitions 🏆', points: 175, icon: 'jump-rope' },
     ],
     advanced: [
       { id: 'leadership', text: 'Help younger players learn 👨‍🏫', points: 200, icon: 'supervisor-account' },

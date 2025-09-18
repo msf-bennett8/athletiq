@@ -491,7 +491,7 @@ const UpcomingSessions = ({ navigation }) => {
             </Text>
           </View>
           <IconButton
-            icon="filter-list"
+            icon="tune"
             size={24}
             iconColor={COLORS.white}
             onPress={() => setFilterModalVisible(true)}
@@ -531,7 +531,7 @@ const UpcomingSessions = ({ navigation }) => {
       </Animated.View>
 
       <FAB
-        icon="add"
+        icon="plus"
         style={[styles.fab, { backgroundColor: COLORS.primary }]}
         onPress={() => navigation.navigate('CreateSession')}
         label="New Session"

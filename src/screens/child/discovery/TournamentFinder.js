@@ -523,7 +523,7 @@ const TournamentFinder = ({ navigation }) => {
                 </Text>
               </View>
               <View style={styles.detailRow}>
-                <Icon name="emoji-events" size={16} color={COLORS.textSecondary} />
+                <Icon name="jump-rope" size={16} color={COLORS.textSecondary} />
                 <Text style={[TEXT_STYLES.caption, { marginLeft: 6, color: COLORS.textSecondary }]}>
                   Prize Pool: {item.prizePool}
                 </Text>
@@ -761,7 +761,7 @@ const TournamentFinder = ({ navigation }) => {
         }
         ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
-            <Icon name="emoji-events" size={64} color={COLORS.textSecondary} />
+            <Icon name="jump-rope" size={64} color={COLORS.textSecondary} />
             <Text style={[TEXT_STYLES.h3, { color: COLORS.textSecondary, marginTop: SPACING.md }]}>
               No tournaments found
             </Text>

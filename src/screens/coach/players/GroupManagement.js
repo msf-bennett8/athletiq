@@ -352,7 +352,7 @@ const GroupManagement = ({ navigation }) => {
           </View>
         </View>
         <IconButton
-          icon="more-vert"
+          icon="dots-vertical"
           onPress={() => {
             Alert.alert(
               'Group Actions',

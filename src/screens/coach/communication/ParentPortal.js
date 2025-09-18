@@ -113,7 +113,7 @@ const ParentPortal = ({ navigation }) => {
       id: 'badges',
       title: 'Badges Earned',
       value: sampleChildren[selectedChild]?.badges || 0,
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.warning,
       trend: '+3',
     },
@@ -154,7 +154,7 @@ const ParentPortal = ({ navigation }) => {
       title: 'New Badge Earned!',
       description: 'Earned "Team Player" badge for collaborative skills',
       timestamp: '1 day ago',
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.warning,
     },
     {
@@ -480,7 +480,7 @@ const ParentPortal = ({ navigation }) => {
                   key={index}
                   style={styles.achievementChip}
                   textStyle={styles.achievementChipText}
-                  icon="emoji-events"
+                  icon="jump-rope"
                   compact
                 >
                   {achievement}

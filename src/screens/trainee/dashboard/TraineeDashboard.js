@@ -77,7 +77,7 @@ const TraineeDashboard = ({ navigation }) => {
 
   const recentAchievements = [
     { id: 1, title: "7-Day Streak!", icon: "local-fire-department", color: "#FF6B35" },
-    { id: 2, title: "New PR!", icon: "emoji-events", color: "#FFD700" },
+    { id: 2, title: "New PR!", icon: "jump-rope", color: "#FFD700" },
     { id: 3, title: "Perfect Form", icon: "verified", color: "#4CAF50" }
   ];
 
@@ -96,7 +96,7 @@ const TraineeDashboard = ({ navigation }) => {
     { id: 5, title: "View Goals", icon: "flag", screen: "GoalProgress", color: "#fa709a" },
     { id: 6, title: "Track Nutrition", icon: "restaurant", screen: "TodaysNutrition", color: "#fee140" },
     { id: 7, title: "Check In", icon: "check-circle", screen: "CheckIn", color: "#ff9a9e" },
-    { id: 8, title: "Personal Bests", icon: "emoji-events", screen: "PersonalBests", color: "#a8edea" }
+    { id: 8, title: "Personal Bests", icon: "jump-rope", screen: "PersonalBests", color: "#a8edea" }
   ];
 
   const menuCategories = [
@@ -122,7 +122,7 @@ const TraineeDashboard = ({ navigation }) => {
       items: [
         { title: "Performance Tracking", screen: "PerformanceTracking", icon: "trending-up" },
         { title: "Fitness Tests", screen: "FitnessTests", icon: "assessment" },
-        { title: "Personal Records", screen: "PersonalRecords", icon: "emoji-events" },
+        { title: "Personal Records", screen: "PersonalRecords", icon: "jump-rope" },
         { title: "Goal Tracking", screen: "GoalTracking", icon: "flag" },
         { title: "Progress Photos", screen: "ProgressPhotos", icon: "camera-alt" },
         { title: "Body Measurements", screen: "BodyMeasurements", icon: "straighten" },
@@ -169,7 +169,7 @@ const TraineeDashboard = ({ navigation }) => {
         { title: "Academy Search", screen: "AcademySearch", icon: "school" },
         { title: "Sports Facilities", screen: "SportsFacilities", icon: "location-on" },
         { title: "Local Events", screen: "LocalEvents", icon: "event" },
-        { title: "Competitions", screen: "Competitions", icon: "emoji-events" },
+        { title: "Competitions", screen: "Competitions", icon: "jump-rope" },
         { title: "Training Partners", screen: "TrainingPartners", icon: "group-add" },
         { title: "Sports Clubs", screen: "SportsClubs", icon: "groups" },
         { title: "Training Camps", screen: "TrainingCamps", icon: "camping" }
@@ -198,7 +198,7 @@ const TraineeDashboard = ({ navigation }) => {
         { title: "Trainee Community", screen: "TraineeCommunity", icon: "group" },
         { title: "Social Feed", screen: "SocialFeed", icon: "dynamic-feed" },
         { title: "Leaderboards", screen: "Leaderboards", icon: "leaderboard" },
-        { title: "Challenges", screen: "Challenges", icon: "emoji-events" },
+        { title: "Challenges", screen: "Challenges", icon: "jump-rope" },
         { title: "Success Stories", screen: "SuccessStories", icon: "auto-stories" },
         { title: "Community Support", screen: "CommunitySupport", icon: "support" },
         { title: "Mentorship Program", screen: "MentorshipProgram", icon: "supervisor-account" },
@@ -313,7 +313,7 @@ const TraineeDashboard = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="#fff"
             size={24}
             onPress={() => setMenuModalVisible(true)}
@@ -595,7 +595,7 @@ const TraineeDashboard = ({ navigation }) => {
             <Text style={styles.activityTime}>3h ago</Text>
           </View>
           <View style={styles.activityItem}>
-            <Icon name="emoji-events" size={20} color="#FFD700" />
+            <Icon name="jump-rope" size={20} color="#FFD700" />
             <Text style={styles.activityText}>New personal record in squats!</Text>
             <Text style={styles.activityTime}>Yesterday</Text>
           </View>
@@ -808,7 +808,7 @@ const TraineeDashboard = ({ navigation }) => {
             <Text style={styles.performanceLabel}>Improvement</Text>
           </View>
           <View style={styles.performanceItem}>
-            <Icon name="emoji-events" size={24} color="#FFD700" />
+            <Icon name="jump-rope" size={24} color="#FFD700" />
             <Text style={styles.performanceValue}>3</Text>
             <Text style={styles.performanceLabel}>New PRs</Text>
           </View>

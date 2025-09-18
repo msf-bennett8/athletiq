@@ -394,7 +394,7 @@ const CoachRatings = ({ navigation }) => {
       }}>
         <Card.Content style={{ padding: SPACING.lg }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: SPACING.md }}>
-            <Icon name="emoji-events" size={24} color={COLORS.warning} />
+            <Icon name="jump-rope" size={24} color={COLORS.warning} />
             <Text style={[TEXT_STYLES.subtitle, { marginLeft: SPACING.sm, fontWeight: 'bold' }]}>
               Top Skills
             </Text>

@@ -400,7 +400,7 @@ const DailyQuest = ({ navigation }) => {
                 </View>
                 
                 <View style={styles.rewardItem}>
-                  <Icon name="emoji-events" size={16} color="#FF9800" />
+                  <Icon name="jump-rope" size={16} color="#FF9800" />
                   <Text style={styles.rewardText}>{quest.bonusReward}</Text>
                 </View>
               </View>
@@ -451,7 +451,7 @@ const DailyQuest = ({ navigation }) => {
                   </View>
                   
                   <View style={styles.rewardItem}>
-                    <Icon name="emoji-events" size={24} color="#FF9800" />
+                    <Icon name="jump-rope" size={24} color="#FF9800" />
                     <Text style={styles.rewardItemText}>{selectedReward.bonusReward}</Text>
                   </View>
                 </View>

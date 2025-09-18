@@ -234,7 +234,7 @@ const ChatScreen = ({ navigation, route }) => {
             onPress={handleVideoCall}
           />
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={handleMoreActions}

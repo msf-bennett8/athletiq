@@ -405,7 +405,7 @@ const Achievement = ({ navigation, route }) => {
 
       <FAB
         style={styles.fab}
-        icon="emoji-events"
+        icon="jump-rope"
         onPress={() => {
           Vibration.vibrate(50);
           Alert.alert(

@@ -334,7 +334,7 @@ const MotivationalPosts = ({ navigation }) => {
   // Render functions
   const renderPostTypeIcon = (type) => {
     const icons = {
-      success_story: { name: 'emoji-events', color: COLORS.warning },
+      success_story: { name: 'jump-rope', color: COLORS.warning },
       daily_motivation: { name: 'psychology', color: COLORS.inspiration },
       workout_tip: { name: 'fitness-center', color: COLORS.primary },
       nutrition_wisdom: { name: 'restaurant', color: COLORS.success },
@@ -509,7 +509,7 @@ const MotivationalPosts = ({ navigation }) => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryScroll}>
         {[
           { key: 'all', label: 'All Posts', icon: 'dynamic-feed', color: COLORS.primary },
-          { key: 'success_story', label: 'Success', icon: 'emoji-events', color: COLORS.warning },
+          { key: 'success_story', label: 'Success', icon: 'jump-rope', color: COLORS.warning },
           { key: 'daily_motivation', label: 'Motivation', icon: 'psychology', color: COLORS.inspiration },
           { key: 'workout_tip', label: 'Tips', icon: 'fitness-center', color: COLORS.primary },
           { key: 'nutrition_wisdom', label: 'Nutrition', icon: 'restaurant', color: COLORS.success },

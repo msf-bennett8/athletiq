@@ -677,7 +677,7 @@ const Goals = ({ navigation }) => {
             <Card style={styles.emptyCard}>
               <Card.Content style={styles.emptyContent}>
                 <MaterialIcons 
-                  name={activeTab === 'completed' ? 'emoji-events' : 'track-changes'} 
+                  name={activeTab === 'completed' ? 'jump-rope' : 'track-changes'} 
                   size={64} 
                   color={COLORS.textSecondary} 
                 />

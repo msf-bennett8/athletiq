@@ -292,7 +292,7 @@ const RewardsScreen = ({ navigation }) => {
         onPress={() => setActiveTab('achievements')}
       >
         <Icon
-          name="emoji-events"
+          name="jump-rope"
           size={20}
           color={activeTab === 'achievements' ? COLORS.primary : COLORS.secondary}
         />

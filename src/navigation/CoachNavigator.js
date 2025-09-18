@@ -154,6 +154,425 @@ const PlaceholderScreen = ({ title }) => (
   </View>
 );
 
+// Define all placeholder components separately to avoid inline functions
+const TrainingMainScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Training Hub Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const MedicalRecordsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Medical Records Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const ProgressReportsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Progress Reports Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const SearchCoachesScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Search Coaches Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const SearchAcademiesScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Sports Academies Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const OpenSessionsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Join Sessions Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const JobOpportunitiesScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Job Board Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const PaymentManagementScreenPlaceholder = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Payments Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const InvoiceManagementScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Invoices Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const TaxReportingScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Tax Reports Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const ExpenseTrackingScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Expenses Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const PricingStrategyScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Pricing Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const PackageDealsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Packages Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const AvailabilityManagerScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Availability Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const LeadGenerationScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Leads Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const MarketingCampaignsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Marketing Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const SocialMediaToolsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Social Media Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const ReferralProgramScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Referrals Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const BusinessAnalyticsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Analytics Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const ClientRetentionScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Retention Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const MarketTrendsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Market Trends Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const CompetitorAnalysisScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Competition Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const ExperienceScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Experience Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const AchievementsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Achievements Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const PortfolioScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Portfolio Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const TestimonialsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Testimonials Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const DataSyncSettingsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Data Sync Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const BillingInformationScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Billing Info Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const SubscriptionStatusScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Subscription Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const AccountSecurityScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Security Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const TutorialsGuidesScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Tutorials Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const FeatureRequestsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Feature Requests Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const BugReportsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Report Bugs Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const AppFeedbackScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Feedback Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const CommunityForumScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Community Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const SkillDevelopmentScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Skill Development Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const CareerGoalsScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Career Goals Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
+const NetworkingOpportunitiesScreen = () => (
+  <View style={styles.placeholderScreen}>
+    <Icon name="construction" size={60} color={COLORS.primary} style={{ marginBottom: 16 }} />
+    <Text style={styles.placeholderTitle}>Networking Coming Soon</Text>
+    <Text style={styles.placeholderSubtext}>This feature is under development</Text>
+    <Text style={styles.placeholderDescription}>
+      We're working hard to bring you this amazing feature. Stay tuned for updates!
+    </Text>
+  </View>
+);
+
 // Dashboard Stack - Main hub with comprehensive analytics and quick actions
 const DashboardStack = () => (
   <Stack.Navigator>
@@ -324,7 +743,7 @@ const TrainingStack = () => (
   <Stack.Navigator>
     <Stack.Screen 
       name="TrainingMain" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={TrainingMainScreen}
       options={{ 
         title: 'Training Hub',
         headerShown: false 
@@ -534,7 +953,7 @@ const PlayersStack = () => (
     />
     <Stack.Screen 
       name="MedicalRecords" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={MedicalRecordsScreen}
       options={{ title: 'Medical Records' }} 
     />
     <Stack.Screen 
@@ -551,7 +970,7 @@ const PlayersStack = () => (
     />
     <Stack.Screen 
       name="ProgressReports" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={ProgressReportsScreen}
       options={{ title: 'Progress Reports' }} 
     />
     <Stack.Screen 
@@ -604,12 +1023,12 @@ const DiscoveryStack = () => (
     />
     <Stack.Screen 
       name="SearchCoaches" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={SearchCoachesScreen}
       options={{ title: 'Find Coaches' }} 
     />
     <Stack.Screen 
       name="SearchAcademies" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={SearchAcademiesScreen}
       options={{ title: 'Sports Academies' }} 
     />
     <Stack.Screen 
@@ -626,7 +1045,7 @@ const DiscoveryStack = () => (
     {/* Opportunities & Events */}
     <Stack.Screen 
       name="OpenSessions" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={OpenSessionsScreen}
       options={{ title: 'Join Sessions' }} 
     />
     <Stack.Screen 
@@ -636,7 +1055,7 @@ const DiscoveryStack = () => (
     />
     <Stack.Screen 
       name="JobOpportunities" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={JobOpportunitiesScreen}
       options={{ title: 'Job Board' }} 
     />
     <Stack.Screen 
@@ -726,7 +1145,7 @@ const BusinessStack = () => (
     {/* Financial Management */}
     <Stack.Screen 
       name="PaymentManagement" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={PaymentManagementScreenPlaceholder}
       options={{ title: 'Payments' }} 
     />
     <Stack.Screen 
@@ -741,17 +1160,17 @@ const BusinessStack = () => (
     />
     <Stack.Screen 
       name="InvoiceManagement" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={InvoiceManagementScreen}
       options={{ title: 'Invoices' }} 
     />
     <Stack.Screen 
       name="TaxReporting" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={TaxReportingScreen}
       options={{ title: 'Tax Reports' }} 
     />
     <Stack.Screen 
       name="ExpenseTracking" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={ExpenseTrackingScreen}
       options={{ title: 'Expenses' }} 
     />
     <Stack.Screen 
@@ -773,12 +1192,12 @@ const BusinessStack = () => (
     />
     <Stack.Screen 
       name="PricingStrategy" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={PricingStrategyScreen}
       options={{ title: 'Pricing' }} 
     />
     <Stack.Screen 
       name="PackageDeals" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={PackageDealsScreen}
       options={{ title: 'Packages' }} 
     />
     <Stack.Screen 
@@ -788,7 +1207,7 @@ const BusinessStack = () => (
     />
     <Stack.Screen 
       name="AvailabilityManager" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={AvailabilityManagerScreen}
       options={{ title: 'Availability' }} 
     />
     
@@ -800,22 +1219,22 @@ const BusinessStack = () => (
     />
     <Stack.Screen 
       name="LeadGeneration" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={LeadGenerationScreen}
       options={{ title: 'Leads' }} 
     />
     <Stack.Screen 
       name="MarketingCampaigns" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={MarketingCampaignsScreen}
       options={{ title: 'Marketing' }} 
     />
     <Stack.Screen 
       name="SocialMediaTools" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={SocialMediaToolsScreen}
       options={{ title: 'Social Media' }} 
     />
     <Stack.Screen 
       name="ReferralProgram" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={ReferralProgramScreen}
       options={{ title: 'Referrals' }} 
     />
     <Stack.Screen 
@@ -827,22 +1246,22 @@ const BusinessStack = () => (
     {/* Analytics & Insights */}
     <Stack.Screen 
       name="BusinessAnalytics" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={BusinessAnalyticsScreen}
       options={{ title: 'Analytics' }} 
     />
     <Stack.Screen 
       name="ClientRetention" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={ClientRetentionScreen}
       options={{ title: 'Retention' }} 
     />
     <Stack.Screen 
       name="MarketTrends" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={MarketTrendsScreen}
       options={{ title: 'Market Trends' }} 
     />
     <Stack.Screen 
       name="CompetitorAnalysis" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={CompetitorAnalysisScreen}
       options={{ title: 'Competition' }} 
     />
   </Stack.Navigator>
@@ -870,22 +1289,22 @@ const ProfileStack = () => (
     />
     <Stack.Screen 
       name="Experience" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={ExperienceScreen}
       options={{ title: 'Experience' }} 
     />
     <Stack.Screen 
       name="Achievements" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={AchievementsScreen}
       options={{ title: 'Achievements' }} 
     />
     <Stack.Screen 
       name="Portfolio" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={PortfolioScreen}
       options={{ title: 'Portfolio' }} 
     />
     <Stack.Screen 
       name="Testimonials" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={TestimonialsScreen}
       options={{ title: 'Testimonials' }} 
     />
     
@@ -907,7 +1326,7 @@ const ProfileStack = () => (
     />
     <Stack.Screen 
       name="DataSyncSettings" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={DataSyncSettingsScreen}
       options={{ title: 'Data Sync' }} 
     />
     <Stack.Screen 
@@ -924,17 +1343,17 @@ const ProfileStack = () => (
     />
     <Stack.Screen 
       name="BillingInformation" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={BillingInformationScreen}
       options={{ title: 'Billing Info' }} 
     />
     <Stack.Screen 
       name="SubscriptionStatus" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={SubscriptionStatusScreen}
       options={{ title: 'Subscription' }} 
     />
     <Stack.Screen 
       name="AccountSecurity" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={AccountSecurityScreen}
       options={{ title: 'Security' }} 
     />
     
@@ -946,27 +1365,27 @@ const ProfileStack = () => (
     />
     <Stack.Screen 
       name="TutorialsGuides" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={TutorialsGuidesScreen}
       options={{ title: 'Tutorials' }} 
     />
     <Stack.Screen 
       name="FeatureRequests" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={FeatureRequestsScreen}
       options={{ title: 'Feature Requests' }} 
     />
     <Stack.Screen 
       name="BugReports" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={BugReportsScreen}
       options={{ title: 'Report Bugs' }} 
     />
     <Stack.Screen 
       name="AppFeedback" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={AppFeedbackScreen}
       options={{ title: 'Feedback' }} 
     />
     <Stack.Screen 
       name="CommunityForum" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={CommunityForumScreen}
       options={{ title: 'Community' }} 
     />
     
@@ -983,24 +1402,23 @@ const ProfileStack = () => (
     />
     <Stack.Screen 
       name="SkillDevelopment" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={SkillDevelopmentScreen}
       options={{ title: 'Skill Development' }} 
     />
     <Stack.Screen 
       name="CareerGoals" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={CareerGoalsScreen}
       options={{ title: 'Career Goals' }} 
     />
     <Stack.Screen 
       name="NetworkingOpportunities" 
-      component={() => <View style={styles.placeholderScreen}><Text>Search Coaches Screen</Text></View>}
+      component={NetworkingOpportunitiesScreen}
       options={{ title: 'Networking' }} 
     />
   </Stack.Navigator>
 );
 
-// Add this ChatStack before your CoachNavigator component:
-
+// Chat Stack
 const ChatStack = () => (
   <Stack.Navigator>
     <Stack.Screen 

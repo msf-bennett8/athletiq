@@ -360,7 +360,7 @@ const ClientChat = ({ navigation, route }) => {
           onPress={() => Alert.alert('Feature Coming Soon', 'Video calls under development! 📹')}
         />
         <IconButton
-          icon="more-vert"
+          icon="dots-vertical"
           size={24}
           iconColor={COLORS.primary}
           onPress={() => Alert.alert('Feature Coming Soon', 'More options coming soon! ⚙️')}

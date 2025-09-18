@@ -210,7 +210,7 @@ const LocalEvents = ({ navigation }) => {
     { id: 'basketball', label: 'Basketball', icon: 'sports-basketball', color: COLORS.warning },
     { id: 'swimming', label: 'Swimming', icon: 'pool', color: COLORS.info },
     { id: 'cycling', label: 'Cycling', icon: 'directions-bike', color: COLORS.primary },
-    { id: 'competition', label: 'Competitions', icon: 'emoji-events', color: COLORS.secondary },
+    { id: 'competition', label: 'Competitions', icon: 'jump-rope', color: COLORS.secondary },
     { id: 'free', label: 'Free Events', icon: 'money-off', color: COLORS.success },
   ];
 

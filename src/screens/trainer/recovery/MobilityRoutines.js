@@ -469,7 +469,7 @@ const MobilityRoutines = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             onPress={() => {
               setSelectedRoutine(routine);
               Alert.alert('Routine Options', 'Detailed view coming soon!');

@@ -278,7 +278,7 @@ const ProgressPhotos = ({ navigation }) => {
             </View>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             iconColor="white"
             size={24}
             onPress={() => Alert.alert('⚙️ Feature Coming Soon', 'Photo settings coming soon!')}

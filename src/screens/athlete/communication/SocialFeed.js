@@ -365,7 +365,7 @@ const SocialFeed = ({ navigation }) => {
         </View>
       </View>
       <IconButton
-        icon="more-vert"
+        icon="dots-vertical"
         size={20}
         onPress={() => Alert.alert('More Options', 'Feature coming soon!')}
       />
@@ -388,7 +388,7 @@ const SocialFeed = ({ navigation }) => {
           <Text style={styles.workoutStatText}>{workoutData.exercises} exercises</Text>
         </View>
         <View style={styles.workoutStat}>
-          <Icon name="emoji-events" size={16} color={COLORS.warning} />
+          <Icon name="jump-rope" size={16} color={COLORS.warning} />
           <Text style={styles.workoutStatText}>{workoutData.personalBests} PBs</Text>
         </View>
       </View>
@@ -586,7 +586,7 @@ const SocialFeed = ({ navigation }) => {
       >
         {[
           { key: 'all', label: 'All Posts', icon: 'dynamic-feed' },
-          { key: 'achievements', label: 'Achievements', icon: 'emoji-events' },
+          { key: 'achievements', label: 'Achievements', icon: 'jump-rope' },
           { key: 'announcements', label: 'Announcements', icon: 'campaign' },
           { key: 'tips', label: 'Tips', icon: 'lightbulb' },
           { key: 'my_posts', label: 'My Posts', icon: 'person' },

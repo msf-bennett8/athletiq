@@ -264,7 +264,7 @@ const PersonalInfo = ({ navigation }) => {
           <Card style={styles.infoCard}>
             <Surface style={styles.cardHeader}>
               <View style={styles.cardHeaderContent}>
-                <MaterialIcons name="emoji-events" size={24} color={COLORS.primary} />
+                <MaterialIcons name="jump-rope" size={24} color={COLORS.primary} />
                 <Text style={styles.cardTitle}>Profile Achievements 🏆</Text>
               </View>
             </Surface>

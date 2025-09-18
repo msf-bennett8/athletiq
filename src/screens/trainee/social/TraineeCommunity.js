@@ -199,7 +199,7 @@ const TraineeCommunity = ({ navigation }) => {
             <Text style={styles.postTimestamp}>{item.timestamp}</Text>
           </View>
           <IconButton
-            icon="more-vert"
+            icon="dots-vertical"
             size={20}
             iconColor={COLORS.textSecondary}
             onPress={() => Alert.alert('Feature Coming Soon', 'Post options coming soon! ⚙️')}
@@ -349,7 +349,7 @@ const TraineeCommunity = ({ navigation }) => {
 
         <View style={styles.tabContainer}>
           {renderTabButton('feed', 'Feed', 'home')}
-          {renderTabButton('challenges', 'Challenges', 'emoji-events')}
+          {renderTabButton('challenges', 'Challenges', 'jump-rope')}
           {renderTabButton('leaderboard', 'Leaderboard', 'leaderboard')}
         </View>
       </LinearGradient>

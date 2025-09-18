@@ -213,7 +213,7 @@ const CustomWorkouts = ({ navigation }) => {
                 onPress={() => Alert.alert('Feature Coming Soon', 'Visibility settings will be available in the next update! 🚀')}
               />
               <IconButton
-                icon="more-vert"
+                icon="dots-vertical"
                 iconColor="white"
                 size={20}
                 onPress={() => Alert.alert('Feature Coming Soon', 'More options will be available in the next update! 🚀')}

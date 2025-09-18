@@ -430,7 +430,7 @@ const RecentAchievements = ({ navigation }) => {
                   </Text>
                 </View>
                 <View style={styles.achievementMetaItem}>
-                  <Icon name="emoji-events" size={16} color={COLORS.warning} />
+                  <Icon name="jump-rope" size={16} color={COLORS.warning} />
                   <Text style={styles.achievementPoints}>+{achievement.points}</Text>
                 </View>
               </View>
@@ -602,7 +602,7 @@ const RecentAchievements = ({ navigation }) => {
       {renderAchievementModal()}
 
       <FAB
-        icon="emoji-events"
+        icon="jump-rope"
         style={styles.fab}
         color="white"
         onPress={() => {

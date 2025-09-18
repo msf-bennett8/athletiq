@@ -97,7 +97,7 @@ const RecentActivity = ({ navigation }) => {
       timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
       status: 'celebrated',
       metadata: { streak: 10, badge: 'consistent_trainee' },
-      icon: 'emoji-events',
+      icon: 'jump-rope',
       color: COLORS.warning,
       priority: 'high',
     },

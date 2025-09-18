@@ -337,7 +337,7 @@ const LeaderBoard = ({ navigation }) => {
     <View style={styles.categoryContainer}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {[
-          { key: 'overall', label: 'Overall', icon: 'emoji-events' },
+          { key: 'overall', label: 'Overall', icon: 'jump-rope' },
           { key: 'workouts', label: 'Workouts', icon: 'fitness-center' },
           { key: 'points', label: 'Points', icon: 'stars' },
           { key: 'streak', label: 'Streaks', icon: 'local-fire-department' },

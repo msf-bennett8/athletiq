@@ -334,7 +334,7 @@ const PerformanceDashboard = ({ navigation, route }) => {
                 <Text style={TEXT_STYLES.caption}>{session.type}</Text>
               </View>
               <TouchableOpacity style={styles.sessionAction}>
-                <Icon name="more-vert" size={20} color={COLORS.textSecondary} />
+                <Icon name="dots-vertical" size={20} color={COLORS.textSecondary} />
               </TouchableOpacity>
             </Surface>
           ))}
