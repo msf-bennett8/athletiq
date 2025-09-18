@@ -458,8 +458,8 @@ const CoachDashboard = ({ navigation }) => {
     if (activeTab === 'overview') {
       // Show mix of actions from different categories
       const mixedActions = quickActionsData.flatMap(cat => 
-        cat.actions.slice(0, 2)
-      ).slice(0, 8);
+          cat.actions.slice(0, 2)
+        ).slice(0, 8); // This ensures exactly 8 actions
       
       return (
         <Card style={styles.quickActionsCard}>
@@ -481,10 +481,10 @@ const CoachDashboard = ({ navigation }) => {
               {mixedActions.map((action, index) => (
                 <TouchableOpacity 
                   key={index} 
-                  style={[styles.quickActionCard, { backgroundColor: action.color }]}
+                  style={[styles.quickActionCardGrid, { backgroundColor: action.color }]}
                   onPress={action.action}>
                   <View style={styles.quickActionContent}>
-                    <Icon name={action.icon} size={28} color="white" />
+                    <Icon name={action.icon} size={18} color="white" />
                     <Text style={styles.quickActionLabel}>{action.label}</Text>
                   </View>
                 </TouchableOpacity>
@@ -519,10 +519,10 @@ const CoachDashboard = ({ navigation }) => {
             {categoryActions.map((action, index) => (
               <TouchableOpacity 
                 key={index} 
-                style={[styles.quickActionCard, { backgroundColor: action.color }]}
+                style={[styles.quickActionCardGrid, { backgroundColor: action.color }]}
                 onPress={action.action}>
                 <View style={styles.quickActionContent}>
-                  <Icon name={action.icon} size={28} color="white" />
+                  <Icon name={action.icon} size={18} color="white" />
                   <Text style={styles.quickActionLabel}>{action.label}</Text>
                 </View>
               </TouchableOpacity>
@@ -627,11 +627,19 @@ const CoachDashboard = ({ navigation }) => {
           </View>
 
           <View style={styles.headerContent}>
-            <Avatar.Image 
-              size={60} 
-              source={{ uri: user?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100' }}
-              style={styles.userAvatar}
-            />
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Profile')}
+              style={styles.profileImageContainer}
+            >
+              <Avatar.Image 
+                size={60} 
+                source={{ uri: user?.profileImage || formData?.profileImage || user?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100' }}
+                style={styles.userAvatar}
+              />
+              <View style={styles.cameraIcon}>
+                <Icon name="camera-alt" size={14} color="white" />
+              </View>
+            </TouchableOpacity>
             <View style={styles.greetingContainer}>
               <Text style={styles.greeting}>{getGreeting()}</Text>
               <Text style={styles.userName}>Coach {user?.firstName || 'Rodriguez'}! 🏆</Text>
@@ -684,14 +692,16 @@ const CoachDashboard = ({ navigation }) => {
         {/* Today's Schedule */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Today's Schedule</Text>
+            <View style={styles.sectionTitleWithArrow}>
+              <Text style={styles.sectionTitleWithArrowHeader}>Today's Schedule</Text>
+              <Icon name="keyboard-arrow-right" size={24} color="#667eea" style={styles.scrollIndicator} />
+            </View>
             <Button 
               mode="text" 
               onPress={() => navigation.navigate('SessionScheduler')}
               textColor="#667eea">
               View All
             </Button>
-
           </View>
           
           {todaySchedule.length === 0 ? (
@@ -790,14 +800,17 @@ const CoachDashboard = ({ navigation }) => {
         {/* Active Training Programs with enhanced details */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Active Programs</Text>
-            <Button 
-              mode="text" 
-              onPress={() => navigation.navigate('TrainingPlanLibrary')}
-              textColor="#667eea">
-              Manage All
-            </Button>
+          <View style={styles.sectionTitleWithArrow}>
+            <Text style={styles.sectionTitleWithArrowHeader}>Active Programs</Text>
+            <Icon name="keyboard-arrow-right" size={24} color="#667eea" style={styles.scrollIndicator} />
           </View>
+          <Button 
+            mode="text" 
+            onPress={() => navigation.navigate('TrainingPlanLibrary')}
+            textColor="#667eea">
+            Manage All
+          </Button>
+        </View>
           <ScrollView 
             horizontal 
             showsHorizontalScrollIndicator={false}
@@ -1031,36 +1044,11 @@ const CoachDashboard = ({ navigation }) => {
       </Animated.ScrollView>
 
       {/* Enhanced Floating Action Button with menu */}
-      <FAB.Group
-        open={false}
-        visible={true}
-        icon="add"
+      <FAB
+        icon="plus"
         color="white"
-        fabStyle={styles.fab}
-        actions={[
-          {
-            icon: 'assignment',
-            label: 'Create Plan',
-            color: 'white',
-            style: { backgroundColor: '#667eea' },
-            onPress: () => navigation.navigate('CreateTrainingPlan'),
-          },
-          {
-            icon: 'group-add',
-            label: 'Add Player',
-            color: 'white',
-            style: { backgroundColor: '#4ECDC4' },
-            onPress: () => navigation.navigate('PlayerInvitations'),
-          },
-          {
-            icon: 'event',
-            label: 'Schedule Session',
-            color: 'white',
-            style: { backgroundColor: '#FF6B6B' },
-            onPress: () => navigation.navigate('SessionScheduler'),
-          },
-        ]}
-        onStateChange={() => {}}
+        style={styles.fab}
+        onPress={() => navigation.navigate('CreateTrainingPlan')}
       />
 
       {/* Enhanced Menu Modal */}
@@ -1128,7 +1116,7 @@ const styles = StyleSheet.create({
   },
   headerGradient: {
     paddingHorizontal: SPACING.lg || 20,
-    paddingBottom: SPACING.xl || 32,
+    paddingBottom: SPACING.md || 16,
     backgroundColor: '#667eea',
   },
   headerTop: {
@@ -1207,18 +1195,28 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    paddingTop: 220,
+    paddingTop: 180,
   },
   section: {
     marginBottom: SPACING.xl || 32,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: SPACING.lg || 20,
-    marginBottom: SPACING.md || 16,
-  },
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingHorizontal: SPACING.lg || 20,
+  marginBottom: SPACING.md || 16,
+},
+sectionTitleWithArrow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  flex: 1, 
+},
+sectionTitleWithArrowHeader: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+},
   sectionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -1512,21 +1510,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
+
+
+
+
+
   planManagementGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: SPACING.lg || 20,
-  },
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginBottom: SPACING.lg || 20,
+  marginHorizontal: SPACING.lg || 20,
+  gap: 12,
+},
   planActionCard: {
-    width: (width - (SPACING.lg || 20) * 3) / 2,
-    height: 140,
-    borderRadius: 16,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
+  flex: 1, 
+  maxWidth: '48%', 
+  height: 140,
+  borderRadius: 16,
+  elevation: 4,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+},
   planActionGradient: {
     flex: 1,
     alignItems: 'center',
@@ -1643,34 +1649,50 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   quickActionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  marginHorizontal: SPACING.lg || 20,
+  paddingVertical: 8,
+},
+quickActionCardGrid: {
+  width: '48%', // Fixed width instead of flex
+  height: 70,
+  marginBottom: SPACING.md || 16,
+  borderRadius: 12,
+  elevation: 4,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+},
   quickActionCard: {
-    width: (width - (SPACING.lg || 20) * 3) / 2,
-    height: 100,
-    marginBottom: SPACING.md || 16,
-    borderRadius: 16,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
+  width: (width - (SPACING.lg || 20) * 3) / 2,
+  height: 80,
+  marginBottom: SPACING.sm || 8,
+  borderRadius: 12,
+  elevation: 4,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+},
   quickActionContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-  },
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 12,
+  paddingVertical: SPACING.xs || 4,
+  paddingHorizontal: SPACING.xs || 4,
+},
   quickActionLabel: {
-    fontSize: 12,
-    color: 'white',
-    fontWeight: '600',
-    marginTop: SPACING.xs || 4,
-    textAlign: 'center',
-  },
+  fontSize: 10,
+  color: 'white',
+  fontWeight: '600',
+  marginTop: 4,
+  textAlign: 'center',
+  lineHeight: 12,
+},
   businessCard: {
     margin: SPACING.lg || 20,
     borderRadius: 16,
@@ -1845,6 +1867,26 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm || 8,
     backgroundColor: '#f8f9fa',
   },
+
+  profileImageContainer: {
+  position: 'relative',
+  marginRight: SPACING.md || 16,
+},
+editIcon: {
+  position: 'absolute',
+  bottom: -2,
+  right: -2,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+sectionHeaderRight: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+scrollIndicator: {
+  marginRight: SPACING.sm || 4,
+  opacity: 0.7,
+},
 });
 
 export default CoachDashboard;
