@@ -132,7 +132,7 @@ const cleanupDuplicateUsers = async () => {
       scheme: 'com.athletr.athletr',
       useProxy: Platform.OS === 'web' ? true : false,
       path: 'auth',
-      useProxy: false,
+      useProxy: true,
     }),
     additionalParameters: Platform.OS === 'web' ? {
       access_type: 'offline',
