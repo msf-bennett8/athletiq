@@ -61,7 +61,8 @@ const ChatListScreen = ({ navigation }) => {
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
-  
+  const [animationsReady, setAnimationsReady] = useState(false);
+
   // Animation refs
   const scrollY = useRef(new Animated.Value(0)).current;
   const searchBarOpacity = useRef(new Animated.Value(1)).current;
@@ -84,6 +85,15 @@ const ChatListScreen = ({ navigation }) => {
       };
     }, [authReady, currentFirebaseUser])
   );
+
+  // Initialize animations
+  useEffect(() => {
+    // Ensure all animated values are properly initialized
+    scrollY.setValue(0);
+    searchBarOpacity.setValue(1);
+    fabScale.setValue(1);
+    setAnimationsReady(true);
+  }, []);
 
   // Search functionality
   useEffect(() => {
@@ -827,7 +837,7 @@ const ChatListScreen = ({ navigation }) => {
       {authReady && currentFirebaseUser && (
         <Animated.View style={[
           styles.fabContainer,
-          { transform: [{ scale: fabScale.current }] }
+          { transform: animationsReady ? [{ scale: fabScale.current }] : [] }
         ]}>
           <FAB
             icon="plus"

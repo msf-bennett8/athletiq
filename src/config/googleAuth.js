@@ -6,7 +6,7 @@ WebBrowser.maybeCompleteAuthSession();
 export const useGoogleAuth = () => {
   const config = {
     webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
-    // Add this line to stop the crash:
+    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
     androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com',
     scopes: ['openid', 'profile', 'email'],
   };

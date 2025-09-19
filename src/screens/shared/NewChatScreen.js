@@ -55,6 +55,7 @@ const NewChatScreen = ({ navigation, route }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isGroupMode, setIsGroupMode] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [animationsReady, setAnimationsReady] = useState(false);
   const [activeFilters, setActiveFilters] = useState({
     userType: '',
     sport: '',
@@ -81,6 +82,14 @@ const NewChatScreen = ({ navigation, route }) => {
       }
     };
   }, [authReady, currentFirebaseUser]);
+
+    // Initialize animations
+    useEffect(() => {
+      // Ensure all animated values are properly initialized
+     searchBarScale.setValue(1);
+     resultsOpacity.setValue(0);
+      setAnimationsReady(true);
+    }, []);
 
   // Search when query changes - but only if auth is ready
   useEffect(() => {
