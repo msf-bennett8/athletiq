@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Google from 'expo-auth-session/providers/google';
-import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import NetworkStatus from './NetworkStatus';
 import useNetworkStatus from '../../hooks/useNetworkStatus';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useGoogleAuth } from '../../config/googleAuth';
 
 // SOLUTION 1: Configure WebBrowser for proper popup handling
 WebBrowser.maybeCompleteAuthSession();
@@ -40,46 +40,19 @@ const AuthMethodSelection = ({
   const [phoneLoading, setPhoneLoading] = useState(false);
   
   const shouldProcessResponse = useRef(false);
+
+  const [request, response, promptAsync] = useGoogleAuth();
+
+  console.log('🔍 MOBILE DEBUG - Google Auth initialized:', {
+    platform: Platform.OS,
+    requestReady: !!request
+  });
   
   const scaleAnims = {
     email: React.useRef(new Animated.Value(1)).current,
     google: React.useRef(new Animated.Value(1)).current,
     phone: React.useRef(new Animated.Value(1)).current,
   };
-
-  // SOLUTION 2: Improved redirect URI configuration
-  const redirectUri = AuthSession.makeRedirectUri({
-    scheme: 'com.athletr.athletr',
-    useProxy: Platform.OS === 'web' ? true : false, // Use proxy only on web
-    path: 'auth', // Add specific path for better routing
-    useProxy: false,
-  });
-
-  // Debug: Log the redirect URI being used
-  useEffect(() => {
-    console.log('🔍 DEBUG - Generated Redirect URI:', redirectUri);
-    console.log('🔍 DEBUG - Platform:', Platform.OS);
-  }, [redirectUri]);
-
-  // SOLUTION 3: Enhanced Google Auth Request with better configuration
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: 'YOUR_EXPO_CLIENT_ID', // Optional: Get this from Expo dashboard
-    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com', // Your iOS client if you have one
-    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com', // YOUR ANDROID CLIENT ID
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com', // Keep this for web
-    scopes: ['profile', 'email'],
-    redirectUri: AuthSession.makeRedirectUri({
-      scheme: 'com.athletr.athletr',
-      useProxy: Platform.OS === 'web' ? true : false,
-      path: 'auth',
-      useProxy: true,
-    }),
-    additionalParameters: Platform.OS === 'web' ? {
-      access_type: 'offline',
-      prompt: 'consent',
-    } : {},
-    usePKCE: Platform.OS !== 'web',
-  });
 
   // Authentication method configurations
   const authMethods = [
@@ -316,9 +289,6 @@ const handleGoogleAuth = async () => {
     setLocalSelection('google');
     
     console.log('🚀 Triggering Google auth prompt...');
-    
-    // Clear any previous state
-    shouldProcessResponse.current = false;
     
     const result = await promptAsync();
     

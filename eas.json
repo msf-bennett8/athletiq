@@ -14,7 +14,8 @@
         "simulator": true
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com"
       },
       "channel": "development"
     },
@@ -24,7 +25,8 @@
         "buildType": "apk"
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com"
       },
       "channel": "preview"
     },
@@ -36,7 +38,8 @@
         "simulator": false
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@GOOGLE_SERVICES_JSON",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com"
       },
       "channel": "production"
     }
