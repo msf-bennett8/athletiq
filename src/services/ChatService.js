@@ -4,7 +4,8 @@ import { auth, db, storage } from '../config/firebase.config';
 import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FirebaseService from './FirebaseService';
-
+import PasswordSecurityService from './PasswordSecurityService';
+import AuthDebugUtility, { debugAuth, debugAll } from '../utils/AuthDebugUtility';
 // Constants
 const STORAGE_KEYS = {
   CHAT_LIST: '@acceilla:chat_list',
@@ -55,13 +56,22 @@ class ChatService {
     this.typingTimeouts = new Map();
     this.messageQueue = [];
     this.isOnline = true;
+    this.isInitialized = false;
+    this.allowAnonymousMessaging = false;
     
     this.setupNetworkListener();
     this.initializeService();
+    this.setupAuthStateListener();
 
     // Initialize request tracking
     this.activeRequests = new Map();
     this.requestCounter = 0;
+
+    
+  // Initialize with delay to allow other services to load
+  setTimeout(() => {
+    this.initializeService();
+  }, 1000);
 
     // Debug authentication state
     this.auth.onAuthStateChanged((user) => {
@@ -93,8 +103,19 @@ async initializeService() {
   try {
     console.log('💬 Initializing Chat Service...');
     
-    // Wait for authentication to be ready
-    await this.waitForAuth();
+    // Initialize authentication first
+    const authUser = await this.waitForAuth();
+    
+    if (!authUser) {
+      console.warn('⚠️ Chat Service initialized without authentication');
+      return { success: false, error: 'No authenticated user' };
+    }
+
+    console.log('✅ Chat Service authenticated as:', {
+      uid: authUser.uid,
+      email: authUser.email,
+      mode: authUser.isOfflineMode ? 'offline' : 'online'
+    });
     
     // Load cached data
     await this.loadCachedData();
@@ -102,8 +123,11 @@ async initializeService() {
     // Start message queue processor
     this.startMessageQueueProcessor();
     
-    console.log('✅ Chat Service initialized');
-    return { success: true };
+    // Set initialized flag
+    this.isInitialized = true;
+    
+    console.log('✅ Chat Service initialized successfully');
+    return { success: true, authUser };
     
   } catch (error) {
     console.error('❌ Chat Service initialization failed:', error);
@@ -111,24 +135,291 @@ async initializeService() {
   }
 }
 
-// Helper method to wait for authentication
-async waitForAuth() {
-  return new Promise((resolve) => {
-    const unsubscribe = this.auth.onAuthStateChanged((user) => {
-      unsubscribe();
-      resolve(user);
-    });
+// 9. NEW: Auth state change listener for ChatService
+setupAuthStateListener() {
+  return this.auth.onAuthStateChanged((user) => {
+    console.log('🔄 Chat Auth state changed:', user ? user.uid : 'No user');
+    
+    if (user) {
+      console.log('✅ Firebase user authenticated for chat:', user.uid);
+      this.emitEvent('authStateChanged', { 
+        authenticated: true, 
+        user: user 
+      });
+    } else {
+      console.log('❌ No Firebase user for chat');
+      this.emitEvent('authStateChanged', { 
+        authenticated: false, 
+        user: null 
+      });
+    }
   });
 }
 
-// Helper method to wait for authentication
+//wait for authentication
+// Updated waitForAuth method in ChatService.js
 async waitForAuth() {
-  return new Promise((resolve) => {
-    const unsubscribe = this.auth.onAuthStateChanged((user) => {
-      unsubscribe();
-      resolve(user);
-    });
+  return new Promise(async (resolve) => {
+    try {
+      console.log('💬 ChatService: Waiting for authentication...');
+      
+      // Step 1: Get local user
+      const localUserJson = await AsyncStorage.getItem('authenticatedUser');
+      if (!localUserJson) {
+        console.log('❌ No local user found');
+        resolve(null);
+        return;
+      }
+
+      const localUser = JSON.parse(localUserJson);
+      console.log('✅ Local user found:', localUser.email);
+
+      // Step 2: Check if Firebase is already authenticated
+      if (this.auth.currentUser) {
+        console.log('✅ Firebase user already authenticated:', this.auth.currentUser.uid);
+        resolve(this.auth.currentUser);
+        return;
+      }
+
+      // Step 3: Attempt Firebase authentication bridge
+      console.log('🔄 Attempting Firebase authentication bridge...');
+      
+      try {
+        // Import AuthService dynamically to avoid circular imports
+        const AuthService = (await import('./AuthService')).default;
+        
+        // Use the enhanced bridge method
+        const authResult = await this.bridgeToFirebaseAuth(localUser, AuthService);
+        
+        if (authResult.success) {
+          console.log('✅ Firebase auth bridge successful');
+          resolve(authResult.user);
+        } else {
+          console.log('⚠️ Firebase auth failed, using offline mode');
+          resolve(this.createOfflineUser(localUser));
+        }
+
+      } catch (authError) {
+        console.warn('❌ Firebase auth bridge failed:', authError.message);
+        console.log('📱 Falling back to offline mode');
+        resolve(this.createOfflineUser(localUser));
+      }
+
+    } catch (error) {
+      console.error('❌ Error in waitForAuth:', error);
+      resolve(null);
+    }
   });
+}
+
+
+// 2. NEW: Enhanced Firebase authentication bridge
+async bridgeToFirebaseAuth(localUser, AuthService) {
+  try {
+    console.log('🔐 Starting Firebase Auth bridge...');
+    
+    // Method 1: Check local user
+    let password = localUser.password;
+    
+    // Method 2: Check registered users array
+    if (!password) {
+      console.log('Checking registered users for password...');
+      const AsyncStorage = require('@react-native-async-storage/async-storage').default;
+      const registeredUsersJson = await AsyncStorage.getItem('registeredUsers');
+      
+      if (registeredUsersJson) {
+        const registeredUsers = JSON.parse(registeredUsersJson);
+        const userWithPassword = registeredUsers.find(u => 
+          u.email === localUser.email && u.password
+        );
+        
+        if (userWithPassword) {
+          console.log('✅ Found password in registered users');
+          password = userWithPassword.password;
+        }
+      }
+    }
+    
+    if (password) {
+      console.log('🔐 Attempting Firebase authentication...');
+      
+      const { signInWithEmailAndPassword } = require('firebase/auth');
+      const userCredential = await signInWithEmailAndPassword(
+        this.auth, 
+        localUser.email, 
+        password
+      );
+      
+      console.log('✅ Firebase Auth successful!', userCredential.user.uid);
+      return { success: true, user: userCredential.user };
+    }
+    
+    // Fallback to offline mode
+    console.log('⚠️ No password available, using offline mode');
+    return {
+      success: true,
+      user: this.createOfflineUser(localUser),
+      mode: 'offline'
+    };
+    
+  } catch (error) {
+    console.error('Firebase auth error:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+// 3. NEW: Create Firebase account for existing local user
+async createFirebaseAccountForExistingUser(localUser, password) {
+  try {
+    console.log('🆕 Creating Firebase account for existing local user');
+    
+    let userCredential;
+    
+    if (this.isWeb) {
+      const { createUserWithEmailAndPassword } = require('firebase/auth');
+      userCredential = await createUserWithEmailAndPassword(
+        this.auth, 
+        localUser.email, 
+        password
+      );
+    } else {
+      userCredential = await this.auth.createUserWithEmailAndPassword(
+        localUser.email, 
+        password
+      );
+    }
+
+    // Update local user with Firebase UID
+    const updatedUser = {
+      ...localUser,
+      firebaseUid: userCredential.user.uid,
+      syncedToServer: true,
+      lastSyncAt: new Date().toISOString()
+    };
+
+    await AsyncStorage.setItem('authenticatedUser', JSON.stringify(updatedUser));
+    
+    // Also update in registered users list
+    const registeredUsers = await AsyncStorage.getItem('registeredUsers');
+    if (registeredUsers) {
+      const users = JSON.parse(registeredUsers);
+      const userIndex = users.findIndex(u => u.email === localUser.email);
+      if (userIndex >= 0) {
+        users[userIndex] = updatedUser;
+        await AsyncStorage.setItem('registeredUsers', JSON.stringify(users));
+      }
+    }
+
+    console.log('✅ Firebase account created and local user updated');
+    return { success: true, user: userCredential.user };
+
+  } catch (error) {
+    console.error('❌ Failed to create Firebase account:', error);
+    throw error;
+  }
+}
+
+// 4. NEW: Anonymous authentication for messaging (fallback)
+async createAnonymousFirebaseSession(localUser) {
+  try {
+    console.log('👤 Creating anonymous Firebase session for messaging');
+    
+    let userCredential;
+    
+    if (this.isWeb) {
+      const { signInAnonymously } = require('firebase/auth');
+      userCredential = await signInAnonymously(this.auth);
+    } else {
+      userCredential = await this.auth.signInAnonymously();
+    }
+
+    // Link the anonymous account with user data for messaging
+    const anonymousUser = userCredential.user;
+    
+    // Store mapping for message attribution
+    await AsyncStorage.setItem(`anonymous_user_${anonymousUser.uid}`, JSON.stringify({
+      localUserId: localUser.id || localUser.firebaseUid,
+      email: localUser.email,
+      displayName: `${localUser.firstName} ${localUser.lastName}`,
+      createdAt: new Date().toISOString()
+    }));
+
+    console.log('✅ Anonymous Firebase session created');
+    return { 
+      success: true, 
+      user: {
+        ...anonymousUser,
+        displayName: `${localUser.firstName} ${localUser.lastName}`,
+        email: localUser.email,
+        isAnonymous: true,
+        localUser: localUser
+      }
+    };
+
+  } catch (error) {
+    console.error('❌ Anonymous auth failed:', error);
+    throw error;
+  }
+}
+
+// 5. NEW: Create offline user object for messaging
+createOfflineUser(localUser) {
+  return {
+    uid: localUser.firebaseUid || localUser.id || `offline_${Date.now()}`,
+    email: localUser.email,
+    displayName: `${localUser.firstName} ${localUser.lastName}`,
+    isOfflineMode: true,
+    localUser: localUser
+  };
+}
+
+// 6. NEW: Check if anonymous auth should be used
+shouldUseAnonymousAuth() {
+  // Only use anonymous auth if explicitly enabled and online
+  return this.isOnline && this.allowAnonymousMessaging;
+}
+
+// Add helper method to get stored password
+async getStoredPasswordForUser(userId) {
+  try {
+    // Try to get the password hash first
+    const passwordData = await PasswordSecurityService.getPasswordSecurely(userId);
+    if (passwordData) {
+      // If it's a hash object, we need the plain password for Firebase Auth
+      // This is a limitation - we can't recover plain password from hash
+      console.warn('Cannot authenticate with Firebase using stored hash');
+      return null;
+    }
+    
+    // Alternative: Check if we have a legacy plain password stored
+    const localUser = await AsyncStorage.getItem('authenticatedUser');
+    if (localUser) {
+      const userData = JSON.parse(localUser);
+      // If user has legacy password field, use it (but migrate to hash)
+      return userData.password || null;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error getting stored password:', error);
+    return null;
+  }
+}
+
+// Add helper method to sign in to Firebase
+async signInToFirebase(email, password) {
+  try {
+    if (this.isWeb) {
+      const { signInWithEmailAndPassword } = require('firebase/auth');
+      return await signInWithEmailAndPassword(this.auth, email, password);
+    } else {
+      return await this.auth.signInWithEmailAndPassword(email, password);
+    }
+  } catch (error) {
+    console.error('Firebase sign in failed:', error);
+    throw error;
+  }
 }
 
   // Network monitoring
@@ -208,14 +499,23 @@ async waitForAuth() {
   // Get chat list from Firebase
 async getChatListFromFirebase(userId) {
   try {
-    // Verify authentication and network
-    if (!this.auth.currentUser) {
+    // Enhanced auth check - accept local users too
+    const localUser = await AsyncStorage.getItem('authenticatedUser');
+    const firebaseUser = this.auth.currentUser;
+    
+    if (!firebaseUser && !localUser) {
       throw new Error('User not authenticated');
     }
 
     if (!this.isOnline) {
       throw new Error('Device is offline');
     }
+
+    // Use Firebase UID if available, otherwise use local user ID
+    const searchUserId = firebaseUser?.uid || 
+                        (localUser ? JSON.parse(localUser).firebaseUid || JSON.parse(localUser).id : userId);
+
+    console.log('Searching chats for user ID:', searchUserId);
 
     let chats = [];
 
@@ -225,7 +525,7 @@ async getChatListFromFirebase(userId) {
       const chatsRef = collection(this.firestore, 'chats');
       const q = query(
         chatsRef,
-        where('participants', 'array-contains', userId),
+        where('participants', 'array-contains', searchUserId),
         orderBy('updatedAt', 'desc'),
         limit(100)
       );
@@ -240,7 +540,7 @@ async getChatListFromFirebase(userId) {
     } else {
       const querySnapshot = await this.firestore
         .collection('chats')
-        .where('participants', 'array-contains', userId)
+        .where('participants', 'array-contains', searchUserId)
         .orderBy('updatedAt', 'desc')
         .limit(100)
         .get();
@@ -252,8 +552,7 @@ async getChatListFromFirebase(userId) {
       }));
     }
 
-    // Enrich chat data with participant info
-    return await this.enrichChatListWithUserData(chats, userId);
+    return await this.enrichChatListWithUserData(chats, searchUserId);
     
   } catch (error) {
     console.error('Firebase chat list error:', error);
@@ -350,6 +649,14 @@ async mapCustomUserIdToFirebaseUid(customUserId) {
       return [];
     }
   }
+
+  //debug
+
+  handleDebugAll = async () => {
+    await debugAll();
+  };
+
+
 
   // ===== USER SEARCH METHODS =====
 
@@ -1815,64 +2122,45 @@ async performFieldSearch(field, query, abortSignal = null, requestId = null) {
   // Subscribe to chat list updates
 subscribeToChatList(userId, callback) {
   try {
-    console.log('🔄 Subscribing to chat list for user:', userId);
+    console.log('Subscribing to chat list for user:', userId);
     
     if (!this.isOnline) {
       console.log('Device offline, using cached chat list only');
-      return () => {}; // Return empty unsubscribe function
-    }
-
-    // Check authentication
-    if (!this.auth.currentUser || this.auth.currentUser.uid !== userId) {
-      console.warn('User not authenticated or ID mismatch');
       return () => {};
     }
 
-    let unsubscribe;
+    // Enhanced auth check
+    const checkAuth = async () => {
+      const localUser = await AsyncStorage.getItem('authenticatedUser');
+      const firebaseUser = this.auth.currentUser;
+      
+      if (!firebaseUser && !localUser) {
+        console.warn('No authenticated user found');
+        return null;
+      }
+      
+      return firebaseUser?.uid || (localUser ? JSON.parse(localUser).firebaseUid || JSON.parse(localUser).id : userId);
+    };
 
-    if (this.isWeb) {
-      const { collection, query, where, orderBy, onSnapshot } = require('firebase/firestore');
-      
-      const chatsRef = collection(this.firestore, 'chats');
-      const q = query(
-        chatsRef,
-        where('participants', 'array-contains', userId),
-        orderBy('updatedAt', 'desc')
-      );
-      
-      unsubscribe = onSnapshot(q, 
-        (snapshot) => {
-          const chats = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            lastMessage: this.convertTimestamp(doc.data().lastMessage)
-          }));
-          
-          // Enrich and cache
-          this.enrichChatListWithUserData(chats, userId).then(enrichedChats => {
-            callback(enrichedChats);
-            AsyncStorage.setItem(STORAGE_KEYS.CHAT_LIST, JSON.stringify(enrichedChats))
-              .catch(err => console.warn('Failed to cache chats:', err));
-          }).catch(err => {
-            console.warn('Failed to enrich chat data:', err);
-            callback(chats); // Fallback to non-enriched data
-          });
-        },
-        (error) => {
-          console.error('Chat list subscription error:', error);
-          // Fallback to cached data on error
-          this.getCachedChatList().then(cachedChats => {
-            callback(cachedChats);
-          });
-        }
-      );
-      
-    } else {
-      unsubscribe = this.firestore
-        .collection('chats')
-        .where('participants', 'array-contains', userId)
-        .orderBy('updatedAt', 'desc')
-        .onSnapshot(
+    checkAuth().then((authenticatedUserId) => {
+      if (!authenticatedUserId) {
+        callback([]);
+        return;
+      }
+
+      let unsubscribe;
+
+      if (this.isWeb) {
+        const { collection, query, where, orderBy, onSnapshot } = require('firebase/firestore');
+        
+        const chatsRef = collection(this.firestore, 'chats');
+        const q = query(
+          chatsRef,
+          where('participants', 'array-contains', authenticatedUserId),
+          orderBy('updatedAt', 'desc')
+        );
+        
+        unsubscribe = onSnapshot(q, 
           (snapshot) => {
             const chats = snapshot.docs.map(doc => ({
               id: doc.id,
@@ -1880,8 +2168,7 @@ subscribeToChatList(userId, callback) {
               lastMessage: this.convertTimestamp(doc.data().lastMessage)
             }));
             
-            // Enrich and cache
-            this.enrichChatListWithUserData(chats, userId).then(enrichedChats => {
+            this.enrichChatListWithUserData(chats, authenticatedUserId).then(enrichedChats => {
               callback(enrichedChats);
               AsyncStorage.setItem(STORAGE_KEYS.CHAT_LIST, JSON.stringify(enrichedChats))
                 .catch(err => console.warn('Failed to cache chats:', err));
@@ -1892,40 +2179,80 @@ subscribeToChatList(userId, callback) {
           },
           (error) => {
             console.error('Chat list subscription error:', error);
-            // Fallback to cached data on error
             this.getCachedChatList().then(cachedChats => {
               callback(cachedChats);
             });
           }
         );
-    }
+        
+      } else {
+        unsubscribe = this.firestore
+          .collection('chats')
+          .where('participants', 'array-contains', authenticatedUserId)
+          .orderBy('updatedAt', 'desc')
+          .onSnapshot(
+            (snapshot) => {
+              const chats = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                lastMessage: this.convertTimestamp(doc.data().lastMessage)
+              }));
+              
+              this.enrichChatListWithUserData(chats, authenticatedUserId).then(enrichedChats => {
+                callback(enrichedChats);
+                AsyncStorage.setItem(STORAGE_KEYS.CHAT_LIST, JSON.stringify(enrichedChats))
+                  .catch(err => console.warn('Failed to cache chats:', err));
+              }).catch(err => {
+                console.warn('Failed to enrich chat data:', err);
+                callback(chats);
+              });
+            },
+            (error) => {
+              console.error('Chat list subscription error:', error);
+              this.getCachedChatList().then(cachedChats => {
+                callback(cachedChats);
+              });
+            }
+          );
+      }
 
-    // Store the unsubscribe function with error handling
-    if (unsubscribe && typeof unsubscribe === 'function') {
-      this.activeListeners.set(`chatList_${userId}`, unsubscribe);
-      return unsubscribe;
-    } else {
-      console.warn('Failed to create subscription, invalid unsubscribe function');
-      return () => {};
-    }
+      if (unsubscribe && typeof unsubscribe === 'function') {
+        this.activeListeners.set(`chatList_${authenticatedUserId}`, unsubscribe);
+        return unsubscribe;
+      } else {
+        console.warn('Failed to create subscription');
+        return () => {};
+      }
+    });
+    
+    return () => {}; // Temporary return while async auth check runs
     
   } catch (error) {
     console.error('Error subscribing to chat list:', error);
-    return () => {}; // Return empty unsubscribe function
+    return () => {};
   }
 }
 
 // 4. Add network connectivity check before Firebase operations
 async getChatListFromFirebase(userId) {
   try {
-    // Verify authentication and network
-    if (!this.auth.currentUser) {
+    // Enhanced auth check - accept local users too
+    const localUser = await AsyncStorage.getItem('authenticatedUser');
+    const firebaseUser = this.auth.currentUser;
+    
+    if (!firebaseUser && !localUser) {
       throw new Error('User not authenticated');
     }
 
     if (!this.isOnline) {
       throw new Error('Device is offline');
     }
+
+    // Use Firebase UID if available, otherwise use local user ID
+    const searchUserId = firebaseUser?.uid || 
+                        (localUser ? JSON.parse(localUser).firebaseUid || JSON.parse(localUser).id : userId);
+
+    console.log('Searching chats for user ID:', searchUserId);
 
     let chats = [];
 
@@ -1935,7 +2262,7 @@ async getChatListFromFirebase(userId) {
       const chatsRef = collection(this.firestore, 'chats');
       const q = query(
         chatsRef,
-        where('participants', 'array-contains', userId),
+        where('participants', 'array-contains', searchUserId),
         orderBy('updatedAt', 'desc'),
         limit(100)
       );
@@ -1950,7 +2277,7 @@ async getChatListFromFirebase(userId) {
     } else {
       const querySnapshot = await this.firestore
         .collection('chats')
-        .where('participants', 'array-contains', userId)
+        .where('participants', 'array-contains', searchUserId)
         .orderBy('updatedAt', 'desc')
         .limit(100)
         .get();
@@ -1962,8 +2289,7 @@ async getChatListFromFirebase(userId) {
       }));
     }
 
-    // Enrich chat data with participant info
-    return await this.enrichChatListWithUserData(chats, userId);
+    return await this.enrichChatListWithUserData(chats, searchUserId);
     
   } catch (error) {
     console.error('Firebase chat list error:', error);
