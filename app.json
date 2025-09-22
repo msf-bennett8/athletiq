@@ -4,6 +4,9 @@
     "slug": "acceilla",
     "version": "1.0.1",
     "orientation": "portrait",
+    "cli": {
+      "appVersionSource": "local"
+    },
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "scheme": "com.acceilla.acceilla",
@@ -87,11 +90,11 @@
       "url": "https://u.expo.dev/7804dfc6-03a9-40a2-a440-dca0fcf83801"
     },
     "runtimeVersion": "1.0.1",
+    "owner": "msf_bennett",
     "extra": {
       "eas": {
-        "projectId": "7804dfc6-03a9-40a2-a440-dca0fcf83801"
+        "projectId": "c64c5e0e-b1d3-4d23-b02f-e53a07c89786"
       }
-    },
-    "owner": "msf_bennett"
+    }
   }
 }
