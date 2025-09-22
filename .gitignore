@@ -293,3 +293,8 @@ react-native-debugger
 
 # Expo (if using Expo)
 .expo/
+
+# Environment variables
+.env
+.env.local
+.env.production
