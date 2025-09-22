@@ -922,7 +922,7 @@ const debugAsyncStorage = async () => {
     console.log('🔍 Debugging AsyncStorage contents...');
     
     // Check all possible keys
-    const keys = ['registeredUsers', '@athletr:registered_users', 'user_data', 'authenticatedUser'];
+    const keys = ['registeredUsers', '@acceilla:registered_users', 'user_data', 'authenticatedUser'];
     
     for (const key of keys) {
       const value = await AsyncStorage.getItem(key);

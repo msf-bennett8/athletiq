@@ -800,7 +800,7 @@ const PlayersAthletesDashboard = ({ navigation }) => {
           
           <View style={styles.headerTop}>
             <View style={styles.appBranding}>
-              <Text style={styles.appName}>athetr</Text>
+              <Text style={styles.appName}>acceilla</Text>
               <Text style={styles.tagline}>Train • Progress • Achieve</Text>
             </View>
             

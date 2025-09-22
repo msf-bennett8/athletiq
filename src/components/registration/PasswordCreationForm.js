@@ -247,7 +247,7 @@ const PasswordCreationForm = ({
                 color={COLORS.primary}
               />
               <Text style={styles.checkboxText}>
-                (Optional) It's ok to send me emails with Athletr updates, tips, special offers. You can opt out any time.
+                (Optional) It's ok to send me emails with Acceilla updates, tips, special offers. You can opt out any time.
               </Text>
             </View>
 
@@ -261,7 +261,7 @@ const PasswordCreationForm = ({
               </View>
               
               <Text style={styles.termsText}>
-                By clicking Create Account, you agree to Athletr's{' '}
+                By clicking Create Account, you agree to Acceilla's{' '}
                 <Text style={styles.termsLink}>Terms of Service</Text> and have read the{' '}
                 <Text style={styles.termsLink}>Privacy Policy</Text>.
               </Text>

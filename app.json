@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Athletr",
-    "slug": "athletr",
+    "name": "Acceilla",
+    "slug": "acceilla",
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "com.athletr.athletr",
+    "scheme": "com.acceilla.acceilla",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.athletr.athletr",
+      "bundleIdentifier": "com.acceilla.acceilla",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -25,7 +25,7 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.athletr.athletr",
+      "package": "com.acceilla.acceilla",
       "googleServicesFile": "./google-services.json",
       "versionCode": 2,
       "permissions": [

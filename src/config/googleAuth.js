@@ -5,9 +5,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 export const useGoogleAuth = () => {
   const config = {
-    webClientId: '497434151930-oq6o04sgmms52002jj4junb902ov29eo.apps.googleusercontent.com',
-    iosClientId: '497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop.apps.googleusercontent.com',
-    androidClientId: '497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com',
+    webClientId: '431588233052-cm1g5a31dmr1n0i5sltfn4ad07s84l42.apps.googleusercontent.com',
+    iosClientId: '431588233052-k8bv1tq9o4tgr2c2af24iskes22sica1.apps.googleusercontent.com',
+    androidClientId: '431588233052-mn66fgs7v4h1or3ag7mnaqg1b45n5bfa.apps.googleusercontent.com',
     scopes: ['openid', 'profile', 'email'],
   };
 

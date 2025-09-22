@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>497434151930-n6b1p4be5u4h9vuid56sour96d5svknq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.497434151930-n6b1p4be5u4h9vuid56sour96d5svknq</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>497434151930-3vme1r2sicp5vhve5450nke3evaiq2nf.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAOQmMjQ-cqPfSLMl1Bg2JgljbTGlsBj4k</string>
 	<key>GCM_SENDER_ID</key>
@@ -9,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.athletr.athletr</string>
+	<string>com.acceilla.acceilla</string>
 	<key>PROJECT_ID</key>
 	<string>athletiq-37e35</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,17 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:497434151930:ios:dd0a36b3faec520cf6f243</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>GoogleSignIn</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.497434151930-f5r2lef6pvlh5ptjlo08if5cb1adceop</string>
-			</array>
-		</dict>
-	</array>
+	<string>1:497434151930:ios:31a3d6eb73d5ce29f6f243</string>
 </dict>
 </plist>

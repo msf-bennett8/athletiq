@@ -28,7 +28,7 @@ class PasswordSecurityService {
   // Method 1: Generate and store a random key (Recommended)
   async generateEncryptionKey() {
     try {
-      const keyStorageKey = 'athletr_encryption_master_key';
+      const keyStorageKey = 'acceilla_encryption_master_key';
       
       // Try to get existing key first
       let existingKey;
@@ -60,7 +60,7 @@ class PasswordSecurityService {
     } catch (error) {
       console.error('Error generating encryption key:', error);
       // Fallback to a hash-based key if random generation fails
-      return CryptoJS.SHA256('athletr-fallback-key-2024').toString();
+      return CryptoJS.SHA256('acceilla-fallback-key-2024').toString();
     }
   }
 
@@ -115,7 +115,7 @@ class PasswordSecurityService {
         // For mobile, use Keychain if available
         if (Keychain && Keychain.setInternetCredentials) {
           await Keychain.setInternetCredentials(
-            `athletr_password_${userId}`,
+            `acceilla_password_${userId}`,
             userId,
             passwordData
           );
@@ -149,7 +149,7 @@ class PasswordSecurityService {
         // Try Keychain first
         if (Keychain && Keychain.getInternetCredentials) {
           try {
-            const credentials = await Keychain.getInternetCredentials(`athletr_password_${userId}`);
+            const credentials = await Keychain.getInternetCredentials(`acceilla_password_${userId}`);
             if (credentials && credentials !== false && credentials.password) {
               return JSON.parse(credentials.password);
             }
@@ -181,7 +181,7 @@ class PasswordSecurityService {
         // Try Keychain first
         if (Keychain && Keychain.resetInternetCredentials) {
           try {
-            await Keychain.resetInternetCredentials(`athletr_password_${userId}`);
+            await Keychain.resetInternetCredentials(`acceilla_password_${userId}`);
           } catch (keychainError) {
             console.warn('Keychain deletion failed:', keychainError);
           }
@@ -249,7 +249,7 @@ class PasswordSecurityService {
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
       
-      const keyStorageKey = 'athletr_encryption_master_key';
+      const keyStorageKey = 'acceilla_encryption_master_key';
       
       // Store new key
       if (Platform.OS === 'web') {
@@ -272,7 +272,7 @@ class PasswordSecurityService {
   // Clean up all stored keys (useful for logout or data reset)
   async clearAllKeys() {
     try {
-      const keyStorageKey = 'athletr_encryption_master_key';
+      const keyStorageKey = 'acceilla_encryption_master_key';
       
       if (Platform.OS === 'web') {
         localStorage.removeItem(keyStorageKey);

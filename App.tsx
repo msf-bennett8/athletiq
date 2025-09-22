@@ -159,7 +159,7 @@ export default function App(): React.ReactElement {
     return (
       <PaperProvider theme={theme}>
         <StatusBar barStyle="default" />
-        <LoadingScreen message="Setting up Athletr..." />
+        <LoadingScreen message="Setting up Acceilla..." />
       </PaperProvider>
     );
   }
@@ -198,7 +198,7 @@ export default function App(): React.ReactElement {
     console.error('Critical app error:', error);
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorTitle}>Athletr</Text>
+        <Text style={styles.errorTitle}>Acceilla</Text>
         <Text style={styles.errorText}>Starting up...</Text>
         <Text style={styles.errorSubtext}>Please wait a moment</Text>
         {__DEV__ && (

@@ -287,7 +287,7 @@ const RegistrationScreenContent = ({ navigation, route }) => {
         
         if (result.success) {
           Alert.alert(
-            'Welcome to Athletr!',
+            'Welcome to Acceilla!',
             `Your Google account has been linked successfully, ${registrationData.firstName}!`,
             [
               {
@@ -313,7 +313,7 @@ const RegistrationScreenContent = ({ navigation, route }) => {
             ? `Your account has been created offline, ${registrationData.firstName}! It will sync when you're connected to the internet.`
             : `Your account has been created successfully, ${registrationData.firstName}!`;
           
-          Alert.alert('Welcome to Athletr!', message, [
+          Alert.alert('Welcome to Acceilla!', message, [
             {
               text: 'Get Started',
               onPress: () => navigation.replace('Main')
@@ -332,7 +332,7 @@ const RegistrationScreenContent = ({ navigation, route }) => {
         
         if (result.success) {
           Alert.alert(
-            'Welcome to Athletr!',
+            'Welcome to Acceilla!',
             `Your phone number has been verified successfully, ${registrationData.firstName}!`,
             [
               {

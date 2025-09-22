@@ -1044,7 +1044,7 @@ const handleRegister = async () => {
           dispatch(loginSuccess({ ...updatedUserWithFirebase, password: undefined }));
           
           Alert.alert(
-            'Welcome to Athletr!', 
+            'Welcome to Acceilla!', 
             `Your account has been created and synced successfully, ${cleanData.firstName}!`,
             [{ text: 'Get Started', onPress: () => navigation.replace('Main') }]
           );
@@ -1068,7 +1068,7 @@ const handleRegister = async () => {
     );
     
     Alert.alert(
-      'Welcome to Athletr!', 
+      'Welcome to Acceilla!', 
       isOffline 
         ? `Your account has been created offline, ${cleanData.firstName}! It will sync when you're connected to the internet.`
         : `Your account has been created, ${cleanData.firstName}! It will sync to the cloud when you're connected.`,
@@ -1639,7 +1639,7 @@ const handleRegister = async () => {
                     color={COLORS.primary}
                   />
                   <Text style={styles.checkboxText}>
-                    (Optional) It's ok to send me emails with Athletr updates, tips, special offers. You can opt out any time.
+                    (Optional) It's ok to send me emails with Acceilla updates, tips, special offers. You can opt out any time.
                   </Text>
                 </View>
 
@@ -1653,7 +1653,7 @@ const handleRegister = async () => {
                   </View>
                   
                   <Text style={styles.termsText}>
-                    By clicking Create Account, you agree to Athletr's{' '}
+                    By clicking Create Account, you agree to Acceilla's{' '}
                     <Text style={styles.termsLink}>Terms of Service</Text> and have read the{' '}
                     <Text style={styles.termsLink}>Privacy Policy</Text>.
                   </Text>
@@ -1699,7 +1699,7 @@ const handleRegister = async () => {
         <View style={styles.header}>
           <View style={styles.headerLeft} />
           <View style={styles.headerTitleContainer}>
-            <Text style={styles.headerTitle}>Welcome to Athletr</Text>
+            <Text style={styles.headerTitle}>Welcome to Acceilla</Text>
             <Text style={styles.headerSubtitle}>Create your account and get started</Text>
           </View>
           <View style={styles.headerRight} />

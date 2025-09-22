@@ -12,7 +12,7 @@ interface CrashReport {
 }
 
 class CrashReporter {
-  private static CRASH_KEY = '@athletr_crashes';
+  private static CRASH_KEY = '@acceilla_crashes';
   
   static async reportCrash(error: Error, componentStack?: string): Promise<void> {
     try {

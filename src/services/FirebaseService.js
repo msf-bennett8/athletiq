@@ -10,9 +10,9 @@ import PasswordSecurityService from './PasswordSecurityService';
 const STORAGE_KEYS = {
   REGISTERED_USERS: 'registeredUsers', // Direct key, not prefixed
   AUTHENTICATED_USER: 'authenticatedUser', // Direct key, not prefixed
-  OFFLINE_QUEUE: '@athletr:offline_queue',
-  SYNC_STATUS: '@athletr:sync_status',
-  USER_SESSION: '@athletr:user_session'
+  OFFLINE_QUEUE: '@acceilla:offline_queue',
+  SYNC_STATUS: '@acceilla:sync_status',
+  USER_SESSION: '@acceilla:user_session'
 };
 
 const OPERATION_TYPES = {

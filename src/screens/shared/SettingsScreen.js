@@ -369,7 +369,7 @@ const SettingsScreen = ({ navigation }) => {
           title="Contact Support"
           description="Get in touch with our team"
           left={(props) => <List.Icon {...props} icon="support" />}
-          onPress={() => Alert.alert('Contact Support', 'Email: support@athletr.com')}
+          onPress={() => Alert.alert('Contact Support', 'Email: support@acceilla.com')}
           right={(props) => <List.Icon {...props} icon="chevron-right" />}
         />
         
@@ -456,8 +456,8 @@ const SettingsScreen = ({ navigation }) => {
 
       {/* App Version Info */}
       <View style={styles.footer}>
-        <Text style={styles.versionText}>Athletr v1.2.0</Text>
-        <Text style={styles.copyrightText}>© 2024 Athletr. All rights reserved.</Text>
+        <Text style={styles.versionText}>Acceilla v1.2.0</Text>
+        <Text style={styles.copyrightText}>© 2024 Acceilla. All rights reserved.</Text>
       </View>
     </ScrollView>
   );

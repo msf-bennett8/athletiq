@@ -38,7 +38,7 @@ class ErrorBoundary extends Component<Props, State> {
       stack: error.stack,
       componentStack: errorInfo.componentStack,
       timestamp: new Date().toISOString(),
-      appName: 'Athletr',
+      appName: 'Acceilla',
       version: '1.0.0', // You can get this from package.json or app config
     };
 
@@ -71,7 +71,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
-            <Text style={styles.title}>🏃‍♂️ Athletr Encountered an Error</Text>
+            <Text style={styles.title}>🏃‍♂️ Acceilla Encountered an Error</Text>
             
             <Text style={styles.subtitle}>Error ID: {this.state.errorId}</Text>
             

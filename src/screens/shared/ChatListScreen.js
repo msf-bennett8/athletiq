@@ -540,7 +540,7 @@ const ChatListScreen = ({ navigation }) => {
           {/* Main Header */}
           <View style={styles.headerTop}>
             <View style={styles.headerLeft}>
-              <Text style={styles.appName}>athletr</Text>
+              <Text style={styles.appName}>acceilla</Text>
               <Text style={styles.userName}>
                 @{user?.username || user?.name || 'user'}
                 {currentFirebaseUser && (

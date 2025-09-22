@@ -7,12 +7,12 @@ import FirebaseService from './FirebaseService';
 
 // Constants
 const STORAGE_KEYS = {
-  CHAT_LIST: '@athletr:chat_list',
-  CHAT_MESSAGES: '@athletr:chat_messages_',
-  CHAT_DRAFTS: '@athletr:chat_drafts',
-  OFFLINE_MESSAGE_QUEUE: '@athletr:offline_message_queue',
-  CHAT_SETTINGS: '@athletr:chat_settings',
-  BLOCKED_USERS: '@athletr:blocked_users'
+  CHAT_LIST: '@acceilla:chat_list',
+  CHAT_MESSAGES: '@acceilla:chat_messages_',
+  CHAT_DRAFTS: '@acceilla:chat_drafts',
+  OFFLINE_MESSAGE_QUEUE: '@acceilla:offline_message_queue',
+  CHAT_SETTINGS: '@acceilla:chat_settings',
+  BLOCKED_USERS: '@acceilla:blocked_users'
 };
 
 const MESSAGE_TYPES = {
