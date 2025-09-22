@@ -362,21 +362,27 @@ const ChatListScreen = ({ navigation }) => {
     }
   };
 
-  const handleSearchFocus = () => {
+const handleSearchFocus = () => {
+  // Add null check to prevent the error
+  if (searchBarOpacity.current) {
     Animated.timing(searchBarOpacity.current, {
       toValue: 0.9,
       duration: 200,
       useNativeDriver: true,
     }).start();
-  };
+  }
+};
 
-  const handleSearchBlur = () => {
+const handleSearchBlur = () => {
+  // Add null check to prevent the error
+  if (searchBarOpacity.current) {
     Animated.timing(searchBarOpacity.current, {
       toValue: 1,
       duration: 200,
       useNativeDriver: true,
     }).start();
-  };
+  }
+};
 
   const handleScroll = (event) => {
     const { contentOffset } = event.nativeEvent;
