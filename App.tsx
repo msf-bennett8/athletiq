@@ -62,6 +62,15 @@ const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
           // Continue app initialization even if Google Sign-In fails
         }
         
+        // Initialize authentication bridge for messaging
+        try {
+          console.log('🔗 Initializing authentication bridge...');
+          await initializeAuthBridge();
+        } catch (authError) {
+          console.warn('Authentication bridge initialization failed:', authError);
+          // Continue app initialization even if auth bridge fails
+        }
+        
         console.log('App initialization complete');
       } catch (error) {
         console.error('App initialization error:', error);
@@ -73,6 +82,85 @@ const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
   }, [dispatch]);
 
   return <>{children}</>;
+};
+
+// New authentication bridge initialization function
+const initializeAuthBridge = async (): Promise<void> => {
+  try {
+    // Wait for services to be ready
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Import services dynamically to avoid import cycles
+    const AuthService = require('./src/services/AuthService').default;
+    const ChatService = require('./src/services/ChatService').default;
+    
+    if (!AuthService || !ChatService) {
+      console.warn('⚠️ Services not available for auth bridge');
+      return;
+    }
+    
+    // Bridge local authentication to Firebase for messaging
+    console.log('🔄 Starting authentication bridge...');
+    
+    try {
+      // Check if bridgeLocalToFirebase method exists
+      if (typeof AuthService.bridgeLocalToFirebase === 'function') {
+        const bridgeResult = await AuthService.bridgeLocalToFirebase();
+        
+        if (bridgeResult.success) {
+          console.log('✅ Authentication bridge successful');
+          
+          if (bridgeResult.user.isOfflineMode) {
+            console.log('📱 Operating in offline mode');
+          } else {
+            console.log('☁️ Connected to Firebase for messaging');
+          }
+          
+          // Initialize ChatService after auth bridge
+          if (typeof ChatService.initializeService === 'function') {
+            const chatInitResult = await ChatService.initializeService();
+            console.log('💬 Chat service initialization result:', chatInitResult.success ? 'Success' : 'Failed');
+          }
+          
+        } else {
+          console.log('⚠️ Authentication bridge failed:', bridgeResult.reason);
+          
+          // Try fallback messaging initialization
+          if (typeof ChatService.enableMessagingFallback === 'function') {
+            console.log('🔧 Trying messaging fallback...');
+            const fallbackResult = await ChatService.enableMessagingFallback();
+            if (fallbackResult.success) {
+              console.log('✅ Messaging fallback enabled');
+            }
+          }
+        }
+      } else {
+        console.log('⚠️ Authentication bridge method not available, using basic init');
+        
+        // Fallback initialization
+        if (typeof ChatService.initializeService === 'function') {
+          await ChatService.initializeService();
+        }
+      }
+      
+    } catch (bridgeError) {
+      console.error('❌ Authentication bridge error:', bridgeError);
+      
+      // Try to at least initialize ChatService in fallback mode
+      try {
+        if (typeof ChatService.enableMessagingFallback === 'function') {
+          console.log('🔧 Enabling messaging fallback after bridge error...');
+          await ChatService.enableMessagingFallback();
+        }
+      } catch (fallbackError) {
+        console.error('❌ Even fallback messaging failed:', fallbackError);
+      }
+    }
+    
+  } catch (error) {
+    console.error('❌ Auth bridge initialization error:', error);
+    // Don't throw - let app continue
+  }
 };
 
 const theme = {
