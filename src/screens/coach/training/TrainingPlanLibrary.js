@@ -9,6 +9,7 @@ import {
   Animated,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import { 
   Card,
@@ -36,6 +37,7 @@ import { SPACING } from '../../../styles/spacing';
 import { TEXT_STYLES } from '../../../styles/textStyles';
 import { TYPOGRAPHY } from '../../../styles/typography';
 import { LAYOUT } from '../../../styles/layout';
+import { DocumentProcessor } from '../../../services/DocumentProcessor';
 //import PlaceholderScreen from '../../../components/PlaceholderScreen';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -43,7 +45,7 @@ const { width: screenWidth } = Dimensions.get('window');
 const TrainingPlanLibrary = ({ navigation }) => {
   const dispatch = useDispatch();
   const { user, isOnline } = useSelector(state => state.auth);
-  const { trainingPlans, loading, error } = useSelector(state => state.training);
+  const { trainingPlans, error } = useSelector(state => state.training);
 
   // Animation values
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -57,60 +59,10 @@ const TrainingPlanLibrary = ({ navigation }) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
 
-  // Sample training plans data
-  const [plans] = useState([
-    {
-      id: '1',
-      title: '12-Week Football Strength Program',
-      category: 'football',
-      duration: '12 weeks',
-      difficulty: 'intermediate',
-      sessionsCount: 36,
-      description: 'Complete strength and conditioning program for football players',
-      creator: 'Coach Johnson',
-      rating: 4.8,
-      downloads: 1250,
-      tags: ['strength', 'conditioning', 'football'],
-      //image: require('../../../assets/images/football-training.jpg'),
-      isPublic: true,
-      isOwned: true,
-      progress: 65,
-    },
-    {
-      id: '2',
-      title: 'Youth Basketball Fundamentals',
-      category: 'basketball',
-      duration: '8 weeks',
-      difficulty: 'beginner',
-      sessionsCount: 24,
-      description: 'Basic skills development for young basketball players',
-      creator: 'Coach Martinez',
-      rating: 4.6,
-      downloads: 890,
-      tags: ['fundamentals', 'youth', 'basketball'],
-      //image: require('../../../assets/images/basketball-training.jpg'),
-      isPublic: true,
-      isOwned: false,
-      price: 29.99,
-    },
-    {
-      id: '3',
-      title: 'Advanced Soccer Tactics',
-      category: 'soccer',
-      duration: '16 weeks',
-      difficulty: 'advanced',
-      sessionsCount: 48,
-      description: 'Tactical training program for competitive soccer teams',
-      creator: 'Coach Williams',
-      rating: 4.9,
-      downloads: 2100,
-      tags: ['tactics', 'advanced', 'soccer'],
-      //image: require('../../../assets/images/soccer-training.jpg'),
-      isPublic: true,
-      isOwned: true,
-      progress: 0,
-    },
-  ]);
+
+  // Replace the useState with real data loading
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const categories = [
     { key: 'all', label: 'All Sports', icon: 'stadium' },
@@ -143,19 +95,32 @@ const TrainingPlanLibrary = ({ navigation }) => {
     ]).start();
   }, []);
 
+  // Add this useEffect to load real data
+  useEffect(() => {
+    loadTrainingPlans();
+  }, []);
+
   // Refresh handler
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      // dispatch(fetchTrainingPlans());
-    } catch (error) {
-      Alert.alert('Error', 'Failed to refresh training plans');
-    } finally {
-      setRefreshing(false);
+    const onRefresh = useCallback(async () => {
+      setRefreshing(true);
+      try {
+        await loadTrainingPlans();
+      } catch (error) {
+        Alert.alert('Error', 'Failed to refresh training plans');
+      } finally {
+        setRefreshing(false);
+      }
+    }, []);
+
+    // Add loading state to the render
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ marginTop: SPACING.md }}>Loading training plans...</Text>
+        </View>
+      );
     }
-  }, [dispatch]);
 
   // Filter plans based on search and category
   const filteredPlans = plans.filter(plan => {
@@ -183,6 +148,19 @@ const TrainingPlanLibrary = ({ navigation }) => {
       );
     }
   }, [navigation]);
+
+  const loadTrainingPlans = async () => {
+  try {
+    setLoading(true);
+    const realPlans = await DocumentProcessor.getTrainingPlans();
+    setPlans(realPlans);
+  } catch (error) {
+    console.error('Error loading training plans:', error);
+    Alert.alert('Error', 'Failed to load training plans');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handlePreviewPlan = (plan) => {
     Alert.alert('Feature Coming Soon', 'Plan preview functionality will be available in the next update! 🏃‍♂️');

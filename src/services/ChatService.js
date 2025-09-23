@@ -5,7 +5,7 @@ import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FirebaseService from './FirebaseService';
 import PasswordSecurityService from './PasswordSecurityService';
-import AuthDebugUtility, { debugAuth, debugAll } from '../utils/AuthDebugUtility';
+//import AuthDebugUtility, { debugAuth, debugAll } from '../utils/AuthDebugUtility';
 // Constants
 const STORAGE_KEYS = {
   CHAT_LIST: '@acceilla:chat_list',

@@ -201,7 +201,7 @@ const CoachDashboard = ({ navigation }) => {
         { 
           icon: 'upload', 
           label: 'Upload Plan', 
-          action: () => navigation.navigate('TrainingPlanLibrary'),
+          action: () => navigation.navigate('CoachingPlanUploadScreen'),
           color: '#4ECDC4'
         },
         { 
